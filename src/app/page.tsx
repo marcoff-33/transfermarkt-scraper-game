@@ -7,10 +7,10 @@ import { fetchPlayerData } from "./utils/fetchPlayerData";
 export default async function Home() {
   const players: TeamComp = db;
 
-  const CF = randomRolePicks(players, "GK");
+  const CF = randomRolePicks(players, "CF");
 
   return (
-    <div className="bg-red-500 flex flex-row">
+    <div className="bg-red-500 flex flex-row justify-between">
       {CF.map((player) => (
         <PlayerCard
           lang="en"
