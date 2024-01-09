@@ -1,6 +1,5 @@
-import React, from "react";
+import React from "react";
 import Image from "next/image";
-
 
 export type CardImage = {
   playerImageUrl: string;
@@ -17,7 +16,6 @@ export default function CardImage({
   clubLogoUrl,
   playerName,
 }: CardImage) {
-  console.log(clubLogoUrl);
   return (
     <div className="relative h-[144px] w-[260px] grow self-center">
       {/* position:relative required for player <Image /> "fill" to work properly */}

@@ -1,5 +1,5 @@
 import { PlayerData } from "../types/playerData";
-// takes a player id and a language localization tag and returns the data for the player as PlayerData.
+// takes a player id and a language localization tag and returns the data for the player as PlayerData type.
 export async function fetchPlayerData(
   playerId: number,
   lang: string
