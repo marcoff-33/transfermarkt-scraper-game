@@ -1,27 +1,28 @@
 import React from "react";
 import { PlayerCardProps } from "../types/playerData";
 import CardImage from "./CardImage";
+import { fetchClubData } from "../utils/fetchClubData";
 
 export default async function PlayerCard({
   searchPlayer, // requires function to get player profile data
   playerId,
-  lang, //header for language of data, todo:implement types for all possible localizations.
 }: PlayerCardProps) {
-  const data = await searchPlayer(playerId, lang);
+  const data = await searchPlayer(playerId);
+  const clubId = parseInt(data.club.id);
+  const clubData = await fetchClubData(clubId);
+  console.log(clubData.image);
 
   // playerValue needed to correctly display the full market Value and format it
-  const playerValue = (
-    parseInt(data.playerProfile.marketValue) * 100000
-  ).toLocaleString();
+  const playerValue = data.marketValue;
 
   return (
     <div className="border border-yellow-400 flex flex-col">
       <CardImage
-        playerImageAlt={data.playerProfile.playerName}
-        playerImageUrl={data.heroImages[0].url}
-        clubLogoAlt={data.playerProfile.club}
-        clubLogoUrl={data.playerProfile.clubImage}
-        playerName={data.playerProfile.playerName}
+        playerImageAlt={data.name}
+        playerImageUrl={data.imageURL}
+        playerName={data.name}
+        clubLogoAlt={clubData.name}
+        clubLogoUrl={clubData.image}
       />
       <div className="border-blue-500 border">Value: {playerValue}€</div>
     </div>

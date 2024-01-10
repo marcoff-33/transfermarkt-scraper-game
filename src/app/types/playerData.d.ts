@@ -103,7 +103,41 @@ export interface PlayerData {
 }
 
 export interface PlayerCardProps {
-  searchPlayer: (playerId: number, lang: string) => Promise<PlayerData>;
+  searchPlayer: (playerId: number) => Promise<Player>;
   playerId: number;
-  lang: string;
+}
+
+export interface Player {
+  id: string;
+  url: string;
+  name: string;
+  description: string;
+  nameInHomeCountry: string;
+  imageURL: string;
+  dateOfBirth: string;
+  placeOfBirth: {
+    city: string;
+    country: string;
+  };
+  age: string;
+  height: string;
+  citizenship: string[];
+  isRetired: boolean;
+  position: {
+    main: string;
+    other: string[];
+  };
+  foot: string;
+  shirtNumber: string;
+  club: {
+    id: string;
+    name: string;
+    joined: string;
+    contractExpires: string;
+    contractOption: string;
+  };
+  marketValue: string;
+  outfitter: string;
+  socialMedia: string[];
+  updatedAt: string;
 }

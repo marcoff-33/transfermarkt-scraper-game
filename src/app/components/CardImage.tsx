@@ -17,7 +17,7 @@ export default function CardImage({
   playerName,
 }: CardImage) {
   return (
-    <div className="relative h-[144px] w-[260px] grow self-center">
+    <div className="relative h-[181px] w-[139px] grow self-center">
       {/* position:relative required for player <Image /> "fill" to work properly */}
       <div className="absolute z-50 text-white bottom-5 text-lg font-bold bg-black/75 w-full text-center shadow-xl shadow-red-500">
         {playerName}

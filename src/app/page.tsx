@@ -8,13 +8,18 @@ import Pitch from "./components/Pitch";
 export default async function Home() {
   const players: TeamComp = db;
 
-  const CF = randomRolePicks(players, "CF");
-  const data = await fetchPlayerData(3333, "en");
-  const testpic = data.playerProfile.playerImage;
+  const CF = randomRolePicks(players, "CB");
+  const data = await fetchPlayerData(3333);
 
   return (
     <div className="bg-red-500 flex flex-col justify-center">
-      <Pitch prova={testpic} />
+      {CF.map((player) => (
+        <PlayerCard
+          playerId={player}
+          searchPlayer={fetchPlayerData}
+          key={player}
+        />
+      ))}
     </div>
   );
 }
@@ -27,5 +32,5 @@ export default async function Home() {
           key={player}
         />
       ))}
-      */
+  */
 }
