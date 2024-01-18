@@ -11,12 +11,14 @@ export type Roles =
   | "CF"
   | "RWF"
   | "LWF"
-  | "CM"
   | "DMF"
   | "LB"
   | "RB"
-  | "CB"
-  | "GK";
+  | "LCB"
+  | "RCB"
+  | "GK"
+  | "RCM"
+  | "LCM";
 
 export interface TeamComp {
   GK: PlayerTiers;
@@ -28,4 +30,8 @@ export interface TeamComp {
   CF: PlayerTiers;
   LWF: PlayerTiers;
   RWF: PlayerTiers;
+  RCM: PlayerTiers;
+  LCM: PlayerTiers;
+  LCB: PlayerTiers;
+  RCB: PlayerTiers;
 }

@@ -1,3 +1,5 @@
+import { Roles } from "./playerDb";
+
 export interface Share {
   title: string;
   url: string;
@@ -140,4 +142,11 @@ export interface Player {
   outfitter: string;
   socialMedia: string[];
   updatedAt: string;
+}
+
+export interface playerGameState {
+  key: Roles;
+  position: string;
+  url: string;
+  playerName: string;
 }

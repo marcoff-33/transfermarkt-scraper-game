@@ -10,7 +10,6 @@ export default async function PlayerCard({
   const data = await searchPlayer(playerId);
   const clubId = parseInt(data.club.id);
   const clubData = await fetchClubData(clubId);
-  console.log(clubData.image);
 
   // playerValue needed to correctly display the full market Value and format it
   const playerValue = data.marketValue;
@@ -18,9 +17,9 @@ export default async function PlayerCard({
   return (
     <div className="border border-yellow-400 flex flex-col">
       <CardImage
-        playerImageAlt={data.name}
+        playerImageAlt={data.nameInHomeCountry}
         playerImageUrl={data.imageURL}
-        playerName={data.name}
+        playerName={data.nameInHomeCountry}
         clubLogoAlt={clubData.name}
         clubLogoUrl={clubData.image}
       />
