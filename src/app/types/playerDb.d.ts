@@ -30,8 +30,8 @@ export interface TeamComp {
   CF: PlayerTiers;
   LWF: PlayerTiers;
   RWF: PlayerTiers;
-  RCM: PlayerTiers;
-  LCM: PlayerTiers;
-  LCB: PlayerTiers;
-  RCB: PlayerTiers;
+  RCM?: PlayerTiers;
+  LCM?: PlayerTiers;
+  LCB?: PlayerTiers;
+  RCB?: PlayerTiers;
 }

@@ -105,7 +105,6 @@ export interface PlayerData {
 }
 
 export interface PlayerCardProps {
-  searchPlayer: (playerId: number) => Promise<Player>;
   playerId: number;
 }
 

@@ -1,16 +1,11 @@
-import db from "../../public/players.json";
-import { TeamComp } from "./types/playerDb";
-import { randomRolePicks } from "./utils/randomRolePicks";
+import { Player } from "./types/playerData";
 import { fetchPlayerData } from "./utils/fetchPlayerData";
 
 export default async function Home() {
-  const players: TeamComp = db;
-
-  const CF = randomRolePicks(players, "CB");
-  const testar = await fetchPlayerData(3333);
-  console.log(testar);
-
+  const testdata: Player = await fetchPlayerData(182906);
   return (
-    <div className="bg-red-500 flex flex-row justify-center max-w-fit"></div>
+    <div className="bg-red-500 flex flex-row justify-center max-w-fit">
+      {testdata.name}
+    </div>
   );
 }

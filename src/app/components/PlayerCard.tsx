@@ -1,29 +1,26 @@
-import React from "react";
-import { PlayerCardProps } from "../types/playerData";
-import CardImage from "./CardImage";
+"use client";
+import React, { useState } from "react";
+import { Player, PlayerCardProps, PlayerData } from "../types/playerData";
 import { fetchClubData } from "../utils/fetchClubData";
+import { fetchPlayerData } from "../utils/fetchPlayerData";
 
-export default async function PlayerCard({
-  searchPlayer, // requires function to get player profile data
-  playerId,
-}: PlayerCardProps) {
-  const data = await searchPlayer(playerId);
-  const clubId = parseInt(data.club.id);
-  const clubData = await fetchClubData(clubId);
-
-  // playerValue needed to correctly display the full market Value and format it
-  const playerValue = data.marketValue;
-
+export default function PlayerCard({ playerId }: PlayerCardProps) {
+  const [open, setOpen] = useState(false);
+  const [playerData, setPlayerData] = useState<Player>();
   return (
-    <div className="border border-yellow-400 flex flex-col">
-      <CardImage
-        playerImageAlt={data.nameInHomeCountry}
-        playerImageUrl={data.imageURL}
-        playerName={data.nameInHomeCountry}
-        clubLogoAlt={clubData.name}
-        clubLogoUrl={clubData.image}
-      />
-      <div className="border-blue-500 border">Value: {playerValue}€</div>
+    <div className="border border-yellow-400 flex flex-row">
+      {!open && (
+        <button
+          onClick={async () => {
+            const newData = await fetchPlayerData(playerId);
+            console.log(newData);
+          }}
+          className="w-[50px] h-[50px] bg-black"
+        >
+          {playerId}
+        </button>
+      )}
+      {playerData?.name}
     </div>
   );
 }

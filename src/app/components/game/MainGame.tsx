@@ -4,84 +4,45 @@ import React, { useState } from "react";
 import Pitch from "../Pitch";
 import { playerGameState } from "@/app/types/playerData";
 import { updatePlayerState } from "@/app/utils/updatePlayerState";
-import { Roles } from "@/app/types/playerDb";
+import { Roles, TeamComp } from "@/app/types/playerDb";
+import newGameState from "@/app/utils/newGameState";
+import SelectPlayer from "../playerSelect/Select";
+import db from "../../../../public/players.json";
+import { randomRolePicks } from "@/app/utils/randomRolePicks";
 
 export default function MainGame() {
-  const [players, setPlayers] = useState<playerGameState[]>([
-    {
-      key: "RB",
-      position: "top-[31rem] left-[24.5rem]",
-      playerName: "",
-      url: "",
-    },
-    {
-      key: "LCB",
-      position: "top-[33rem] left-[10rem]",
-      playerName: "",
-      url: "",
-    },
-    {
-      key: "RCB",
-      position: "top-[33rem] left-[17rem]",
-      playerName: "",
-      url: "",
-    },
-    { key: "LB", position: "top-[31rem] left-10", playerName: "", url: "" },
-    {
-      key: "LCM",
-      position: "top-[20rem] left-[7rem]",
-      playerName: "",
-      url: "",
-    },
-    {
-      key: "RCM",
-      position: "top-[20rem] left-[20rem]",
-      playerName: "",
-      url: "",
-    },
-    {
-      key: "DMF",
-      position: "top-[25rem] left-[13.5rem]",
-      playerName: "",
-      url: "",
-    },
-    {
-      key: "CF",
-      position: "top-[5rem] left-[13.5rem]",
-      playerName: "",
-      url: "",
-    },
-    {
-      key: "LWF",
-      position: "top-[10rem] left-[4rem]",
-      playerName: "",
-      url: "",
-    },
-    {
-      key: "RWF",
-      position: "top-[10rem] left-[23rem]",
-      playerName: "",
-      url: "",
-    },
-    {
-      key: "GK",
-      position: "top-[41rem] left-[13.5rem]",
-      playerName: "",
-      url: "",
-    },
-  ]);
-
+  const [players, setPlayers] = useState<playerGameState[]>(newGameState);
   const [budget, setBudget] = useState(150000);
+  const [round, setRound] = useState(0);
+  const [currentSelection, setCurrentSelection] = useState<number[]>([]);
 
+  const playerIds: TeamComp = db;
+
+  const newRound = (role: Roles, round: number) => {
+    const roleIds = randomRolePicks(playerIds, role);
+    setRound(round + 1);
+    setCurrentSelection(roleIds);
+  };
+
+  // updatePlayerState() maps over the the current state of the players and checks for an object with the same key.
+  // it returns a new array with the updated object's player name and image src url(by default empty strings).
   const handleClick = (key: Roles, name: string, url: string) => {
     const updatedState = updatePlayerState(key, name, url, players);
+    // sets the new array as state.
     setPlayers(updatedState);
   };
 
   return (
-    <div>
+    <div className="flex justify-center flex-col">
       <Pitch playerState={players} />
-      <button
+      <button onClick={() => newRound("CF", 0)}>round</button>
+      <SelectPlayer ids={currentSelection} round={round} />
+    </div>
+  );
+}
+
+{
+  /* <button
         onClick={() =>
           handleClick(
             "LCM",
@@ -91,7 +52,5 @@ export default function MainGame() {
         }
       >
         test
-      </button>
-    </div>
-  );
+      </button> */
 }
