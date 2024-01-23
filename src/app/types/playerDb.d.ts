@@ -23,15 +23,13 @@ export type Roles =
 export interface TeamComp {
   GK: PlayerTiers;
   RB: PlayerTiers;
-  CB: PlayerTiers;
   LB: PlayerTiers;
   DMF: PlayerTiers;
-  CM: PlayerTiers;
   CF: PlayerTiers;
   LWF: PlayerTiers;
   RWF: PlayerTiers;
-  RCM?: PlayerTiers;
-  LCM?: PlayerTiers;
-  LCB?: PlayerTiers;
-  RCB?: PlayerTiers;
+  RCM: PlayerTiers;
+  LCM: PlayerTiers;
+  LCB: PlayerTiers;
+  RCB: PlayerTiers;
 }

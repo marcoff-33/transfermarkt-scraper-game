@@ -149,3 +149,14 @@ export interface playerGameState {
   url: string;
   playerName: string;
 }
+
+interface RootInterface {
+  list: object[];
+  current: string;
+  highest: string;
+  highest_date: string;
+  last_change: string;
+  details_url: string;
+  thread: object;
+  translations: object;
+}

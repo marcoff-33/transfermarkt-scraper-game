@@ -1,7 +1,7 @@
 import { Roles, TeamComp } from "../types/playerDb";
 // first arg takes in all player ids from local db, second arg takes the position, returns
 // one player id for each tier of given role.
-export function randomRolePicks(players: TeamComp, position: Roles) {
+export function generateRoleTiers(players: TeamComp, position: Roles) {
   const t1 = players[position].t1;
   const t2 = players[position].t2;
   const t3 = players[position].t3;
