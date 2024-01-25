@@ -1,13 +1,15 @@
-export type Tier = number[];
+type PlayerId = number;
+export type Tier =
+  | "t1" // Highest transfer market value of players.
+  | "t2" // Mid-range  transfer market value of players.
+  | "t3"; // lowest  transfer market value of players.
+
 // each Role has 3 tiers, every tier has a random number of pre-selected players
-// ranging from highster market value(t1) to lowest (t3).
-export interface PlayerTiers {
-  t1: Tier;
-  t2: Tier;
-  t3: Tier;
-}
+export type RoleTiers = {
+  [T in Tier]: PlayerId[];
+};
 // All the roles for the team formation.
-export type Roles =
+export type Role =
   | "CF"
   | "RWF"
   | "LWF"
@@ -20,16 +22,6 @@ export type Roles =
   | "RCM"
   | "LCM";
 
-export interface TeamComp {
-  GK: PlayerTiers;
-  RB: PlayerTiers;
-  LB: PlayerTiers;
-  DMF: PlayerTiers;
-  CF: PlayerTiers;
-  LWF: PlayerTiers;
-  RWF: PlayerTiers;
-  RCM: PlayerTiers;
-  LCM: PlayerTiers;
-  LCB: PlayerTiers;
-  RCB: PlayerTiers;
-}
+export type PlayersDb = {
+  [T in Role]: RoleTiers;
+};

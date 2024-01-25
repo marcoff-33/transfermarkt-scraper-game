@@ -1,11 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Player, PlayerCardProps, PlayerData } from "../types/playerData";
-import { fetchClubData } from "../utils/fetchClubData";
-import { fetchPlayerData } from "../utils/fetchPlayerData";
-import { testFetch } from "../utils/testFc";
-import { Roles } from "../types/playerDb";
+import { saGetPlayerData } from "../utils/saGetPlayerData";
+import { Role } from "../types/playerDb";
 
 export default function PlayerCard({
   playerId,
@@ -13,20 +10,21 @@ export default function PlayerCard({
   role,
 }: {
   playerId: number;
-  confirmPlayer: (key: Roles, name: string, url: string) => void;
-  role: Roles;
+  confirmPlayer: (role: Role, name: string, url: string) => void;
+  role: Role;
 }) {
   const [open, setOpen] = useState(false);
   const [playerData, setPlayerData] = useState(["?"]);
+
   return (
     <div className="border border-yellow-400 flex flex-row">
       {!open && (
         <button
           onClick={async () => {
-            const newData = await testFetch(playerId);
+            // server action
+            const newData = await saGetPlayerData(playerId);
             setPlayerData(newData);
             setOpen(true);
-            console.log(newData);
           }}
           className="w-[50px] h-[50px] "
         >

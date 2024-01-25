@@ -1,18 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import pitchSvg from "@/app/public/pitch.svg";
 import { playerGameState } from "../types/playerData";
 
-//  /<img src={prova} alt="" className="rounded-lg" />
 export default function Pitch({
   playerState,
 }: {
   playerState: playerGameState[];
 }) {
-  // object with the player icons position on the svg pitch. key is for assigning player
-  // name and image src url later.
-
   return (
     <div className="self-center shrink-0">
       <div className="relative">
@@ -25,11 +21,11 @@ export default function Pitch({
         />
         {playerState.map((player) => (
           <div
-            key={player.key}
+            key={player.role}
             className={`h-[80px] w-[70px] z-50 absolute ${player.position}`}
           >
             <Image
-              alt={player.key}
+              alt={player.role}
               src={player.url}
               fill
               className="border border-black rounded-md relative"

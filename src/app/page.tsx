@@ -1,6 +1,6 @@
 import { Player } from "./types/playerData";
 import { fetchPlayerData } from "./utils/fetchPlayerData";
-import { testFetch } from "./utils/testFc";
+import { testFetch } from "./utils/saGetPlayerData";
 
 export default async function Home() {
   const testdata = await testFetch(341092);

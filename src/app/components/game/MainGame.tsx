@@ -4,21 +4,23 @@ import React, { useState } from "react";
 import Pitch from "../Pitch";
 import { playerGameState } from "@/app/types/playerData";
 import { updatePlayerState } from "@/app/utils/updatePlayerState";
-import { Roles, TeamComp } from "@/app/types/playerDb";
-import newGameState from "@/app/utils/newGameState";
-import SelectPlayer from "../playerSelect/Select";
+import { PlayersDb, Role } from "@/app/types/playerDb";
+import starterGameState from "@/app/utils/newGameState";
 import db from "../../../../public/players.json";
-import { generateRoleTiers } from "@/app/utils/randomRolePicks";
+import { drawPlayerFromEachTier } from "@/app/utils/randomRolePicks";
 import PlayerCard from "../PlayerCard";
 
 export default function MainGame() {
-  const [players, setPlayers] = useState<playerGameState[]>(newGameState);
   const [budget, setBudget] = useState(150000);
-  const [round, setRound] = useState(0);
-  const [currentSelection, setCurrentSelection] = useState<number[]>([]);
 
-  const playerIds: TeamComp = db;
-  const roles: Roles[] = [
+  const [currentPlayers, setCurrentPlayers] =
+    useState<playerGameState[]>(starterGameState);
+
+  const [currentRound, setCurrentRound] = useState(0);
+
+  const playersDb: PlayersDb = db;
+
+  const roles: Role[] = [
     "GK",
     "DMF",
     "CF",
@@ -32,26 +34,31 @@ export default function MainGame() {
     "RB",
   ];
 
-  const generatedRoleTiers = roles.map((role) =>
-    generateRoleTiers(playerIds, role)
+  const rolesTierSets = roles.map((role) =>
+    drawPlayerFromEachTier(playersDb, role)
   );
 
-  const handleClick = (key: Roles, name: string, url: string) => {
-    const updatedState = updatePlayerState(key, name, url, players);
-    setPlayers(updatedState);
-    setRound(round + 1);
+  // used by <PlayerCard> to update the currentPlayers state with the selected player.
+  const selectPlayer = (role: Role, name: string, imageURL: string) => {
+    const newPlayersState = updatePlayerState(
+      role,
+      name,
+      imageURL,
+      currentPlayers
+    );
+    setCurrentPlayers(newPlayersState);
+    setCurrentRound(currentRound + 1);
   };
 
-  console.log(generatedRoleTiers);
   return (
     <div className="flex justify-center flex-col">
-      <Pitch playerState={players} />
-      {generatedRoleTiers[round].map((playerId) => (
+      <Pitch playerState={currentPlayers} />
+      {rolesTierSets[currentRound].map((playerId) => (
         <PlayerCard
           playerId={playerId}
           key={playerId}
-          confirmPlayer={handleClick}
-          role={roles[round]}
+          confirmPlayer={selectPlayer}
+          role={roles[currentRound]}
         />
       ))}
     </div>
