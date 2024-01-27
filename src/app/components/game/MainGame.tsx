@@ -48,19 +48,22 @@ export default function MainGame() {
     );
     setCurrentPlayers(newPlayersState);
     setCurrentRound(currentRound + 1);
+    console.log(currentPlayers);
   };
 
   return (
     <div className="flex justify-center flex-col">
       <Pitch playerState={currentPlayers} />
-      {rolesTierSets[currentRound].map((playerId) => (
-        <PlayerCard
-          playerId={playerId}
-          key={playerId}
-          confirmPlayer={selectPlayer}
-          role={roles[currentRound]}
-        />
-      ))}
+      <div className=" flex flex-row w-screen justify-around fixed bottom-0 py-10 bg-zinc-700/50 z-50 backdrop-blur-sm">
+        {rolesTierSets[currentRound].map((playerId) => (
+          <PlayerCard
+            playerId={playerId}
+            key={playerId}
+            confirmPlayer={selectPlayer}
+            role={roles[currentRound]}
+          />
+        ))}
+      </div>
     </div>
   );
 }

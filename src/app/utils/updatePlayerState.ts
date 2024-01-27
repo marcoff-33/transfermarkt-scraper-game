@@ -1,21 +1,21 @@
 import { playerGameState } from "../types/playerData";
-import { Roles } from "../types/playerDb";
+import { Role } from "../types/playerDb";
 
 // function to update a player state object in a "playerGameState" array by given key(position).
 export const updatePlayerState = (
-  key: Roles,
+  role: Role,
   name: string,
-  url: string,
+  imageURL: string,
   playerState: playerGameState[]
 ): playerGameState[] => {
   const newPlayers = playerState.map(
     // Forcing return type on map function.
     (player): playerGameState =>
-      player.key === key
+      player.role === role
         ? {
             ...player,
             playerName: name || "",
-            url: url || "",
+            url: imageURL || "",
           }
         : player
   );

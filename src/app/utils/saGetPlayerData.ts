@@ -1,4 +1,5 @@
 "use server";
+// Next server action function
 
 import { JSDOM } from "jsdom";
 // takes a player ID from local db
@@ -13,7 +14,7 @@ export async function saGetPlayerData(playerId: number): Promise<any> {
   const stringParts = detailsString.split("/");
   const playerName = stringParts[1];
   const test = await fetchPlayerPage(playerId, playerName);
-  console.log(test);
+
   return [playerName, playerId, test];
 }
 
@@ -25,12 +26,14 @@ async function fetchPlayerPage(playerId: number, playerName: string) {
   const html = await res.text();
   const dom = new JSDOM(html);
   const document = dom.window.document;
-  const nameClass = document.querySelector(
-    ".data-header__headline-container"
-  )?.textContent;
-  const playerValue = document.querySelector(
-    ".data-header__market-value-wrapper"
-  )?.textContent;
+  const nameClass = document
+    .querySelector(".data-header__headline-container")
+    ?.textContent?.replace(/\s+/g, " ");
+  const playerValue = document
+    .querySelector(".data-header__market-value-wrapper")
+    ?.textContent?.replace(/\s+/g, " ");
+  const img = document.querySelector(".data-header__profile-image");
+  const imgSrc = img?.src;
 
-  return nameClass;
+  return [nameClass, imgSrc, playerValue];
 }

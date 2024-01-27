@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { saGetPlayerData } from "../utils/saGetPlayerData";
 import { Role } from "../types/playerDb";
+import Image from "next/image";
 
 export default function PlayerCard({
   playerId,
@@ -15,6 +16,8 @@ export default function PlayerCard({
 }) {
   const [open, setOpen] = useState(false);
   const [playerData, setPlayerData] = useState(["?"]);
+  console.log(playerData, "playerdata");
+  const playerImg = playerData[2];
 
   return (
     <div className="border border-yellow-400 flex flex-row">
@@ -26,25 +29,31 @@ export default function PlayerCard({
             setPlayerData(newData);
             setOpen(true);
           }}
-          className="w-[50px] h-[50px] "
+          className="animate-pulse bg-black text-white duration-1000 transition-all"
         >
           {playerData[0]}
         </button>
       )}
       {open && (
         <button
-          className="bg-red-500"
-          onClick={() =>
-            confirmPlayer(
-              role,
-              playerData[0],
-              "https://img.a.transfermarkt.technology/portrait/header/3333-1662621121.jpg?lm=1"
-            )
-          }
+          className="bg-transparent"
+          onClick={() => confirmPlayer(role, playerData[0], playerImg[1])}
         >
-          {playerData[0]}, {role}
+          <div className="flex flex-col justify-center  items-center">
+            <p>{playerData[0]}</p>
+            <Image
+              src={playerImg[1]}
+              alt={playerData[0]}
+              width={100}
+              height={100}
+              className="self-center"
+            />
+          </div>
+
+          <p>value: {playerImg[2]}</p>
         </button>
       )}
     </div>
   );
 }
+// {playerData[0]}, {role}, {playerImg[2]}
