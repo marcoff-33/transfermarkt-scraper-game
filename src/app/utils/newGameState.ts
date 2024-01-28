@@ -21,7 +21,12 @@ const gameState: playerGameState[] = [
     playerName: "",
     url: "https://placehold.co/80x70/png?text=?",
   },
-  { role: "LB", position: "top-[31rem] left-10", playerName: "", url: "" },
+  {
+    role: "LB",
+    position: "top-[31rem] left-10",
+    playerName: "",
+    url: "https://placehold.co/80x70/png?text=?",
+  },
   {
     role: "LCM",
     position: "top-[20rem] left-[7rem]",
