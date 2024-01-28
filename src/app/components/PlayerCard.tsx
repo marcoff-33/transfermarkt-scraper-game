@@ -11,7 +11,12 @@ export default function PlayerCard({
   role,
 }: {
   playerId: number;
-  confirmPlayer: (role: Role, name: string, url: string) => void;
+  confirmPlayer: (
+    role: Role,
+    name: string,
+    url: string,
+    playerValue: number
+  ) => void;
   role: Role;
 }) {
   const [open, setOpen] = useState(false);
@@ -43,7 +48,9 @@ export default function PlayerCard({
       {open && (
         <button
           className="bg-transparent"
-          onClick={() => confirmPlayer(role, playerData[0], playerImg[5])}
+          onClick={() =>
+            confirmPlayer(role, playerData[0], playerImg[5], playerImg[6])
+          }
         >
           <div className="flex flex-col justify-center  items-center relative">
             <div className="relative">

@@ -48,15 +48,30 @@ async function fetchPlayerPage(playerId: number, playerName: string) {
   console.log(playerValue);
   const profileImg = document.querySelector(".data-header__profile-image");
   const profileImgSrc = profileImg?.src;
+  const marketValueNumber = valueToNumber(playerValue);
 
-  return [nameClass, imgUrl, playerValue, clubImgSrc, clubName, profileImgSrc];
+  return [
+    nameClass,
+    imgUrl,
+    playerValue,
+    clubImgSrc,
+    clubName,
+    profileImgSrc,
+    marketValueNumber,
+  ];
 }
 
 // used to format the scraped market value data
 function formatString(s: string) {
   const parts = s.split("Last update: ");
 
-  const date = parts[1].split(" ");
-
   return parts[0].trim();
+}
+
+function valueToNumber(playerValue: string) {
+  const multipliers: { [key: string]: number } = { k: 1000, m: 1000000 };
+  const unit = playerValue.slice(-1);
+  const value = parseFloat(playerValue.substring(1, playerValue.length - 1));
+
+  return value * (multipliers[unit] || 1);
 }

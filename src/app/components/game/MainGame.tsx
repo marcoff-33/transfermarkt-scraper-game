@@ -11,7 +11,7 @@ import { drawPlayerFromEachTier } from "@/app/utils/randomRolePicks";
 import PlayerCard from "../PlayerCard";
 
 export default function MainGame() {
-  const [budget, setBudget] = useState(150000);
+  const [budget, setBudget] = useState(300000000);
 
   const [currentPlayers, setCurrentPlayers] =
     useState<playerGameState[]>(starterGameState);
@@ -39,7 +39,12 @@ export default function MainGame() {
   );
 
   // used by <PlayerCard> to update the currentPlayers state with the selected player.
-  const selectPlayer = (role: Role, name: string, imageURL: string) => {
+  const selectPlayer = (
+    role: Role,
+    name: string,
+    imageURL: string,
+    playerValue: number
+  ) => {
     const newPlayersState = updatePlayerState(
       role,
       name,
@@ -48,11 +53,13 @@ export default function MainGame() {
     );
     setCurrentPlayers(newPlayersState);
     setCurrentRound(currentRound + 1);
+    setBudget(budget - playerValue);
     console.log(currentPlayers);
   };
 
   return (
     <div className="flex justify-center flex-col">
+      {budget.toLocaleString()}
       <Pitch playerState={currentPlayers} />
       <div className=" flex flex-row w-screen justify-around fixed bottom-0 py-10 bg-zinc-700/50 z-50 backdrop-blur-sm">
         {rolesTierSets[currentRound].map((playerId) => (
