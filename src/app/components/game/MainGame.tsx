@@ -43,7 +43,7 @@ export default function MainGame() {
     role: Role,
     name: string,
     imageURL: string,
-    playerValue: number
+    playerValue: string
   ) => {
     const newPlayersState = updatePlayerState(
       role,

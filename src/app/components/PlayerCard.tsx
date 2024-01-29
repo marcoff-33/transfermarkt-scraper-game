@@ -15,7 +15,7 @@ export default function PlayerCard({
     role: Role,
     name: string,
     url: string,
-    playerValue: number
+    playerValue: string
   ) => void;
   role: Role;
 }) {

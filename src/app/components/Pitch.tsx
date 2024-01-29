@@ -32,8 +32,10 @@ export default function Pitch({
               fill
               className="border border-black rounded-md relative"
             />
-            <div className="absolute top-full z-50 text-sm font-semibold">
-              {player.playerName}
+            <div className="absolute top-full z-50 text-sm font-semibold overflow-x-hidden">
+              <p className="animate-marquee whitespace-nowrap">
+                {player.playerName}
+              </p>
             </div>
           </div>
         ))}
