@@ -3,13 +3,16 @@ import React from "react";
 import Image from "next/image";
 import pitchSvg from "@/app/public/pitch.svg";
 import { playerGameState } from "../types/playerData";
+import { Role } from "../types/playerDb";
 // "rotate-90 and -rotate-90" twcss classes are used to rotate the pitch horizontally
 // pitch is vertical for lower viewports
 
 export default function Pitch({
   playerState,
+  changeRound,
 }: {
   playerState: playerGameState[];
+  changeRound: (role: Role) => void;
 }) {
   return (
     <div className="self-center shrink-0 md:rotate-90">
@@ -22,9 +25,10 @@ export default function Pitch({
           height={500}
         />
         {playerState.map((player) => (
-          <div
+          <button
             key={player.role}
             className={`h-[80px] w-[70px] z-50 absolute ${player.position} md:-rotate-90`}
+            onClick={() => changeRound(player.role)}
           >
             <Image
               alt={player.role}
@@ -37,7 +41,7 @@ export default function Pitch({
                 {player.playerName}
               </p>
             </div>
-          </div>
+          </button>
         ))}
       </div>
     </div>

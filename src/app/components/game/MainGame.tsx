@@ -11,13 +11,6 @@ import { drawPlayerFromEachTier } from "@/app/utils/randomRolePicks";
 import PlayerCard from "../PlayerCard";
 
 export default function MainGame() {
-  const [budget, setBudget] = useState(300000000);
-
-  const [currentPlayers, setCurrentPlayers] =
-    useState<playerGameState[]>(starterGameState);
-
-  const [currentRound, setCurrentRound] = useState(0);
-
   const playersDb: PlayersDb = db;
 
   const roles: Role[] = [
@@ -33,17 +26,28 @@ export default function MainGame() {
     "LCB",
     "RB",
   ];
+  const [budget, setBudget] = useState(300000000);
 
-  const rolesTierSets = roles.map((role) =>
-    drawPlayerFromEachTier(playersDb, role)
+  // sets a selection of 3 players from each tier for each role.
+  const [rolesTierSets, setRolesTierSets] = useState(
+    roles.map((role) => drawPlayerFromEachTier(playersDb, role))
   );
+
+  const [currentPlayers, setCurrentPlayers] =
+    useState<playerGameState[]>(starterGameState);
+
+  const [currentRound, setCurrentRound] = useState(0);
+
+  const setCurrentRoundByRole = (role: Role) => {
+    setCurrentRound(roles.indexOf(role));
+  };
 
   // used by <PlayerCard> to update the currentPlayers state with the selected player.
   const selectPlayer = (
     role: Role,
     name: string,
     imageURL: string,
-    playerValue: string
+    playerValue: number
   ) => {
     const newPlayersState = updatePlayerState(
       role,
@@ -59,8 +63,9 @@ export default function MainGame() {
 
   return (
     <div className="flex justify-center flex-col">
+      <button onClick={() => setCurrentRoundByRole("CF")}>test</button>
       {budget.toLocaleString()}
-      <Pitch playerState={currentPlayers} />
+      <Pitch playerState={currentPlayers} changeRound={setCurrentRoundByRole} />
       <div className=" flex flex-row w-screen justify-around fixed bottom-0 py-10 bg-zinc-700/50 z-50 backdrop-blur-sm">
         {rolesTierSets[currentRound].map((playerId) => (
           <PlayerCard
