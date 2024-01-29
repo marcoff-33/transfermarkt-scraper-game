@@ -39,7 +39,22 @@ export default function MainGame() {
   const [currentRound, setCurrentRound] = useState(0);
 
   const setCurrentRoundByRole = (role: Role) => {
+    // used by pitch component, resets the round of clicked role/position
+    const player = currentPlayers.find((player) => player.role === role);
+
+    // If the player exists and has a value, add it back to the budget
+    if (player && player.playerValue) {
+      setBudget((prevBudget) => prevBudget + player.playerValue);
+    }
     setCurrentRound(roles.indexOf(role));
+    const newPlayersState = updatePlayerState(
+      role,
+      "",
+      "https://placehold.co/80x70/png?text=?",
+      currentPlayers,
+      0
+    );
+    setCurrentPlayers(newPlayersState);
   };
 
   // used by <PlayerCard> to update the currentPlayers state with the selected player.
@@ -53,7 +68,8 @@ export default function MainGame() {
       role,
       name,
       imageURL,
-      currentPlayers
+      currentPlayers,
+      playerValue
     );
     setCurrentPlayers(newPlayersState);
     setCurrentRound(currentRound + 1);
@@ -63,7 +79,6 @@ export default function MainGame() {
 
   return (
     <div className="flex justify-center flex-col">
-      <button onClick={() => setCurrentRoundByRole("CF")}>test</button>
       {budget.toLocaleString()}
       <Pitch playerState={currentPlayers} changeRound={setCurrentRoundByRole} />
       <div className=" flex flex-row w-screen justify-around fixed bottom-0 py-10 bg-zinc-700/50 z-50 backdrop-blur-sm">

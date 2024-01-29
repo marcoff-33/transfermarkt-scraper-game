@@ -6,7 +6,8 @@ export const updatePlayerState = (
   role: Role,
   name: string,
   imageURL: string,
-  playerState: playerGameState[]
+  playerState: playerGameState[],
+  playerValue: number
 ): playerGameState[] => {
   const newPlayers = playerState.map(
     // Forcing return type on map function.
@@ -16,6 +17,7 @@ export const updatePlayerState = (
             ...player,
             playerName: name || "",
             url: imageURL || "",
+            playerValue: playerValue,
           }
         : player
   );

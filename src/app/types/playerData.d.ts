@@ -5,4 +5,5 @@ export interface playerGameState {
   position: string;
   url: string;
   playerName: string;
+  playerValue: number;
 }
