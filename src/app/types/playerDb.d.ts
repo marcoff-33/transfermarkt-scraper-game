@@ -25,3 +25,8 @@ export type Role =
 export type PlayersDb = {
   [T in Role]: RoleTiers;
 };
+
+export type HeroImgData = {
+  url: string;
+  source: string;
+};

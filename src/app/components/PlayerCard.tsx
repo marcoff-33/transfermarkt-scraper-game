@@ -37,11 +37,16 @@ export default function PlayerCard({
 
   const [open, setOpen] = useState(false);
   const [playerData, setPlayerData] = useState<PlayerData>(emptyPlayerData);
+  const [loadingImg, setLoadingImg] = useState(false);
+  const [loadingText, setLoadingText] = useState(false);
+  const [imgageUrl, setImageUrl] = useState(
+    "https://placehold.co/333x186/black/white.png?text=?"
+  );
 
   return (
     <div className="border border-yellow-400 flex flex-row">
       <button
-        className="bg-transparent"
+        className={` ${loadingImg ? "animate-pulse" : ""}`}
         onClick={async () => {
           if (open) {
             confirmPlayer(
@@ -52,26 +57,40 @@ export default function PlayerCard({
             );
           } else {
             // Next server action
+            setLoadingImg(true);
+            setLoadingText(true);
             const newData = await saGetPlayerData(playerId);
             setPlayerData(newData);
             setOpen(true);
+            setTimeout(() => {
+              setImageUrl(newData.scrapedPlayerData.playerHeroImg); // Update the image URL here
+            }, 800);
+            setTimeout(() => {
+              setLoadingText(false);
+            }, 500);
+            setTimeout(() => {
+              setLoadingImg(false);
+            }, 2000);
           }
         }}
       >
-        <div className="flex flex-col justify-center  items-center relative">
+        <div className="flex flex-col justify-center  items-center relative overflow-hidden">
           <div className="relative">
-            <p className="text-white z-50 absolute bottom-1 self-center text-center w-full bg-black/50 backdrop-blur-sm">
+            <p
+              className={`z-50 absolute bottom-1 self-center text-center w-full transition-colors duration-1000 bg-black/50 backdrop-blur-sm ${
+                loadingImg ? "invisible text-gray-800" : "block text-white"
+              }`}
+            >
               {playerData.playerName}
             </p>
             <Image
-              src={
-                playerData.scrapedPlayerData.playerHeroImg ||
-                "https://placehold.co/333x186.png?text=?"
-              }
+              src={imgageUrl}
               alt={playerData.playerName || ""}
               width={300}
               height={100}
-              className="self-center rounded-lg "
+              className={`self-center rounded-lg transition-all duration-1000 ${
+                loadingImg ? "blur-lg" : "blur-none"
+              }`}
             />
             {open && (
               <Image
@@ -82,7 +101,13 @@ export default function PlayerCard({
                 className="self-center absolute top-0 right-0 hidden md:block"
               />
             )}
-            <p className="absolute top-0 z-50 text-white font-extrabold bg-black/50 px-1 backdrop-blur-lg rounded-lg">
+            <p
+              className={`absolute top-0 z-50 text-white font-extrabold px-1 transition-all duration-300 ${
+                loadingText
+                  ? "blur-lg rounded-none invisible"
+                  : "blur-none rounded-lg block bg-black"
+              }`}
+            >
               {playerData.scrapedPlayerData.playerValue}
             </p>
           </div>

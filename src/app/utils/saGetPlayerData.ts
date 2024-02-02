@@ -3,6 +3,7 @@
 
 import { JSDOM } from "jsdom";
 import { PlayerData, scrapedData } from "../types/playerData";
+import { HeroImgData } from "../types/playerDb";
 // takes a player ID from local db
 export async function saGetPlayerData(playerId: number): Promise<PlayerData> {
   // getting player name with Transfermarkt undocumented api.
@@ -57,8 +58,10 @@ async function fetchPlayerPage(
   const playerHeroImg = await fetch(
     `https://www.transfermarkt.us/ceapi/player/${playerId}/images`
   );
-  const heroImgSrc = await playerHeroImg.json();
-  const playerHeroImgUrl =
+
+  const heroImgSrc: HeroImgData[] = await playerHeroImg.json();
+
+  const firstPlayerHeroImgUrl =
     heroImgSrc[0]?.url ||
     "https://placehold.co/333x186.png?text=no%20image%20available";
 
@@ -66,11 +69,11 @@ async function fetchPlayerPage(
     ".data-header__profile-image"
   ) as HTMLImageElement;
   const playerProfileImgUrl = playerProfileImgElement?.src;
-
+  console.log(playerProfileImgUrl);
   const marketValueNumber = convertValueStringToNumber(playerValue);
 
   return {
-    playerHeroImg: playerHeroImgUrl,
+    playerHeroImg: firstPlayerHeroImgUrl,
     playerValue: playerValue,
     clubLogoUrl: clubLogo,
     clubName: clubName,

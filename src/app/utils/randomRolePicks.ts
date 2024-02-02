@@ -1,6 +1,5 @@
 import { PlayersDb, Role, Tier } from "../types/playerDb";
-// used for generating 1 playerId for each tier in given position
-
+// used for generating 1 playerId for each tier in given role
 export function drawPlayerFromEachTier(allPlayerIds: PlayersDb, role: Role) {
   const tiers: Tier[] = ["t1", "t2", "t3"];
 
