@@ -26,9 +26,9 @@ export default function MainGame() {
     "LCB",
     "RB",
   ];
-  const [budget, setBudget] = useState(300000000);
+  const [currentBudget, setCurrentBudget] = useState(300000000);
 
-  // sets a selection of 3 players from each tier for each role.
+  // sets a selection of 1 player from each tier for each role.
   const [rolesTierSets, setRolesTierSets] = useState(
     roles.map((role) => drawPlayerFromEachTier(playersDb, role))
   );
@@ -38,23 +38,24 @@ export default function MainGame() {
 
   const [currentRound, setCurrentRound] = useState(0);
 
-  const setCurrentRoundByRole = (role: Role) => {
-    // used by pitch component, resets the round of clicked role/position
+  const resetRoundByRole = (role: Role) => {
+    // used by pitch component
+    // reset the round when a position/role is clicked.
     const player = currentPlayers.find((player) => player.role === role);
 
-    // If the player exists and has a value, add it back to the budget
     if (player && player.playerValue) {
-      setBudget((prevBudget) => prevBudget + player.playerValue);
+      setCurrentBudget((prevBudget) => prevBudget + player.playerValue);
     }
     setCurrentRound(roles.indexOf(role));
-    const newPlayersState = updatePlayerState(
+    // reset the given role in currentPlayers state to default
+    const defaultRoleState = updatePlayerState(
       role,
       "",
       "https://placehold.co/80x70/png?text=?",
       currentPlayers,
       0
     );
-    setCurrentPlayers(newPlayersState);
+    setCurrentPlayers(defaultRoleState);
   };
 
   // used by <PlayerCard> to update the currentPlayers state with the selected player.
@@ -72,15 +73,15 @@ export default function MainGame() {
       playerValue
     );
     setCurrentPlayers(newPlayersState);
-    setCurrentRound(currentRound + 1);
-    setBudget(budget - playerValue);
+    setCurrentRound((prevRound) => prevRound + 1);
+    setCurrentBudget((prevBudget) => prevBudget - playerValue);
     console.log(currentPlayers);
   };
 
   return (
     <div className="flex justify-center flex-col">
-      {budget.toLocaleString()}
-      <Pitch playerState={currentPlayers} changeRound={setCurrentRoundByRole} />
+      {currentBudget.toLocaleString()}
+      <Pitch playerState={currentPlayers} resetRoleRound={resetRoundByRole} />
       <div className=" flex flex-row w-screen justify-around fixed bottom-0 py-10 bg-zinc-700/50 z-50 backdrop-blur-sm">
         {rolesTierSets[currentRound].map((playerId) => (
           <PlayerCard

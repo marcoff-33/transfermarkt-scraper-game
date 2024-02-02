@@ -9,10 +9,10 @@ import { Role } from "../types/playerDb";
 
 export default function Pitch({
   playerState,
-  changeRound,
+  resetRoleRound,
 }: {
   playerState: playerGameState[];
-  changeRound: (role: Role) => void;
+  resetRoleRound: (role: Role) => void;
 }) {
   return (
     <div className="self-center shrink-0 md:rotate-90">
@@ -28,11 +28,11 @@ export default function Pitch({
           <button
             key={player.role}
             className={`h-[80px] w-[70px] z-50 absolute ${player.position} md:-rotate-90`}
-            onClick={() => changeRound(player.role)}
+            onClick={() => resetRoleRound(player.role)}
           >
             <Image
               alt={player.role}
-              src={player.url}
+              src={player.profileImgUrl}
               fill
               className="border border-black rounded-md relative"
             />
