@@ -62,8 +62,9 @@ export default function PlayerCard({
             const newData = await saGetPlayerData(playerId);
             setPlayerData(newData);
             setOpen(true);
+            // timeouts for card animations
             setTimeout(() => {
-              setImageUrl(newData.scrapedPlayerData.playerHeroImg); // Update the image URL here
+              setImageUrl(newData.scrapedPlayerData.playerHeroImg);
             }, 800);
             setTimeout(() => {
               setLoadingText(false);

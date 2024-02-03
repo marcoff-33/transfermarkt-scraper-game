@@ -73,7 +73,9 @@ export default function MainGame() {
       playerValue
     );
     setCurrentPlayers(newPlayersState);
-    setCurrentRound((prevRound) => prevRound + 1);
+    setCurrentRound(
+      currentRound < 10 ? (prevRound) => prevRound + 1 : currentRound
+    );
     setCurrentBudget((prevBudget) => prevBudget - playerValue);
     console.log(currentPlayers);
   };
