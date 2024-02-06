@@ -2,7 +2,8 @@ import { Roles } from "./playerDb";
 
 export interface playerGameState {
   role: Roles;
-  position: string;
+  playerRow: number;
+  playerCol: number;
   profileImgUrl: string;
   playerName: string;
   playerValue: number;

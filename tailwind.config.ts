@@ -10,11 +10,22 @@ const config: Config = {
     extend: {
       animation: {
         marquee: "marquee 5s linear infinite",
+        "gradient-x": "gradient-x 10s ease infinite",
       },
       keyframes: {
         marquee: {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(-100%)" },
+        },
+        "gradient-x": {
+          "0%, 100%": {
+            "background-size": "200% 200%",
+            "background-position": "left center",
+          },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "right center",
+          },
         },
       },
     },

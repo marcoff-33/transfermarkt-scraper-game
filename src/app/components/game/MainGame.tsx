@@ -65,32 +65,41 @@ export default function MainGame() {
     imageURL: string,
     playerValue: number
   ) => {
-    const newPlayersState = updatePlayerState(
-      role,
-      name,
-      imageURL,
-      currentPlayers,
-      playerValue
-    );
-    setCurrentPlayers(newPlayersState);
-    setCurrentRound(
-      currentRound < 10 ? (prevRound) => prevRound + 1 : currentRound
-    );
-    setCurrentBudget((prevBudget) => prevBudget - playerValue);
-    console.log(currentPlayers);
+    if (playerValue <= currentBudget) {
+      const newPlayersState = updatePlayerState(
+        role,
+        name,
+        imageURL,
+        currentPlayers,
+        playerValue
+      );
+      setCurrentPlayers(newPlayersState);
+      setCurrentRound(
+        currentRound < 10 ? (prevRound) => prevRound + 1 : currentRound
+      );
+      setCurrentBudget((prevBudget) => prevBudget - playerValue);
+      console.log(currentPlayers);
+    } else return;
   };
 
   return (
     <div className="flex justify-center flex-col">
-      {currentBudget.toLocaleString()}
-      <Pitch playerState={currentPlayers} resetRoleRound={resetRoundByRole} />
-      <div className=" flex flex-row w-screen justify-around fixed bottom-0 py-10 bg-zinc-700/50 z-50 backdrop-blur-sm">
+      <div className="w-screen fixed   gap-5 z-50 top-0 backdrop-blur-sm bg-zinc-500/50 justify-center flex">
+        <p>Budget: {currentBudget.toLocaleString()}</p>
+      </div>
+      <Pitch
+        playerState={currentPlayers}
+        resetRoleRound={resetRoundByRole}
+        currentRoundRole={roles[currentRound]}
+      />
+      <div className=" flex flex-row w-screen px-5 justify-around fixed bottom-0 py-2 bg-zinc-700/50 z-50 backdrop-blur-sm">
         {rolesTierSets[currentRound].map((playerId) => (
           <PlayerCard
             playerId={playerId}
             key={playerId}
             confirmPlayer={selectPlayer}
             role={roles[currentRound]}
+            currentBudget={currentBudget}
           />
         ))}
       </div>
