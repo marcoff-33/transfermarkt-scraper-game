@@ -7,13 +7,25 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       animation: {
         marquee: "marquee 5s linear infinite",
+        marqueeSlow: "marqueeSlow 9s linear infinite",
         "gradient-x": "gradient-x 10s ease infinite",
       },
       keyframes: {
         marquee: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(-400%)" },
+        },
+        marqueeSlow: {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(-100%)" },
         },

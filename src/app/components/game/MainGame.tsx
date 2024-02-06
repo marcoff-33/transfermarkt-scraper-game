@@ -92,7 +92,7 @@ export default function MainGame() {
         resetRoleRound={resetRoundByRole}
         currentRoundRole={roles[currentRound]}
       />
-      <div className=" flex flex-row w-screen px-5 justify-around fixed bottom-0 py-2 bg-zinc-700/50 z-50 backdrop-blur-sm">
+      <div className="flex flex-row w-screen px-5 justify-around fixed bottom-0 sm:py-2 bg-zinc-700/50 z-50 backdrop-blur-sm">
         {rolesTierSets[currentRound].map((playerId) => (
           <PlayerCard
             playerId={playerId}

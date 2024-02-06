@@ -17,15 +17,15 @@ export default function Pitch({
   currentRoundRole: Role;
 }) {
   return (
-    <div className="self-center shrink-0 pb-3 top-2 relative min-w-[500px] min-h-[700px]">
+    <div className="self-center flex shrink-0 pb-3 top-2 relative min-w-[300px] min-h-[500px] sm:min-h-[700px] sm:min-w-[500px] 2xl:min-h-[800px] 2xl:min-w-[600px]">
       <Image
         alt="Pitch"
-        className=" bg-emerald-950/50 absolute"
+        className=" bg-emerald-950/50 absolute grow"
         src={pitchSvg}
         fill
         objectFit="scale-down"
       />
-      <div className="grid grid-cols-7 grid-rows-6 w-[400px] h-full left-12  top-0 z-50 absolute">
+      <div className="grid grid-cols-7 grid-rows-6 w-[250px] sm:w-[415px] h-full 2xl:w-[505px] left-7 sm:left-12  top-0 z-50 absolute">
         {playerState.map((player) => (
           <button
             key={player.role}
@@ -43,8 +43,9 @@ export default function Pitch({
             <Image
               alt={player.role}
               src={player.profileImgUrl}
-              width={50}
-              height={50}
+              width={300}
+              height={500}
+              objectFit="scale-down"
               className="rounded-md h-full w-full"
             />
             <div className="z-50 text-sm font-semibold overflow-x-hidden">
