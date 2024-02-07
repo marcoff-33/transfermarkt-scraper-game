@@ -11,13 +11,15 @@ export default function Pitch({
   playerState,
   resetRoleRound,
   currentRoundRole,
+  hasGameEnded,
 }: {
   playerState: playerGameState[];
   resetRoleRound: (role: Role) => void;
   currentRoundRole: Role;
+  hasGameEnded: boolean;
 }) {
   return (
-    <div className="self-center flex shrink-0 pb-3 top-2 relative min-w-[300px] min-h-[500px] sm:min-h-[700px] sm:min-w-[500px] 2xl:min-h-[800px] 2xl:min-w-[600px]">
+    <div className="self-center rotate-90 flex shrink-0 pb-3 top-2 relative min-w-[300px] min-h-[500px] sm:min-h-[700px] sm:min-w-[500px] 2xl:min-h-[800px] 2xl:min-w-[600px]">
       <Image
         alt="Pitch"
         className=" bg-emerald-950/50 absolute grow"
@@ -25,13 +27,13 @@ export default function Pitch({
         fill
         objectFit="scale-down"
       />
-      <div className="grid grid-cols-7 grid-rows-6 w-[250px] sm:w-[415px] h-full 2xl:w-[505px] left-7 sm:left-12  top-0 z-50 absolute">
+      <div className="grid  grid-cols-7 grid-rows-6 w-[250px] sm:w-[415px] h-full 2xl:w-[505px] left-7 sm:left-12  top-0 z-50 absolute">
         {playerState.map((player) => (
           <button
             key={player.role}
-            className={`z-50 max-h-[70%] rounded-md  ${
+            className={`z-50 max-h-[70%] rounded-md -rotate-90  ${
               currentRoundRole == player.role
-                ? "animate-pulse border-black border-[2px] rounded-lg "
+                ? "animate-pulse border-black border-[5px] rounded-lg"
                 : ""
             }`}
             style={{
