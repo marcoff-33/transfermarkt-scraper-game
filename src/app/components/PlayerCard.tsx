@@ -17,7 +17,13 @@ export default function PlayerCard({
     role: Role,
     name: string,
     url: string,
-    playerValue: number
+    playerValue: number,
+    playerFoot: string | null,
+    playerAge: string,
+    clubName: string,
+    leagueName: string,
+    playerHeight: string,
+    playerCountry: string
   ) => void;
   role: Role;
   currentBudget: number;
@@ -34,6 +40,11 @@ export default function PlayerCard({
       clubName: "",
       playerProfileImgUrl: "",
       marketValueNumber: 0,
+      playerAge: "",
+      playerFoot: "",
+      playerLeague: "",
+      playerCountry: "",
+      playerHeight: "",
     },
   };
 
@@ -43,7 +54,13 @@ export default function PlayerCard({
         role,
         playerData.playerName,
         playerData.scrapedPlayerData.playerProfileImgUrl,
-        playerData.scrapedPlayerData.marketValueNumber
+        playerData.scrapedPlayerData.marketValueNumber,
+        playerData.scrapedPlayerData.playerFoot,
+        playerData.scrapedPlayerData.playerAge,
+        playerData.scrapedPlayerData.clubName,
+        playerData.scrapedPlayerData.playerLeague,
+        playerData.scrapedPlayerData.playerHeight,
+        playerData.scrapedPlayerData.playerCountry
       );
     } else {
       setLoadingImg(true);
@@ -146,7 +163,7 @@ export default function PlayerCard({
               }`}
             >
               <p className="animate-marqueeSlow whitespace-nowrap sm:animate-none z-50 text-white px-5">
-                {playerData.playerName}
+                {playerData.playerName} {playerData.scrapedPlayerData.playerAge}
               </p>
             </div>
           </div>

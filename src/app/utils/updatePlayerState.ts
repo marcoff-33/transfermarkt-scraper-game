@@ -7,7 +7,13 @@ export const updatePlayerState = (
   name: string,
   imageURL: string,
   playerState: playerGameState[],
-  playerValue: number
+  playerValue: number,
+  playerAge: string,
+  playerFoot: string,
+  clubName: string,
+  playerLeague: string,
+  playerHeight: string,
+  playerCountry: string
 ): playerGameState[] => {
   const newPlayers = playerState.map(
     // Declaring return type on map function.
@@ -18,6 +24,12 @@ export const updatePlayerState = (
             playerName: name || "",
             profileImgUrl: imageURL || "",
             playerValue: playerValue,
+            playerAge: playerAge,
+            playerFoot: playerFoot,
+            clubName: clubName,
+            playerLeague: playerLeague,
+            playerHeight: playerHeight,
+            playerCountry: playerCountry,
           }
         : player
   );

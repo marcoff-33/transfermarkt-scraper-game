@@ -7,6 +7,12 @@ export interface playerGameState {
   profileImgUrl: string;
   playerName: string;
   playerValue: number;
+  playerAge: string;
+  playerFoot: string;
+  clubName: string;
+  playerLeague: string;
+  playerCountry: string;
+  playerHeight: string;
 }
 
 export interface PlayerData {
@@ -22,4 +28,9 @@ export interface scrapedData {
   clubName: string;
   playerProfileImgUrl: string;
   marketValueNumber: number;
+  playerAge: string;
+  playerFoot: string;
+  playerLeague: string;
+  playerHeight: string;
+  playerCountry: string;
 }

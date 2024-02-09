@@ -4,7 +4,9 @@
 import { JSDOM } from "jsdom";
 import { PlayerData, scrapedData } from "../types/playerData";
 import { HeroImgData } from "../types/playerDb";
+import test from "node:test";
 // takes a player ID from local db
+// to be refactored later for readability
 export async function saGetPlayerData(playerId: number): Promise<PlayerData> {
   // getting player name with Transfermarkt undocumented api.
   const res = await fetch(
@@ -36,6 +38,59 @@ async function fetchPlayerPage(
   // turning raw html text into a DOM with JSDOM
   const dom = new JSDOM(html);
   const document = dom.window.document;
+
+  const playerAgeElement = document.querySelector(
+    ".info-table__content--bold a"
+  );
+  const playerAge = playerAgeElement.textContent.trim();
+
+  const regularContents = document.querySelectorAll(
+    ".info-table__content.info-table__content--regular"
+  );
+  const boldContents = document.querySelectorAll(
+    ".info-table__content.info-table__content--bold"
+  );
+
+  let playerDetails = {};
+  const labels = ["Foot:", "Height:", "Citizenship:"];
+
+  // Loop through all labels
+  let playerFoot, playerHeight, playerCitizenship;
+
+  // Loop through all labels
+  labels.forEach((label) => {
+    // Find the index of the label in the regular contents
+    const index = Array.from(regularContents).findIndex(
+      (element) => element.textContent === label
+    );
+
+    if (index !== -1) {
+      let content = boldContents[index]?.textContent;
+      if (label === "Citizenship:") {
+        content = content
+          .split(",")
+          .map((country) => country.trim())
+          .join(", ");
+      }
+
+      switch (label) {
+        case "Foot:":
+          playerFoot = content;
+          break;
+        case "Height:":
+          playerHeight = content;
+          break;
+        case "Citizenship:":
+          playerCitizenship = content;
+          break;
+      }
+    }
+  });
+  console.log(playerFoot, playerHeight, playerCitizenship);
+
+  const leagueElement = document.querySelector(".data-header__league-link");
+
+  const playerLeague = leagueElement.textContent?.trim();
 
   // getting the market value. ex: "€50.00m Last update: Dec 20, 2023"
   const MarketValueString = document
@@ -69,7 +124,7 @@ async function fetchPlayerPage(
     ".data-header__profile-image"
   ) as HTMLImageElement;
   const playerProfileImgUrl = playerProfileImgElement?.src;
-  console.log(playerProfileImgUrl);
+
   const marketValueNumber = convertValueStringToNumber(playerValue);
 
   return {
@@ -79,6 +134,11 @@ async function fetchPlayerPage(
     clubName: clubName,
     playerProfileImgUrl: playerProfileImgUrl,
     marketValueNumber: marketValueNumber,
+    playerAge: playerAge,
+    playerFoot: playerFoot,
+    playerLeague: playerLeague,
+    playerCountry: playerCitizenship,
+    playerHeight: playerHeight,
   } as scrapedData;
 }
 
