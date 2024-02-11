@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import pitchSvg from "@/app/public/pitch.svg";
-import { playerGameState } from "../types/playerData";
+import { Player } from "../types/playerData";
 import { Role } from "../types/playerDb";
 // "rotate-90 and -rotate-90" twcss classes are used to rotate the pitch horizontally
 // pitch is vertical for lower viewports
@@ -15,7 +15,7 @@ export default function Pitch({
   openPlayerModal,
   displayPlayerStatsFor,
 }: {
-  playerState: playerGameState[];
+  playerState: Player[];
   resetRoleRound: (role: Role) => void;
   currentRoundRole: Role;
   hasGameEnded: boolean;

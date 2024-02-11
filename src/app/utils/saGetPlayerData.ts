@@ -34,7 +34,7 @@ async function scrapePlayerPage(
     `https://www.transfermarkt.us/${playerName}/profil/spieler/${playerId}`
   );
   const html = await res.text();
-  // turning raw html text into a DOM with JSDOM
+  // turning raw html text into DOM with JSDOM
   const dom = new JSDOM(html);
   const document = dom.window.document;
 
@@ -51,11 +51,13 @@ async function scrapePlayerPage(
   const clubLogo = getClubLogoImgUrl(document);
   // Club Name
   const clubName = document.querySelector(".data-header__club a")?.textContent;
-  // Hero Images, undocumented transfermarkt api
+  // Hero Images, using undocumented transfermarkt api
   const playerHeroImg = await fetchPlayerHeroImg(playerId);
+
   // Profile Img
   const playerProfileImgUrl = getPlayerProfileImg(document);
-  // full playerValue number
+
+  // full playerValue number ex: from "5.00m" to 5000000
   const marketValueNumber = convertValueStringToNumber(playerValue);
 
   return {

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { saGetPlayerData } from "../utils/saGetPlayerData";
 import { Role } from "../types/playerDb";
 import Image from "next/image";
-import { PlayerData } from "../types/playerData";
+import { Player, PlayerData } from "../types/playerData";
 
 export default function PlayerCard({
   playerId,
@@ -13,23 +13,12 @@ export default function PlayerCard({
   currentBudget,
 }: {
   playerId: number;
-  confirmPlayer: (
-    role: Role,
-    name: string,
-    url: string,
-    playerValue: number,
-    playerFoot: string | null,
-    playerAge: string,
-    clubName: string,
-    leagueName: string,
-    playerHeight: string,
-    playerCountry: string
-  ) => void;
+  confirmPlayer: (player: Player) => void;
   role: Role;
   currentBudget: number;
 }) {
   // used to fill the playerData state before fetching any real data
-  // to avoid type errors, no idea how to do it properly otherwise
+  // to avoid type errors
   const emptyPlayerData: PlayerData = {
     playerName: "",
     playerId: 0,
@@ -50,21 +39,12 @@ export default function PlayerCard({
 
   const handleButtonClick = async () => {
     if (open) {
-      confirmPlayer(
-        role,
-        playerData.playerName,
-        playerData.scrapedPlayerData.playerProfileImgUrl,
-        playerData.scrapedPlayerData.marketValueNumber,
-        playerData.scrapedPlayerData.playerFoot,
-        playerData.scrapedPlayerData.playerAge,
-        playerData.scrapedPlayerData.clubName,
-        playerData.scrapedPlayerData.playerLeague,
-        playerData.scrapedPlayerData.playerHeight,
-        playerData.scrapedPlayerData.playerCountry
-      );
+      confirmPlayer(player);
     } else {
+      // timeouts are used for animating the card after data is fetched
       setLoadingImg(true);
       setLoadingText(true);
+      // Next server action
       const newData = await saGetPlayerData(playerId);
       setPlayerData(newData);
       setOpen(true);
@@ -87,6 +67,19 @@ export default function PlayerCard({
   const [imageUrl, setImageUrl] = useState(
     "https://placehold.co/333x186/black/white.png?text=?"
   );
+
+  const player: Player = {
+    role: role,
+    profileImgUrl: playerData.scrapedPlayerData.playerProfileImgUrl,
+    playerName: playerData.playerName,
+    playerValue: playerData.scrapedPlayerData.marketValueNumber,
+    playerAge: playerData.scrapedPlayerData.playerAge,
+    clubName: playerData.scrapedPlayerData.clubName,
+    playerCountry: playerData.scrapedPlayerData.playerCountry,
+    playerFoot: playerData.scrapedPlayerData.playerFoot,
+    playerLeague: playerData.scrapedPlayerData.playerLeague,
+    playerHeight: playerData.scrapedPlayerData.playerHeight,
+  };
 
   return (
     <div className="flex flex-row cardBadgeWrapper overflow-hidden">

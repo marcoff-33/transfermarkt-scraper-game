@@ -6,7 +6,7 @@ export type playerDetails = {
 
 export const getPlayerDetails = (document: Document): playerDetails => {
   // function to scrape some details from the player data table on transfermarkt
-  // the regular variable is to select the various titles of each table row ex: "Height:"
+  // the TableTitles variable is to select the various titles of each table row ex: "Height:"
   const allTableTitles = document.querySelectorAll(
     ".info-table__content.info-table__content--regular"
   );
