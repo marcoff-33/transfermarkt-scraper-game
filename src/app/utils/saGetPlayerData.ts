@@ -53,10 +53,8 @@ async function scrapePlayerPage(
   const clubName = document.querySelector(".data-header__club a")?.textContent;
   // Hero Images, using undocumented transfermarkt api
   const playerHeroImg = await fetchPlayerHeroImg(playerId);
-
   // Profile Img
   const playerProfileImgUrl = getPlayerProfileImg(document);
-
   // full playerValue number ex: from "5.00m" to 5000000
   const marketValueNumber = convertValueStringToNumber(playerValue);
 

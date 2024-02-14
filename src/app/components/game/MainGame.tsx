@@ -44,6 +44,7 @@ export default function MainGame() {
 
   const resetRoundByRole = (role: Role) => {
     // used by <playerModal /> to reset the currently selected player in role to default(empty)
+
     const defaultPlayer: Player = {
       playerAge: "",
       role: role,
@@ -58,6 +59,7 @@ export default function MainGame() {
     };
     if (hasGameEnded) {
       // adding back the cost of the player to the budget if present.
+
       const player = currentPlayers.find((player) => player.role === role);
 
       if (player && player.playerValue) {
@@ -71,9 +73,8 @@ export default function MainGame() {
     }
   };
 
+  // used by selectPlayer() to return the market value of the player in selected role, so we can add it back to the budget.
   const getPlayerValue = (role: Role) => {
-    // when all the 11 rounds are played, the game loops back to the first round with added features.
-    // this function is used to return the already selected player market value, so we can add it back to the budget.
     const player = currentPlayers.find((player) => player.role === role);
     if (player) {
       return player.playerValue;
@@ -98,7 +99,7 @@ export default function MainGame() {
     }
   };
 
-  const openPlayerInfo = () => {
+  const openModal = () => {
     setOpenPlayerModal(true);
   };
 
@@ -124,7 +125,7 @@ export default function MainGame() {
           setModalState={setOpenPlayerModal}
         />
       )}
-      <div className="w-screen fixed   gap-5 z-50 top-0 backdrop-blur-sm bg-zinc-500/50 justify-center flex">
+      <div className="w-screen fixed gap-5 z-50 top-0 backdrop-blur-sm bg-zinc-500/50 justify-center flex">
         <p>Budget: {currentBudget.toLocaleString()}</p>
         {currentRound}
       </div>
@@ -133,7 +134,7 @@ export default function MainGame() {
         resetRoleRound={resetRoundByRole}
         currentRoundRole={roles[currentRound]}
         hasGameEnded={hasGameEnded}
-        openPlayerModal={openPlayerInfo}
+        openPlayerModal={openModal}
         displayPlayerStatsFor={setModalRole}
       />
       <div className="flex flex-row w-screen px-5 justify-around fixed bottom-0 sm:py-2 bg-zinc-700/50 z-50 backdrop-blur-sm">

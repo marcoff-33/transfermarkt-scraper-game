@@ -13,3 +13,12 @@ function trimMarketValueString(MarketValueString: string) {
 
   return parts[0].trim();
 }
+
+// turns a playerValue string(ex: "$40.00m / $300k") to a full unabbreviated Number
+export function convertValueStringToNumber(playerValue: string) {
+  const multipliers: { [key: string]: number } = { k: 1000, m: 1000000 };
+  const unit = playerValue.slice(-1);
+  const value = parseFloat(playerValue.substring(1, playerValue.length - 1));
+
+  return value * multipliers[unit];
+}
