@@ -9,7 +9,7 @@ import starterGameState from "@/app/utils/newGameState";
 import db from "../../../../public/players.json";
 import { drawPlayerFromEachTier } from "@/app/utils/randomRolePicks";
 import PlayerCard from "../PlayerCard";
-import Image from "next/image";
+
 import PlayerModal from "../PlayerModal";
 
 export default function MainGame() {
@@ -44,7 +44,6 @@ export default function MainGame() {
 
   const resetRoundByRole = (role: Role) => {
     // used by <playerModal /> to reset the currently selected player in role to default(empty)
-
     const defaultPlayer: Player = {
       playerAge: "",
       role: role,
@@ -88,7 +87,11 @@ export default function MainGame() {
       const newPlayersState = updatePlayerState(player, currentPlayers);
       setOpenPlayerModal(false);
       setCurrentPlayers(newPlayersState);
-      setCurrentRound(currentRound < 10 ? (prevRound) => prevRound + 1 : 0);
+      {
+        hasGameEnded
+          ? setCurrentRound(11)
+          : setCurrentRound((prevRound) => prevRound + 1);
+      }
       setHasGameEnded(currentRound === 10 ? true : hasGameEnded);
       setCurrentBudget(
         hasGameEnded
@@ -117,7 +120,7 @@ export default function MainGame() {
   };
 
   return (
-    <div className="flex justify-center min-h-screen flex-col overflow-hidden">
+    <div className="flex justify-around min-h-screen flex-col overflow-hidden">
       {openPlayerModal && playerDataByRole.playerName !== "" && (
         <PlayerModal
           playerState={playerDataByRole}
@@ -129,6 +132,7 @@ export default function MainGame() {
         <p>Budget: {currentBudget.toLocaleString()}</p>
         {currentRound}
       </div>
+      {hasGameEnded && <div className="text-white">game has ended</div>}
       <Pitch
         playerState={currentPlayers}
         resetRoleRound={resetRoundByRole}
@@ -137,17 +141,19 @@ export default function MainGame() {
         openPlayerModal={openModal}
         displayPlayerStatsFor={setModalRole}
       />
-      <div className="flex flex-row w-screen px-5 justify-around fixed bottom-0 sm:py-2 bg-zinc-700/50 z-50 backdrop-blur-sm">
-        {rolesTierSets[currentRound].map((playerId) => (
-          <PlayerCard
-            playerId={playerId}
-            key={playerId}
-            confirmPlayer={selectPlayer}
-            role={roles[currentRound]}
-            currentBudget={currentBudget}
-          />
-        ))}
-      </div>
+      {currentRound < 11 && (
+        <div className="flex flex-row w-screen px-5 justify-around fixed bottom-0 sm:py-2 bg-zinc-700/50 z-50 backdrop-blur-sm">
+          {rolesTierSets[currentRound].map((playerId) => (
+            <PlayerCard
+              playerId={playerId}
+              key={playerId}
+              confirmPlayer={selectPlayer}
+              role={roles[currentRound]}
+              currentBudget={currentBudget}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
