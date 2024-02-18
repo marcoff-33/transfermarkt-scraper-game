@@ -45,7 +45,7 @@ export default function PitchPlayer({
 
   return (
     <button
-      key={player.role}
+      key={player.playerName}
       className={`z-50 max-h-[70%] rounded-md md:-rotate-90  ${
         currentRoundRole == player.role
           ? "animate-pulse border-black border-[5px]"
