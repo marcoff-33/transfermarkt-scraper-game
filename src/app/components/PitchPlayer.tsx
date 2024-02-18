@@ -71,8 +71,12 @@ export default function PitchPlayer({
         className="rounded-md h-full w-full"
       />
       <div className="z-50 text-sm font-semibold overflow-x-hidden">
-        <p className="animate-marquee whitespace-nowrap text-white">
-          {player.playerName}
+        <p
+          className={`whitespace-nowrap text-white ${
+            player.fullPlayerName.length > 11 ? "animate-marquee" : ""
+          }`}
+        >
+          {player.shortPlayerName}
         </p>
       </div>
     </button>

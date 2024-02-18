@@ -55,6 +55,8 @@ export default function MainGame() {
       playerValue: 0,
       profileImgUrl: "https://placehold.co/80x70/png?text=?",
       clubName: "",
+      fullPlayerName: "",
+      shortPlayerName: "",
     };
     if (hasGameEnded) {
       // adding back the cost of the player to the budget if present.

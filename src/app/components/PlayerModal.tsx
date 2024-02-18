@@ -24,7 +24,7 @@ export default function PlayerModal({
           width={100}
           className="self-center"
         />
-        <p>Name: {playerState.playerName}</p>
+        <p>Name: {playerState.fullPlayerName}</p>
         <p>Date of Birth: {playerState.playerAge}</p>
         <p>Club: {playerState.clubName}</p>
         <p>League: {playerState.playerLeague}</p>

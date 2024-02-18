@@ -38,25 +38,22 @@ async function scrapePlayerPage(
   const dom = new JSDOM(html);
   const document = dom.window.document;
 
-  // Age
   const playerAge = getPLayerAge(document);
-  // Dominant foot, Height, Citizenship
+  //playerDetails = Dominant foot, Height, Citizenship
   const playerDetails = getPlayerDetails(document);
   const { playerFoot, playerHeight, playerCitizenship } = playerDetails;
-  // League
   const playerLeague = getPlayerLeague(document);
   // Player Value string, ex: "€7.00m"
   const playerValue = getPlayerValue(document);
-  // Club Logo
   const clubLogo = getClubLogoImgUrl(document);
-  // Club Name
   const clubName = document.querySelector(".data-header__club a")?.textContent;
   // Hero Images, using undocumented transfermarkt api
   const playerHeroImg = await fetchPlayerHeroImg(playerId);
-  // Profile Img
   const playerProfileImgUrl = getPlayerProfileImg(document);
   // full playerValue number ex: from "5.00m" to 5000000
   const marketValueNumber = convertValueStringToNumber(playerValue);
+  const shortPlayerName = formatShortPlayerName(playerName);
+  const fullPlayerName = formatFullPlayerName(playerName);
 
   return {
     playerHeroImg: playerHeroImg,
@@ -70,6 +67,8 @@ async function scrapePlayerPage(
     playerLeague: playerLeague,
     playerCountry: playerCitizenship,
     playerHeight: playerHeight,
+    shortPlayerName: shortPlayerName,
+    fullPlayerName: fullPlayerName,
   } as scrapedData;
 }
 
@@ -80,4 +79,23 @@ function convertValueStringToNumber(playerValue: string) {
   const value = parseFloat(playerValue.substring(1, playerValue.length - 1));
 
   return value * multipliers[unit];
+}
+
+// converts the playerName string to an abbreviated & capitalized version.
+// ex: from "gianluigi-donnarumma" to "G. Donnarumma"
+function formatShortPlayerName(name: string): string {
+  const parts = name
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1));
+  return parts.length > 1
+    ? `${parts[0].charAt(0)}. ${parts.slice(1).join(" ")}`
+    : parts[0];
+}
+
+// formats the playerName data. ex: "gianluigi-donnarumma" to "Gianluigi Donnarumma"
+function formatFullPlayerName(name: string): string {
+  return name
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 }

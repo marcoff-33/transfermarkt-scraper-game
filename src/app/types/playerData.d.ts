@@ -13,6 +13,8 @@ export interface Player {
   playerLeague: string;
   playerCountry: string;
   playerHeight: string;
+  shortPlayerName: string;
+  fullPlayerName: string;
 }
 
 export interface PlayerData {
@@ -33,4 +35,6 @@ export interface scrapedData {
   playerLeague: string;
   playerHeight: string;
   playerCountry: string;
+  shortPlayerName: string;
+  fullPlayerName: string;
 }

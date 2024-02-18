@@ -1,8 +1,8 @@
-import { playerGameState } from "../types/playerData";
+import { Player } from "../types/playerData";
 // this is the clean sheet game state used in "MainGame" component.
 // the positions are used by the "Pitch.tsx" component when passed as props to map over and
 // render each player's icon and name in the correct position on the pitch.
-const gameState: playerGameState[] = [
+const gameState: Player[] = [
   {
     role: "RB",
     playerRow: 5,
@@ -16,6 +16,8 @@ const gameState: playerGameState[] = [
     playerLeague: "",
     playerCountry: "",
     playerHeight: "",
+    fullPlayerName: "",
+    shortPlayerName: "",
   },
   {
     role: "RCB",
@@ -30,6 +32,8 @@ const gameState: playerGameState[] = [
     playerLeague: "",
     playerCountry: "",
     playerHeight: "",
+    fullPlayerName: "",
+    shortPlayerName: "",
   },
   {
     role: "LCB",
@@ -44,6 +48,8 @@ const gameState: playerGameState[] = [
     playerLeague: "",
     playerCountry: "",
     playerHeight: "",
+    fullPlayerName: "",
+    shortPlayerName: "",
   },
   {
     role: "LB",
@@ -58,6 +64,8 @@ const gameState: playerGameState[] = [
     playerLeague: "",
     playerCountry: "",
     playerHeight: "",
+    fullPlayerName: "",
+    shortPlayerName: "",
   },
   {
     role: "RCM",
@@ -72,6 +80,8 @@ const gameState: playerGameState[] = [
     playerLeague: "",
     playerCountry: "",
     playerHeight: "",
+    fullPlayerName: "",
+    shortPlayerName: "",
   },
   {
     role: "DMF",
@@ -86,6 +96,8 @@ const gameState: playerGameState[] = [
     playerLeague: "",
     playerCountry: "",
     playerHeight: "",
+    fullPlayerName: "",
+    shortPlayerName: "",
   },
   {
     role: "LCM",
@@ -100,6 +112,8 @@ const gameState: playerGameState[] = [
     playerLeague: "",
     playerCountry: "",
     playerHeight: "",
+    fullPlayerName: "",
+    shortPlayerName: "",
   },
   {
     role: "RWF",
@@ -114,6 +128,8 @@ const gameState: playerGameState[] = [
     playerLeague: "",
     playerCountry: "",
     playerHeight: "",
+    fullPlayerName: "",
+    shortPlayerName: "",
   },
   {
     role: "CF",
@@ -128,6 +144,8 @@ const gameState: playerGameState[] = [
     playerLeague: "",
     playerCountry: "",
     playerHeight: "",
+    fullPlayerName: "",
+    shortPlayerName: "",
   },
   {
     role: "LWF",
@@ -142,6 +160,8 @@ const gameState: playerGameState[] = [
     playerLeague: "",
     playerCountry: "",
     playerHeight: "",
+    fullPlayerName: "",
+    shortPlayerName: "",
   },
   {
     role: "GK",
@@ -156,6 +176,8 @@ const gameState: playerGameState[] = [
     playerLeague: "",
     playerCountry: "",
     playerHeight: "",
+    fullPlayerName: "",
+    shortPlayerName: "",
   },
 ];
 

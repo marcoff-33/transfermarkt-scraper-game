@@ -22,6 +22,7 @@ export default function Pitch({
   openPlayerModal: (open: boolean) => void;
   displayPlayerStatsFor: (role: Role) => void;
 }) {
+  console.log(playerState);
   return (
     <div className="self-center md:rotate-90 flex shrink-0 pb-3 top-2 relative min-w-[300px] min-h-[500px] sm:min-h-[700px] sm:min-w-[500px] 2xl:min-h-[800px] 2xl:min-w-[600px] overflow-hidden">
       <Image

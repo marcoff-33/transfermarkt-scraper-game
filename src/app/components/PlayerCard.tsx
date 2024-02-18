@@ -34,6 +34,8 @@ export default function PlayerCard({
       playerLeague: "",
       playerCountry: "",
       playerHeight: "",
+      fullPlayerName: "",
+      shortPlayerName: "",
     },
   };
 
@@ -79,6 +81,8 @@ export default function PlayerCard({
     playerFoot: playerData.scrapedPlayerData.playerFoot,
     playerLeague: playerData.scrapedPlayerData.playerLeague,
     playerHeight: playerData.scrapedPlayerData.playerHeight,
+    shortPlayerName: playerData.scrapedPlayerData.shortPlayerName,
+    fullPlayerName: playerData.scrapedPlayerData.fullPlayerName,
   };
 
   return (
@@ -156,7 +160,7 @@ export default function PlayerCard({
               }`}
             >
               <p className="animate-marqueeSlow whitespace-nowrap sm:animate-none z-50 text-white px-5">
-                {playerData.playerName} {playerData.scrapedPlayerData.playerAge}
+                {playerData.scrapedPlayerData.fullPlayerName}
               </p>
             </div>
           </div>

@@ -21,6 +21,8 @@ export const updatePlayerState = (
             playerLeague: newPlayer.playerLeague,
             playerHeight: newPlayer.playerHeight,
             playerCountry: newPlayer.playerCountry,
+            fullPlayerName: newPlayer.fullPlayerName,
+            shortPlayerName: newPlayer.shortPlayerName,
           }
         : player
   );
