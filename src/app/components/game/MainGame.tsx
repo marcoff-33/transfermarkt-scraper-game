@@ -124,8 +124,7 @@ export default function MainGame() {
   };
 
   return (
-    <div className="flex justify-start min-h-screen flex-col overflow-hidden pt-10 md:pt-0">
-      <div className="text-white">{gameState}</div>
+    <div className="min-h-screen flex justify-start flex-col overflow-hidden pt-10 md:pt-0  relative">
       {gameState == "initial" && (
         <PreGameModal
           setBudget={setCurrentBudget}
@@ -139,11 +138,7 @@ export default function MainGame() {
           setModalState={setOpenPlayerModal}
         />
       )}
-      <div className="w-screen fixed gap-5 z-50 top-0 backdrop-blur-sm bg-zinc-500/50 justify-center flex">
-        <p>Budget: {currentBudget.toLocaleString()}</p>
-        {currentRound}
-      </div>
-      {gameState == "ended" && <div className="text-white">game has ended</div>}
+
       {gameState !== "initial" && (
         <Pitch
           playerState={currentPlayers}
@@ -155,7 +150,7 @@ export default function MainGame() {
         />
       )}
       {currentRound < 11 && gameState !== "initial" && (
-        <div className="flex flex-row w-screen px-5 justify-around fixed bottom-0 sm:py-2 bg-zinc-700/50 z-50 backdrop-blur-sm">
+        <div className="flex flex-row px-5 justify-around w-full sm:py-2 z-50 backdrop-blur-sm bottom-10 self-center fixed container h-[200px] gap-5">
           {rolesTierSets[currentRound].map((playerId) => (
             <PlayerCard
               playerId={playerId}

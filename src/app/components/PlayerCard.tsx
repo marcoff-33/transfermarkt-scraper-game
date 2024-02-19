@@ -67,7 +67,7 @@ export default function PlayerCard({
   const [loadingImg, setLoadingImg] = useState(false);
   const [loadingText, setLoadingText] = useState(false);
   const [imageUrl, setImageUrl] = useState(
-    "https://placehold.co/333x186/black/white.png?text=?"
+    "https://placehold.co/333x186/black/white.png?text=|"
   );
 
   const player: Player = {
@@ -86,51 +86,32 @@ export default function PlayerCard({
   };
 
   return (
-    <div className="flex flex-row cardBadgeWrapper overflow-hidden">
+    <div className="cardBadgeWrapper overflow-hidden grow shadow-[2px_0px_10px_rgba(0,0,0,0.250)] shadow-green-900">
       <button
-        className={`cardBadgeWrapper p-1 sm:bg-black ${
+        className={`cardBadgeWrapper p-1 sm:bg-black w-full h-full flex justify-center${
           loadingImg ? "animate-pulse" : ""
         } ${
           playerData.scrapedPlayerData.marketValueNumber > 50000000
-            ? " sm:bg-gradient-to-r from-indigo-500 via-purple-500 to-orange-400"
+            ? " bg-gradient-to-r from-indigo-500 via-purple-500 to-orange-400"
             : playerData.scrapedPlayerData.marketValueNumber > 10000000
-            ? " sm:bg-gradient-to-r from-red-600 to-red-950"
-            : " sm:bg-gradient-to-b from-gray-200 to-transparent"
+            ? " bg-gradient-to-r from-red-600 to-red-950"
+            : " bg-gradient-to-b from-gray-200 to-transparent"
         }`}
         onClick={handleButtonClick}
       >
-        <div className="flex flex-col justify-center items-center relative overflow-hidden cardBadgeWrapper">
-          <div className="relative bg-transparent overflow-hidden flex items-center justify-center flex-col cardBadgeWrapper">
+        <div className="flex flex-col justify-center items-center relative overflow-hidden cardBadgeWrapper grow min-h-full">
+          <div className="bg-transparent overflow-hidden flex items-center justify-center flex-col cardBadgeWrapper min-h-full min-w-full relative grow">
             <Image
               src={imageUrl}
               alt={playerData.playerName || ""}
-              width={300}
-              height={100}
-              className={`self-center rounded-lg transition-all duration-1000 cardBadgeWrapper hidden sm:block ${
+              fill
+              objectFit="cover"
+              objectPosition="top"
+              className={`self-center rounded-lg transition-all duration-1000 cardBadgeWrapper ${
                 loadingImg ? "blur-xl" : "blur-none"
               }`}
             />
-            {open && (
-              <Image
-                src={playerData.scrapedPlayerData.clubLogoUrl}
-                alt={playerData.scrapedPlayerData.clubName}
-                width={50}
-                height={50}
-                className="self-center bottom-0 right-0 sm:hidden block"
-              />
-            )}
-            <Image
-              src={
-                playerData.scrapedPlayerData.playerProfileImgUrl ||
-                "https://placehold.co/100x200/black/white.png?text=?"
-              }
-              alt={playerData.playerName || ""}
-              width={100}
-              height={200}
-              className={`self-center rounded-lg transition-all duration-1000 sm:cardBadgeWrapper sm:hidden  ${
-                loadingImg ? "blur-xl" : "blur-none"
-              }`}
-            />
+
             {open && (
               <Image
                 src={playerData.scrapedPlayerData.clubLogoUrl}
@@ -141,7 +122,7 @@ export default function PlayerCard({
               />
             )}
             <p
-              className={` left-1/2 transform -translate-x-1/2 absolute sm:transform-none sm:top-2 sm:left-2  top-12 z-50 font-extrabold px-1 transition-all duration-100 ${
+              className={` left-1/2 transform -translate-x-1/2 absolute md:transform-none bottom-10 md:top-2 md:bottom-auto md:left-2 z-50 font-extrabold px-1 transition-all duration-100 ${
                 loadingText
                   ? "blur-3xl rounded-none invisible animate-in"
                   : "blur-none rounded-lg block bg-black/50 backdrop-blur-lg"
@@ -155,12 +136,15 @@ export default function PlayerCard({
               {playerData.scrapedPlayerData.playerValue}
             </p>
             <div
-              className={`z-50 left-1/2 transform -translate-x-1/2 rounded-full text-nowrap absolute sm:bottom-7 bottom-0 sm:top-auto self-center text-center w-fit transition-colors sm:duration-1000 shadow-md sm:backdrop-blur-lg px-2 shadow-black bg-black/50  ${
+              className={`z-50 left-1/2 transform -translate-x-1/2 rounded-full text-nowrap absolute md:bottom-7 bottom-0 sm:top-auto self-center text-center w-fit transition-colors md:duration-1000 shadow-md md:backdrop-blur-lg px-2 shadow-black bg-black/50  ${
                 loadingImg ? "invisible text-zinc-500" : "block text-white"
               }`}
             >
-              <p className="animate-marqueeSlow whitespace-nowrap sm:animate-none z-50 text-white px-5">
+              <p className="hidden md:block whitespace-nowrap sm:animate-none z-50 text-white px-5">
                 {playerData.scrapedPlayerData.fullPlayerName}
+              </p>
+              <p className="md:hidden animate-marqueeSlow whitespace-nowrap sm:animate-none z-50 text-white px-5">
+                {playerData.scrapedPlayerData.shortPlayerName}
               </p>
             </div>
           </div>

@@ -15,7 +15,7 @@ export default function PlayerModal({
   resetPlayer: (role: Role) => void;
 }) {
   return (
-    <div className="min-w-[100vw] justify-center items-center flex shrink-0 min-h-[100vh] bg-blue-500/30 backdrop-blur-md absolute z-50 overflow-hidden">
+    <div className="min-w-[100vw] justify-center items-center flex bg-blue-500/30 backdrop-blur-md z-[100] overflow-hidden absolute min-h-full">
       <div className="bg-black z-50 w-[50%] h-full text-white text-center flex flex-col">
         <Image
           src={playerState.profileImgUrl}

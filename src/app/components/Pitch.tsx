@@ -24,16 +24,16 @@ export default function Pitch({
   displayPlayerStatsFor: (role: Role) => void;
 }) {
   return (
-    <div className="self-center md:rotate-90 flex shrink-0 pb-3 top-2 relative min-w-[300px] min-h-[500px] sm:min-h-[700px] sm:min-w-[500px] 2xl:min-h-[800px] 2xl:min-w-[600px] overflow-hidden">
+    <div className="self-center md:rotate-90 flex shrink-0 pb-3 top-2 relative min-w-[400px] min-h-[650px]  md:min-h-[800px] md:min-w-[600px] overflow-hidden shadow-[0_0px_20px_rgba(0,0,0,0.25)] shadow-green-200">
       <Image
         alt="Pitch"
-        className=" bg-emerald-950/50 absolute grow"
+        className="bg-green-950/30 absolute grow"
         src={pitchSvg}
         fill
         objectFit="scale-down"
       />
 
-      <div className="grid  grid-cols-7 grid-rows-6 w-[250px] sm:w-[415px] h-full 2xl:w-[505px] left-7 sm:left-12  top-0 z-50 absolute o">
+      <div className="grid  grid-cols-7 grid-rows-6 w-[350px] h-full md:w-[505px] left-7 md:left-12  top-0 z-50 absolute">
         {playerState.map((player, index) => (
           <PitchPlayer
             player={player}
