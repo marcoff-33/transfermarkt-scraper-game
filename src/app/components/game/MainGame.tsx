@@ -35,6 +35,7 @@ export default function MainGame() {
   const [gameState, setGameState] = useState<GameState>("initial");
   const [openPlayerModal, setOpenPlayerModal] = useState(false);
   const [playerModalRole, setPlayerModalRole] = useState<Role>("GK");
+  const [availableRerolls, setAvailableRerolls] = useState(5);
   // sets a selection of 1 player from each tier for each role.
   const [rolesTierSets, setRolesTierSets] = useState(
     roles.map((role) => drawPlayerFromEachTier(playersDb, role))
@@ -45,26 +46,40 @@ export default function MainGame() {
 
   const [currentRound, setCurrentRound] = useState(0);
 
+  // used by <CardsWrapper /> to reroll the selection of players for the current round
+  const newTierSet = (role: Role, playersDb: PlayersDb) => {
+    if (availableRerolls !== 0) {
+      const newSet = drawPlayerFromEachTier(playersDb, role);
+      const roleIndex = roles.indexOf(role);
+      setRolesTierSets((prevSets) =>
+        prevSets.map((set, index) => (index == roleIndex ? newSet : set))
+      );
+      setAvailableRerolls((rerolls) => rerolls - 1);
+    }
+  };
+
   const resetPlayerInRole = (role: Role) => {
-    const emptyPlayerTemplate: Player = {
-      playerAge: "",
-      role: role,
-      playerCountry: "",
-      playerFoot: "",
-      playerHeight: "",
-      playerLeague: "",
-      playerName: "",
-      playerValue: 0,
-      profileImgUrl: "https://placehold.co/80x70/png?text=?",
-      clubName: "",
-      fullPlayerName: "",
-      shortPlayerName: "",
-    };
-    const defaultRoleState = updatePlayerState(
-      emptyPlayerTemplate,
-      currentPlayers
-    );
-    setCurrentPlayers(defaultRoleState);
+    if (gameState == "ended") {
+      const emptyPlayerTemplate: Player = {
+        playerAge: "",
+        role: role,
+        playerCountry: "",
+        playerFoot: "",
+        playerHeight: "",
+        playerLeague: "",
+        playerName: "",
+        playerValue: 0,
+        profileImgUrl: "https://placehold.co/80x70/png?text=?",
+        clubName: "",
+        fullPlayerName: "",
+        shortPlayerName: "",
+      };
+      const defaultRoleState = updatePlayerState(
+        emptyPlayerTemplate,
+        currentPlayers
+      );
+      setCurrentPlayers(defaultRoleState);
+    }
   };
 
   const handleBudgetAndRoundOnReset = (role: Role) => {
@@ -129,6 +144,9 @@ export default function MainGame() {
 
   return (
     <div className="min-h-screen flex justify-start flex-col overflow-hidden pt-10 md:pt-0  relative">
+      <div className="text-white bg-purple-900 flex justify-center flex-row fixed w-screen">
+        {currentBudget.toLocaleString()}, Rerolls left: {availableRerolls}
+      </div>
       {gameState == "initial" && (
         <PreGameModal
           setBudget={setCurrentBudget}
@@ -153,8 +171,14 @@ export default function MainGame() {
           displayPlayerStatsFor={setModalRole}
         />
       )}
+
       {currentRound < 11 && gameState !== "initial" && (
-        <CardsWrapper>
+        <CardsWrapper
+          rerollPlayers={newTierSet}
+          availableRerolls={availableRerolls}
+          currentRole={roles[currentRound]}
+          playersDb={playersDb}
+        >
           {rolesTierSets[currentRound].map((playerId) => (
             <PlayerCard
               playerId={playerId}
