@@ -6,8 +6,7 @@ export const updatePlayerState = (
   newPlayer: Player,
   playerState: Player[]
 ): Player[] => {
-  const newPlayers = playerState.map(
-    // Declaring return type on map function.
+  const updatedState = playerState.map(
     (player): Player =>
       player.role === newPlayer.role
         ? {
@@ -27,5 +26,5 @@ export const updatePlayerState = (
         : player
   );
 
-  return newPlayers;
+  return updatedState;
 };

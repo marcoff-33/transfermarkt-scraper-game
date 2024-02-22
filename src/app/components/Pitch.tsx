@@ -4,7 +4,6 @@ import Image from "next/image";
 import pitchSvg from "@/app/public/pitch.svg";
 import { Player } from "../types/playerData";
 import { Role } from "../types/playerDb";
-import { convertValueStringToNumber } from "../utils/dataScrapeUtils/getPlayerValue";
 import PitchPlayer from "./PitchPlayer";
 import { GameState } from "./game/MainGame";
 // "rotate-90 and -rotate-90" twcss classes are used to rotate the pitch horizontally
@@ -32,7 +31,6 @@ export default function Pitch({
         fill
         objectFit="scale-down"
       />
-
       <div className="grid  grid-cols-7 grid-rows-6 w-[350px] h-full md:w-[505px] left-7 md:left-12  top-0 z-50 absolute">
         {playerState.map((player, index) => (
           <PitchPlayer

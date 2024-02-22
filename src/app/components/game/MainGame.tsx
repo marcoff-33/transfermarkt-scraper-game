@@ -11,6 +11,7 @@ import { drawPlayerFromEachTier } from "@/app/utils/randomRolePicks";
 import PlayerCard from "../PlayerCard";
 import PlayerModal from "../PlayerModal";
 import PreGameModal from "../PreGameModal";
+import CardsWrapper from "../CardsWrapper";
 
 export type GameState = "initial" | "in progress" | "ended";
 
@@ -44,9 +45,8 @@ export default function MainGame() {
 
   const [currentRound, setCurrentRound] = useState(0);
 
-  const resetRoundByRole = (role: Role) => {
-    // used by <playerModal /> to reset the currently selected player in role to default(empty)
-    const defaultPlayer: Player = {
+  const resetPlayerInRole = (role: Role) => {
+    const emptyPlayerTemplate: Player = {
       playerAge: "",
       role: role,
       playerCountry: "",
@@ -60,20 +60,29 @@ export default function MainGame() {
       fullPlayerName: "",
       shortPlayerName: "",
     };
-    if (gameState == "ended") {
-      // adding back the cost of the player to the budget if present.
+    const defaultRoleState = updatePlayerState(
+      emptyPlayerTemplate,
+      currentPlayers
+    );
+    setCurrentPlayers(defaultRoleState);
+  };
 
+  const handleBudgetAndRoundOnReset = (role: Role) => {
+    if (gameState === "ended") {
+      // Add back the cost of the player to the budget
       const player = currentPlayers.find((player) => player.role === role);
-
       if (player && player.playerValue) {
         setCurrentBudget((prevBudget) => prevBudget + player.playerValue);
       }
-      setCurrentRound(roles.indexOf(role));
 
-      // reset the given role in currentPlayers state to default
-      const defaultRoleState = updatePlayerState(defaultPlayer, currentPlayers);
-      setCurrentPlayers(defaultRoleState);
+      // Reset round to the index of the given role
+      setCurrentRound(roles.indexOf(role));
     }
+  };
+
+  const resetRoundByRole = (role: Role) => {
+    resetPlayerInRole(role);
+    handleBudgetAndRoundOnReset(role);
   };
 
   // used by selectPlayer() to return the market value of the player in selected role, so we can add it back to the budget.
@@ -86,16 +95,14 @@ export default function MainGame() {
   };
 
   // used by <PlayerCard> to update the currentPlayers state with the selected player.
-  const selectPlayer = (player: Player) => {
+  const addPlayerToPitch = (player: Player) => {
     if (player.playerValue <= currentBudget) {
       const newPlayersState = updatePlayerState(player, currentPlayers);
       setOpenPlayerModal(false);
       setCurrentPlayers(newPlayersState);
-      {
-        gameState == "ended"
-          ? setCurrentRound(11)
-          : setCurrentRound((prevRound) => prevRound + 1);
-      }
+      gameState == "ended"
+        ? setCurrentRound(11)
+        : setCurrentRound((prevRound) => prevRound + 1);
       setGameState(currentRound === 10 ? "ended" : gameState);
       setCurrentBudget(
         gameState == "ended"
@@ -106,14 +113,11 @@ export default function MainGame() {
     }
   };
 
-  const openModal = () => {
-    setOpenPlayerModal(true);
-  };
-
   const playerDataByRole: Player = currentPlayers.filter(
     (player) => player.role === playerModalRole
   )[0];
 
+  // used by the <PlayerModal /> what role to render the data from
   const setModalRole = (role: Role) => {
     if (playerDataByRole.role !== role) {
       setPlayerModalRole(role);
@@ -145,22 +149,22 @@ export default function MainGame() {
           resetRoleRound={resetRoundByRole}
           currentRoundRole={roles[currentRound]}
           hasGameEnded={gameState}
-          openPlayerModal={openModal}
+          openPlayerModal={setOpenPlayerModal}
           displayPlayerStatsFor={setModalRole}
         />
       )}
       {currentRound < 11 && gameState !== "initial" && (
-        <div className="flex flex-row px-5 justify-around w-full sm:py-2 z-50 backdrop-blur-sm bottom-10 self-center fixed container h-[200px] gap-5">
+        <CardsWrapper>
           {rolesTierSets[currentRound].map((playerId) => (
             <PlayerCard
               playerId={playerId}
               key={playerId}
-              confirmPlayer={selectPlayer}
+              confirmPlayer={addPlayerToPitch}
               role={roles[currentRound]}
               currentBudget={currentBudget}
             />
           ))}
-        </div>
+        </CardsWrapper>
       )}
     </div>
   );
