@@ -8,8 +8,8 @@ export type Tier =
 export type RoleTiers = {
   [T in Tier]: PlayerId[];
 };
-// All the roles for the team formation.
-export type Role =
+// Roles for the 4-3-3 formation.
+export type RolesFTT =
   | "CF"
   | "RWF"
   | "LWF"
@@ -21,6 +21,22 @@ export type Role =
   | "GK"
   | "RCM"
   | "LCM";
+
+// roles for the 3-4-3 formation.
+export type RolesTFT =
+  | "GK"
+  | "LCB"
+  | "MCB"
+  | "RCB"
+  | "DMF"
+  | "RCM"
+  | "LCM"
+  | "RMF"
+  | "LMF"
+  | "CF"
+  | "SS";
+
+export type Role = RolesFTT | RolesTFT;
 
 export type PlayersDb = {
   [T in Role]: RoleTiers;

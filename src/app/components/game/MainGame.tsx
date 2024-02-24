@@ -1,11 +1,11 @@
 "use client";
 
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import Pitch from "../Pitch";
 import { Player } from "@/app/types/playerData";
 import { updatePlayerState } from "@/app/utils/updatePlayerState";
-import { PlayersDb, Role } from "@/app/types/playerDb";
-import starterGameState from "@/app/utils/newGameState";
+import { PlayersDb, Role, RolesTFT } from "@/app/types/playerDb";
+import emptyGameStates from "@/app/utils/newGameState";
 import db from "../../../../public/players.json";
 import { drawPlayerFromEachTier } from "@/app/utils/randomRolePicks";
 import PlayerCard from "../PlayerCard";
@@ -14,11 +14,16 @@ import PreGameModal from "../PreGameModal";
 import CardsWrapper from "../CardsWrapper";
 
 export type GameState = "initial" | "in progress" | "ended";
+export type Formation = "433" | "343" | "442";
 
 export default function MainGame() {
   const playersDb: PlayersDb = db;
 
-  const roles: Role[] = [
+  // empty player states for each formation
+  // selected by <PreGameModal /> at game start
+  const { gameStateTFT, gameStateFTT, gameStateFFTDia } = emptyGameStates;
+
+  const formationFFT: Role[] = [
     "GK",
     "LCB",
     "RCB",
@@ -31,6 +36,35 @@ export default function MainGame() {
     "LWF",
     "RWF",
   ];
+  const formationFFTDia: Role[] = [
+    "GK",
+    "LCB",
+    "RCB",
+    "RB",
+    "LB",
+    "DMF",
+    "CF",
+    "RCM",
+    "LCM",
+    "RMF",
+    "SS",
+  ];
+
+  const formationTFT: Role[] = [
+    "GK",
+    "LCB",
+    "MCB",
+    "RCB",
+    "DMF",
+    "RCM",
+    "LCM",
+    "RMF",
+    "LMF",
+    "CF",
+    "SS",
+  ];
+
+  const [roles, setRoles] = useState(formationTFT);
   const [currentBudget, setCurrentBudget] = useState(0);
   const [gameState, setGameState] = useState<GameState>("initial");
   const [openPlayerModal, setOpenPlayerModal] = useState(false);
@@ -40,11 +74,24 @@ export default function MainGame() {
   const [rolesTierSets, setRolesTierSets] = useState(
     roles.map((role) => drawPlayerFromEachTier(playersDb, role))
   );
-
-  const [currentPlayers, setCurrentPlayers] =
-    useState<Player[]>(starterGameState);
-
+  const [currentPlayers, setCurrentPlayers] = useState<Player[]>(gameStateTFT);
   const [currentRound, setCurrentRound] = useState(0);
+
+  // used by <PreGameModal /> to set the game formation
+  const setFormation = (formation: Formation) => {
+    if (formation == "343") {
+      setRoles(formationTFT);
+      setCurrentPlayers(gameStateTFT);
+    }
+    if (formation == "433") {
+      setRoles(formationFFT);
+      setCurrentPlayers(gameStateFTT);
+    }
+    if (formation == "442") {
+      setRoles(formationFFTDia);
+      setCurrentPlayers(gameStateFFTDia);
+    }
+  };
 
   // used by <CardsWrapper /> to reroll the selection of players for the current round
   const newTierSet = (role: Role, playersDb: PlayersDb) => {
@@ -151,6 +198,7 @@ export default function MainGame() {
         <PreGameModal
           setBudget={setCurrentBudget}
           setGameState={setGameState}
+          setFormation={setFormation}
         />
       )}
       {openPlayerModal && playerDataByRole.playerName !== "" && (

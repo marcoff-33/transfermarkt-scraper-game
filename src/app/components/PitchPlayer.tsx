@@ -67,7 +67,6 @@ export default function PitchPlayer({
         src={player.profileImgUrl}
         width={300}
         height={500}
-        objectFit="scale-down"
         className="rounded-md h-full w-full"
       />
       <div className="z-50 text-sm font-semibold overflow-x-hidden">
