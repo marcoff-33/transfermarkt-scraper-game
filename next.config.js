@@ -7,7 +7,6 @@ const nextConfig = {
       "tmssl.akamaized.net",
     ],
   },
-  reactStrictMode: false,
 };
 
 module.exports = nextConfig;
