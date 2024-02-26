@@ -59,7 +59,8 @@ export default function PitchPlayer({
         gridColumn: player.playerCol,
       }}
       onClick={() => {
-        openPlayerModal(true), displayPlayerStatsFor(player.role);
+        player.playerName !== "" && openPlayerModal(true),
+          player.playerName !== "" && displayPlayerStatsFor(player.role);
       }}
     >
       <Image

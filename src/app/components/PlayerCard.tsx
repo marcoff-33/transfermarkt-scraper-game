@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { saGetPlayerData } from "../utils/saGetPlayerData";
 import { Role } from "../types/playerDb";
 import Image from "next/image";
@@ -38,17 +38,19 @@ export default function PlayerCard({
       shortPlayerName: "",
     },
   };
+  console.log(`${playerId} card rerender`);
 
   const handleButtonClick = async () => {
     if (open) {
       confirmPlayer(player);
-    } else {
+    } else if (isStored == false) {
       // timeouts are used for animating the card after data is fetched
       setLoadingImg(true);
       setLoadingText(true);
       // Next server action
       const newData = await saGetPlayerData(playerId);
       setPlayerData(newData);
+      localStorage.setItem(`player-${playerId}`, JSON.stringify(newData));
       setOpen(true);
       setTimeout(() => {
         setImageUrl(newData.scrapedPlayerData.playerHeroImg);
@@ -62,13 +64,34 @@ export default function PlayerCard({
     }
   };
 
-  const [open, setOpen] = useState(false);
   const [playerData, setPlayerData] = useState<PlayerData>(emptyPlayerData);
+  const [open, setOpen] = useState(false);
   const [loadingImg, setLoadingImg] = useState(false);
   const [loadingText, setLoadingText] = useState(false);
   const [imageUrl, setImageUrl] = useState(
     "https://placehold.co/333x186/black/white.png?text=|"
   );
+  const [isStored, setIsStored] = useState(false);
+
+  useEffect(() => {
+    // Check for existing data in local storage
+    const storedItem = localStorage.getItem(`player-${playerId}`);
+
+    if (storedItem) {
+      const storedData = JSON.parse(storedItem);
+
+      if (storedData) {
+        // Set playerData state from local storage
+        setPlayerData(storedData);
+        setImageUrl(storedData.scrapedPlayerData.playerHeroImg);
+        setIsStored(true);
+        setOpen(true);
+      }
+    }
+
+    // Clear local storage when the page is unloaded
+    window.onbeforeunload = () => localStorage.clear();
+  }, [playerId]);
 
   const player: Player = {
     role: role,
@@ -105,7 +128,7 @@ export default function PlayerCard({
               src={imageUrl}
               alt={playerData.playerName || ""}
               fill
-              objectFit="cover"
+              style={{ objectFit: "cover" }}
               objectPosition="top"
               className={`self-center rounded-lg transition-all duration-1000 cardBadgeWrapper ${
                 loadingImg ? "blur-xl" : "blur-none"

@@ -191,8 +191,10 @@ export default function MainGame() {
 
   return (
     <div className="min-h-screen flex justify-start flex-col overflow-hidden pt-10 md:pt-0  relative">
-      <div className="text-white bg-purple-900 flex justify-center flex-row fixed w-screen">
-        {currentBudget.toLocaleString()}, Rerolls left: {availableRerolls}
+      <div className="text-white bg-purple-900 flex justify-center flex-row fixed w-screen z-[1000]">
+        {currentBudget.toLocaleString()}, Rerolls left: {availableRerolls}{" "}
+        {playerModalRole} {playerDataByRole.playerName}
+        round: {currentRound}
       </div>
       {gameState == "initial" && (
         <PreGameModal
