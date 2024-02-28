@@ -13,15 +13,20 @@ export default function PreGameModal({
   setFormation: (formation: Formation) => void;
 }) {
   const [budgetValue, setBudgetValue] = useState<BudgetSize>("medium");
-  const values: BudgetSize[] = ["small", "medium", "large"];
+  const [selectedFormation, setSelectedFormation] =
+    useState<Formation>("4-3-3");
 
-  const handleClick = (budget: BudgetSize) => {
+  const values: BudgetSize[] = ["small", "medium", "large"];
+  const formations: Formation[] = ["3-4-3", "4-3-3", "4-4-2 ( Diamond )"];
+
+  const handleClick = (budget: BudgetSize, formation: Formation) => {
     budget == "small"
       ? setBudget(100000000)
       : budget == "medium"
       ? setBudget(250000000)
       : setBudget(350000000);
     setGameState("in progress");
+    setFormation(formation);
   };
   return (
     <div className="min-w-full self-center justify-center items-center flex flex-col gap-10 shrink-0 min-h-[100vh] bg-zinc-500 z-50 overflow-hidden">
@@ -40,11 +45,21 @@ export default function PreGameModal({
         ))}
       </div>
       <div className="flex flex-row gap-5">
-        <button onClick={() => setFormation("343")}>3-4-3</button>
-        <button onClick={() => setFormation("433")}>4-3-3</button>
-        <button onClick={() => setFormation("442")}>4-4-2(diamond)</button>
+        {formations.map((formation, index) => (
+          <button
+            onClick={() => setSelectedFormation(formation)}
+            key={index}
+            className={`${
+              selectedFormation == formation ? "bg-emerald-500" : ""
+            }`}
+          >
+            {formation}
+          </button>
+        ))}
       </div>
-      <button onClick={() => handleClick(budgetValue)}>Start Game</button>
+      <button onClick={() => handleClick(budgetValue, selectedFormation)}>
+        Start Game
+      </button>
     </div>
   );
 }

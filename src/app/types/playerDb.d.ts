@@ -33,6 +33,7 @@ export type RolesTFT =
   | "LCM"
   | "RMF"
   | "LMF"
+  | "AMF"
   | "CF"
   | "SS";
 

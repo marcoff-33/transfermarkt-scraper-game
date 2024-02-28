@@ -475,7 +475,7 @@ const gameStateFFTDia: Player[] = [
     shortPlayerName: "",
   },
   {
-    role: "RMF",
+    role: "AMF",
     playerRow: 3,
     playerCol: 5,
     playerName: "",

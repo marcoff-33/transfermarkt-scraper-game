@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Pitch from "../Pitch";
 import { Player } from "@/app/types/playerData";
 import { updatePlayerState } from "@/app/utils/updatePlayerState";
@@ -14,7 +14,7 @@ import PreGameModal from "../PreGameModal";
 import CardsWrapper from "../CardsWrapper";
 
 export type GameState = "initial" | "in progress" | "ended";
-export type Formation = "433" | "343" | "442";
+export type Formation = "3-4-3" | "4-3-3" | "4-4-2 ( Diamond )";
 
 export default function MainGame() {
   const playersDb: PlayersDb = db;
@@ -23,7 +23,7 @@ export default function MainGame() {
   // selected by <PreGameModal /> at game start
   const { gameStateTFT, gameStateFTT, gameStateFFTDia } = emptyGameStates;
 
-  const formationFFT: Role[] = [
+  const formationFTT: Role[] = [
     "GK",
     "LCB",
     "RCB",
@@ -43,11 +43,12 @@ export default function MainGame() {
     "RB",
     "LB",
     "DMF",
-    "CF",
+
     "RCM",
     "LCM",
     "RMF",
     "SS",
+    "CF",
   ];
 
   const formationTFT: Role[] = [
@@ -77,17 +78,24 @@ export default function MainGame() {
   const [currentPlayers, setCurrentPlayers] = useState<Player[]>(gameStateTFT);
   const [currentRound, setCurrentRound] = useState(0);
 
+  useEffect(() => {
+    if (roles) {
+      setRolesTierSets(
+        roles.map((role) => drawPlayerFromEachTier(playersDb, role))
+      );
+      console.log("rolesEffect Rererender");
+    }
+  }, [roles]);
+
   // used by <PreGameModal /> to set the game formation
   const setFormation = (formation: Formation) => {
-    if (formation == "343") {
+    if (formation == "3-4-3") {
       setRoles(formationTFT);
       setCurrentPlayers(gameStateTFT);
-    }
-    if (formation == "433") {
-      setRoles(formationFFT);
+    } else if (formation == "4-3-3") {
+      setRoles(formationFTT);
       setCurrentPlayers(gameStateFTT);
-    }
-    if (formation == "442") {
+    } else if (formation == "4-4-2 ( Diamond )") {
       setRoles(formationFFTDia);
       setCurrentPlayers(gameStateFFTDia);
     }
