@@ -5,6 +5,7 @@ import { saGetPlayerData } from "../utils/saGetPlayerData";
 import { Role } from "../types/playerDb";
 import Image from "next/image";
 import { Player, PlayerData } from "../types/playerData";
+import { getPlayerColor } from "../utils/updatePlayerState";
 
 export default function PlayerCard({
   playerId,
@@ -110,7 +111,14 @@ export default function PlayerCard({
 
   return (
     <button
-      className={`overflow-hidden grow shadow-[5px_5px_20px_rgba(0,0,0,0.250)] shadow-zinc-500/50 p-1 sm:bg-zinc-900 w-full h-full`}
+      className={`overflow-hidden grow shadow-[5px_5px_15px_rgba(0,0,0,0.250)] duration-1000 transition-all p-1 sm:bg-zinc-900 w-full h-full ${
+        playerData.scrapedPlayerData.marketValueNumber == 0
+          ? "shadow-white"
+          : getPlayerColor(
+              playerData.scrapedPlayerData.marketValueNumber,
+              "shadow"
+            )
+      } `}
       onClick={handleButtonClick}
     >
       <div className="min-h-full flex flex-col justify-center items-center relative overflow-hidden ">
@@ -122,7 +130,7 @@ export default function PlayerCard({
             style={{ objectFit: "cover" }}
             objectPosition="top"
             className={`self-center rounded-lg transition-all duration-1000 w-full h-full grow sm:block hidden ${
-              loadingImg ? "blur-xl" : "blur-none"
+              loadingImg ? "blur-xl animate-pulse" : "blur-none"
             }`}
           />
           <Image

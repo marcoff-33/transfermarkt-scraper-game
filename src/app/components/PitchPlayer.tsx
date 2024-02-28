@@ -18,7 +18,7 @@ export default function PitchPlayer({
   return (
     <button
       key={player.playerName}
-      className={`z-50 max-h-[70%] rounded-md md:-rotate-90  ${
+      className={`z-50 max-h-[70%] rounded-full md:-rotate-90   ${
         currentRoundRole == player.role
           ? "animate-pulse border-black border-[5px]"
           : "shadow-[0px_0px_100px_rgba(0,0,0,0)] " +
@@ -38,9 +38,10 @@ export default function PitchPlayer({
       <Image
         alt={player.role}
         src={player.profileImgUrl}
-        width={300}
+        width={150}
         height={300}
-        className="rounded-md h-full w-full"
+        className="rounded-full h-full w-full"
+        style={{ objectFit: "cover", objectPosition: "center" }}
       />
       <div className="z-50 text-sm font-semibold overflow-x-hidden">
         <p
