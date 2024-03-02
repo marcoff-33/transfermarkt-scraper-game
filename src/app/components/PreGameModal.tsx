@@ -1,7 +1,8 @@
 import React, { SetStateAction, useState } from "react";
 import { Formation, GameState } from "./game/MainGame";
 
-type BudgetSize = "small" | "medium" | "large";
+
+type BudgetSize = "small" | "medium" | "large"; 
 
 export default function PreGameModal({
   setBudget,

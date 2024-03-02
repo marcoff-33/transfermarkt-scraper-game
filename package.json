@@ -12,7 +12,8 @@
     "jsdom": "^23.2.0",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-icons": "^5.0.1"
   },
   "devDependencies": {
     "@types/jsdom": "^21.1.6",

@@ -43,10 +43,9 @@ export default function MainGame() {
     "RB",
     "LB",
     "DMF",
-
     "RCM",
     "LCM",
-    "RMF",
+    "AMF",
     "SS",
     "CF",
   ];
@@ -104,11 +103,27 @@ export default function MainGame() {
   // used by <CardsWrapper /> to reroll the selection of players for the current round
   const newTierSet = (role: Role, playersDb: PlayersDb) => {
     if (availableRerolls !== 0) {
-      const newSet = drawPlayerFromEachTier(playersDb, role);
       const roleIndex = roles.indexOf(role);
-      setRolesTierSets((prevSets) =>
-        prevSets.map((set, index) => (index == roleIndex ? newSet : set))
-      );
+
+      setRolesTierSets((prevSets) => {
+        const currentSet = prevSets[roleIndex];
+        let newSet = drawPlayerFromEachTier(playersDb, role);
+
+        // Ensure the new set doesn't contain any player from the current set
+        while (newSet.some((player) => currentSet.includes(player))) {
+          newSet = drawPlayerFromEachTier(playersDb, role);
+        }
+
+        currentSet.forEach((playerId) => {
+          localStorage.removeItem(`player-${playerId}`);
+        });
+
+        // Return the new state
+        return prevSets.map((set, index) =>
+          index == roleIndex ? newSet : set
+        );
+      });
+
       setAvailableRerolls((rerolls) => rerolls - 1);
     }
   };
