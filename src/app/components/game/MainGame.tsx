@@ -83,7 +83,6 @@ export default function MainGame() {
       setRolesTierSets(
         roles.map((role) => drawPlayerFromEachTier(playersDb, role))
       );
-      console.log("rolesEffect Rererender");
     }
   }, [roles]);
 
@@ -110,7 +109,7 @@ export default function MainGame() {
         const currentSet = prevSets[roleIndex];
         let newSet = drawPlayerFromEachTier(playersDb, role);
 
-        // Ensure the new set doesn't contain any player from the current set
+        // to make sure the new set doesn't contain any players from the current set
         while (newSet.some((player) => currentSet.includes(player))) {
           newSet = drawPlayerFromEachTier(playersDb, role);
         }
@@ -119,7 +118,6 @@ export default function MainGame() {
           localStorage.removeItem(`player-${playerId}`);
         });
 
-        // Return the new state
         return prevSets.map((set, index) =>
           index == roleIndex ? newSet : set
         );
@@ -157,7 +155,7 @@ export default function MainGame() {
     if (gameState === "ended") {
       // Add back the cost of the player to the budget
       const player = currentPlayers.find((player) => player.role === role);
-      if (player && player.playerValue) {
+      if (player && player.playerValue !== 0) {
         setCurrentBudget((prevBudget) => prevBudget + player.playerValue);
       }
 
@@ -185,7 +183,7 @@ export default function MainGame() {
     if (player.playerValue <= currentBudget) {
       const newPlayersState = updatePlayerState(player, currentPlayers);
       setOpenPlayerModal(false);
-      setCurrentPlayers(newPlayersState);
+      setCurrentPlayers((prevState) => newPlayersState);
       gameState == "ended"
         ? setCurrentRound(12)
         : setCurrentRound((prevRound) => prevRound + 1);
@@ -210,7 +208,6 @@ export default function MainGame() {
     }
     if (gameState == "ended") {
       setCurrentRound(roles.indexOf(role));
-      console.log("role", role, "ndex", roles.indexOf(role));
     }
   };
 

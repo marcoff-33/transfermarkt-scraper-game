@@ -48,10 +48,6 @@ export default function PlayerCard({
 
   const handleButtonClick = async () => {
     if (open) {
-      if (currentRound == 10) {
-        confirmPlayer(player);
-        setGameState("ended");
-      }
       confirmPlayer(player);
     } else if (isStored == false) {
       // timeouts are used for animating the card after data is fetched
