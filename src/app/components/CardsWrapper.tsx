@@ -21,7 +21,7 @@ export default function CardsWrapper({
   return (
     <div className="container fixed bottom-5 self-center">
       {!mini ? (
-        <div className="animate-in flex flex-row justify-around w-full sm:py-2 z-50 backdrop-blur-sm bottom-5 self-center h-[150px] sm:h-[200px] md:gap-5 gap-2">
+        <div className="flex flex-row justify-around w-full sm:py-2 z-50 backdrop-blur-sm bottom-5 self-center h-[150px] sm:h-[200px] md:gap-5 gap-2">
           <button
             onClick={() => rerollPlayers(currentRole, playersDb)}
             className="text-white flex"

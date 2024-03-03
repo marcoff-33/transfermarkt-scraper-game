@@ -21,6 +21,7 @@ export default function MainGame() {
 
   // empty player states for each formation
   // selected by <PreGameModal /> at game start
+  // also containing grid position data for <Pitch />
   const { gameStateTFT, gameStateFTT, gameStateFFTDia } = emptyGameStates;
 
   const formationFTT: Role[] = [
@@ -186,7 +187,7 @@ export default function MainGame() {
       setOpenPlayerModal(false);
       setCurrentPlayers(newPlayersState);
       gameState == "ended"
-        ? setCurrentRound(11)
+        ? setCurrentRound(12)
         : setCurrentRound((prevRound) => prevRound + 1);
       setGameState(currentRound === 10 ? "ended" : gameState);
       setCurrentBudget(
@@ -209,6 +210,7 @@ export default function MainGame() {
     }
     if (gameState == "ended") {
       setCurrentRound(roles.indexOf(role));
+      console.log("role", role, "ndex", roles.indexOf(role));
     }
   };
 
@@ -217,7 +219,7 @@ export default function MainGame() {
       <div className="text-white bg-purple-900 flex justify-center flex-row fixed w-screen z-[1000]">
         {currentBudget.toLocaleString()}, Rerolls left: {availableRerolls}{" "}
         {playerModalRole} {playerDataByRole.playerName}
-        round: {currentRound}
+        round: {currentRound} {gameState} {playerModalRole}
       </div>
       {gameState == "initial" && (
         <PreGameModal
@@ -245,7 +247,7 @@ export default function MainGame() {
         />
       )}
 
-      {currentRound < 11 && gameState !== "initial" && (
+      {currentRound < 12 && gameState !== "initial" && (
         <CardsWrapper
           rerollPlayers={newTierSet}
           availableRerolls={availableRerolls}
@@ -259,8 +261,16 @@ export default function MainGame() {
               confirmPlayer={addPlayerToPitch}
               role={roles[currentRound]}
               currentBudget={currentBudget}
+              setGameState={setGameState}
+              currentRound={currentRound}
             />
           ))}
+          <button
+            onClick={() => console.log(currentPlayers)}
+            className="text-white"
+          >
+            log
+          </button>
         </CardsWrapper>
       )}
     </div>

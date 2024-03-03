@@ -6,17 +6,22 @@ import { Role } from "../types/playerDb";
 import Image from "next/image";
 import { Player, PlayerData } from "../types/playerData";
 import { getPlayerColor } from "../utils/updatePlayerState";
+import { GameState } from "./game/MainGame";
 
 export default function PlayerCard({
   playerId,
   confirmPlayer,
   role,
   currentBudget,
+  setGameState,
+  currentRound,
 }: {
   playerId: number;
   confirmPlayer: (player: Player) => void;
   role: Role;
   currentBudget: number;
+  setGameState: (state: GameState) => void;
+  currentRound: number;
 }) {
   // used to fill the playerData state before fetching any real data
   // to avoid type errors
@@ -43,6 +48,10 @@ export default function PlayerCard({
 
   const handleButtonClick = async () => {
     if (open) {
+      if (currentRound == 10) {
+        confirmPlayer(player);
+        setGameState("ended");
+      }
       confirmPlayer(player);
     } else if (isStored == false) {
       // timeouts are used for animating the card after data is fetched
