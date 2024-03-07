@@ -5,7 +5,7 @@ import pitchSvg from "@/app/public/pitch.svg";
 import { Player } from "../types/playerData";
 import { Role } from "../types/playerDb";
 import PitchPlayer from "./PitchPlayer";
-import { GameState } from "./game/MainGame";
+import { GameState } from "./games/MainGame";
 // "rotate-90 and -rotate-90" twcss classes are used to rotate the pitch horizontally
 // pitch is vertical for lower viewports
 

@@ -6,7 +6,7 @@ import { Role } from "../types/playerDb";
 import Image from "next/image";
 import { Player, PlayerData } from "../types/playerData";
 import { getPlayerColor } from "../utils/updatePlayerState";
-import { GameState } from "./game/MainGame";
+import { GameState } from "./games/MainGame";
 
 export default function PlayerCard({
   playerId,

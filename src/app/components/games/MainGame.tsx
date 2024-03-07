@@ -244,7 +244,7 @@ export default function MainGame() {
         />
       )}
 
-      {currentRound < 12 && gameState !== "initial" && (
+      {currentRound < 11 && gameState !== "initial" && (
         <CardsWrapper
           rerollPlayers={newTierSet}
           availableRerolls={availableRerolls}
