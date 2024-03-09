@@ -6,7 +6,7 @@ export const getPlayerData = async (
   playerId: number,
   playerName: string
 ): Promise<scrapedData> => {
-  const playerAge = getPLayerAge(document);
+  const PlayerBirthDay = getPlayerBirthDay(document);
   //playerDetails = Dominant foot, Height, Citizenship
   const playerDetails = getPlayerDetails(document);
   const { playerFoot, playerHeight, playerCitizenship } = playerDetails;
@@ -22,13 +22,15 @@ export const getPlayerData = async (
   const marketValueNumber = convertValueStringToNumber(playerValue);
   const shortPlayerName = formatShortPlayerName(playerName);
   const fullPlayerName = formatFullPlayerName(playerName);
-
+  const playerAgeNumber = getAge(PlayerBirthDay);
+  const playerHeightNumber = getHeight(playerHeight);
+  console.log(playerHeightNumber);
   return {
     clubLogoUrl: clubLogo,
     clubName: clubName || "",
     fullPlayerName: fullPlayerName,
     marketValueNumber: marketValueNumber,
-    playerAge: playerAge,
+    playerAge: PlayerBirthDay,
     playerCountry: playerCitizenship,
     playerFoot: playerFoot,
     playerHeight: playerHeight,
@@ -37,6 +39,8 @@ export const getPlayerData = async (
     playerProfileImgUrl: playerProfileImgUrl,
     playerValue: playerValue,
     shortPlayerName: shortPlayerName,
+    playerAgeNumber: playerAgeNumber,
+    playerHeightNumber: playerHeightNumber,
   };
 };
 
@@ -52,7 +56,7 @@ const getClubLogoImgUrl = (document: Document) => {
   return clubLogo;
 };
 
-export const getPLayerAge = (document: Document) => {
+export const getPlayerBirthDay = (document: Document) => {
   const playerAgeElement = document.querySelector(
     ".info-table__content--bold a"
   );
@@ -178,4 +182,20 @@ function formatFullPlayerName(name: string): string {
     .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
+}
+
+// formats the date of birth string ex : "Aug 17 1999 (24)"
+// returns a number with the player's age ex : 24
+function getAge(birthdayString: string): number {
+  const match = birthdayString.match(/\((\d+)\)/);
+  return match ? parseInt(match[1]) : 0;
+}
+
+function getHeight(heightString: string): number {
+  const match = heightString.match(/(\d+,\d+)/);
+  if (match) {
+    const height = match[1].replace(",", "");
+    return parseInt(height);
+  }
+  return 0;
 }

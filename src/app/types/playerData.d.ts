@@ -37,4 +37,6 @@ export interface scrapedData {
   playerCountry: string;
   shortPlayerName: string;
   fullPlayerName: string;
+  playerAgeNumber: number;
+  playerHeightNumber: number;
 }
