@@ -21,10 +21,10 @@ export default function PreGameModal({
 
   const handleClick = (budget: BudgetSize, formation: Formation) => {
     budget == "small"
-      ? setBudget(100000000)
+      ? setBudget(450000000)
       : budget == "medium"
-      ? setBudget(250000000)
-      : setBudget(850000000);
+      ? setBudget(500000000)
+      : setBudget(600000000);
     setGameState("in progress");
     setFormation(formation);
   };

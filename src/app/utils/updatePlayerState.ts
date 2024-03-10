@@ -59,44 +59,50 @@ export const getPlayerColor = (playerValue: number, type: ColorType) => {
     : "border-none";
 };
 
+// used by the <SwapModal /> to swap 2 players on the pitch.
 export const swapPlayersByRole = (
-  playerState: Player[],
+  playersState: Player[],
   setPlayerState: (newPlayersState: Player[]) => void,
   firstRole: Role,
   secondRole: Role,
   tierSets: number[][],
   setTierSets: (newSets: number[][]) => void
 ) => {
-  const firstPlayerIndex = playerState.findIndex(
-    (player) => player.role === firstRole
-  );
-  const secondPlayerIndex = playerState.findIndex(
-    (player) => player.role === secondRole
-  );
+  const findPlayerIndexInState = (role: Role) =>
+    playersState.findIndex((player) => player.role === role);
 
-  const firstPlayerTiersetId = tierSets.findIndex((tierset) =>
-    tierset.includes(playerState[firstPlayerIndex].playerId)
-  );
-  const secondPlayerTiersetId = tierSets.findIndex((tierset) =>
-    tierset.includes(playerState[secondPlayerIndex].playerId)
-  );
+  const findSetId = (playerIndex: number) =>
+    tierSets.findIndex((tierset) =>
+      tierset.includes(playersState[playerIndex].playerId)
+    );
+  const swapIdsInTierset = (tiersetId: number, oldId: number, newId: number) =>
+    tierSets[tiersetId].map((id) => (id === oldId ? newId : id));
 
-  const updatedPlayers = [...playerState];
+  const firstPlayerIndex = findPlayerIndexInState(firstRole);
+  const secondPlayerIndex = findPlayerIndexInState(secondRole);
+
+  const firstPlayerTiersetId = findSetId(firstPlayerIndex);
+  const secondPlayerTiersetId = findSetId(secondPlayerIndex);
+
+  const updatedPlayers = [...playersState];
   const updatedTiersets = [...tierSets];
 
-  const tempSet = updatedTiersets[firstPlayerTiersetId];
-  const firstPlayerId = playerState[firstPlayerIndex].playerId;
-  const secondPlayerId = playerState[secondPlayerIndex].playerId;
-  const updatedFirstTierset = tempSet.map((id) =>
-    id === firstPlayerId ? secondPlayerId : id
+  const firstPlayerId = playersState[firstPlayerIndex].playerId;
+  const secondPlayerId = playersState[secondPlayerIndex].playerId;
+
+  updatedTiersets[firstPlayerTiersetId] = swapIdsInTierset(
+    firstPlayerTiersetId,
+    firstPlayerId,
+    secondPlayerId
   );
-  const updatedSecondTierset = tempSet.map((id) =>
-    id === secondPlayerId ? firstPlayerId : id
+  updatedTiersets[secondPlayerTiersetId] = swapIdsInTierset(
+    secondPlayerTiersetId,
+    secondPlayerId,
+    firstPlayerId
   );
-  updatedTiersets[firstPlayerTiersetId] = updatedFirstTierset;
-  updatedTiersets[secondPlayerTiersetId] = updatedSecondTierset;
 
   const temp = updatedPlayers[firstPlayerIndex];
+
   updatedPlayers[firstPlayerIndex] = {
     ...updatedPlayers[secondPlayerIndex],
     role: firstRole,
@@ -109,6 +115,7 @@ export const swapPlayersByRole = (
     playerRow: updatedPlayers[secondPlayerIndex].playerRow,
     playerCol: updatedPlayers[secondPlayerIndex].playerCol,
   };
+
   setPlayerState(updatedPlayers);
   setTierSets(updatedTiersets);
 };
