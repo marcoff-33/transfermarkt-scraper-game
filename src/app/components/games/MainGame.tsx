@@ -181,8 +181,13 @@ export default function MainGame() {
     return 0;
   };
 
+  console.log(currentPlayers, "currentplayers");
+
   // used by <PlayerCard> to update the currentPlayers state with the selected player.
   const addPlayerToPitch = (player: Player) => {
+    if (currentPlayers.some((p) => p.playerId === player.playerId)) {
+      return;
+    }
     if (player.playerValue <= currentBudget) {
       const newPlayersState = updatePlayerState(player, currentPlayers);
       setOpenPlayerModal(false);

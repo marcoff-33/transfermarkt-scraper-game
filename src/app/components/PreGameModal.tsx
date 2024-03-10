@@ -24,7 +24,7 @@ export default function PreGameModal({
       ? setBudget(100000000)
       : budget == "medium"
       ? setBudget(250000000)
-      : setBudget(350000000);
+      : setBudget(850000000);
     setGameState("in progress");
     setFormation(formation);
   };
