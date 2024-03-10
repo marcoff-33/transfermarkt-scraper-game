@@ -19,6 +19,7 @@ const gameStateFTT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "RCB",
@@ -35,6 +36,7 @@ const gameStateFTT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "LCB",
@@ -51,6 +53,7 @@ const gameStateFTT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "LB",
@@ -67,6 +70,7 @@ const gameStateFTT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "RCM",
@@ -83,6 +87,7 @@ const gameStateFTT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "DMF",
@@ -99,6 +104,7 @@ const gameStateFTT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "LCM",
@@ -115,6 +121,7 @@ const gameStateFTT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "RWF",
@@ -131,6 +138,7 @@ const gameStateFTT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "CF",
@@ -147,6 +155,7 @@ const gameStateFTT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "LWF",
@@ -163,6 +172,7 @@ const gameStateFTT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "GK",
@@ -179,6 +189,7 @@ const gameStateFTT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
 ];
 
@@ -198,6 +209,7 @@ const gameStateTFT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "MCB",
@@ -214,6 +226,7 @@ const gameStateTFT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "LCB",
@@ -230,6 +243,7 @@ const gameStateTFT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "DMF",
@@ -246,6 +260,7 @@ const gameStateTFT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "RCM",
@@ -262,6 +277,7 @@ const gameStateTFT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "RMF",
@@ -278,6 +294,7 @@ const gameStateTFT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "LCM",
@@ -294,6 +311,7 @@ const gameStateTFT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "LMF",
@@ -310,6 +328,7 @@ const gameStateTFT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "CF",
@@ -326,6 +345,7 @@ const gameStateTFT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "SS",
@@ -342,6 +362,7 @@ const gameStateTFT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "GK",
@@ -358,6 +379,7 @@ const gameStateTFT: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
 ];
 
@@ -377,6 +399,7 @@ const gameStateFFTDia: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "RCB",
@@ -393,6 +416,7 @@ const gameStateFFTDia: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "LCB",
@@ -409,6 +433,7 @@ const gameStateFFTDia: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "LB",
@@ -425,6 +450,7 @@ const gameStateFFTDia: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "RCM",
@@ -441,6 +467,7 @@ const gameStateFFTDia: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "DMF",
@@ -457,6 +484,7 @@ const gameStateFFTDia: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "LCM",
@@ -473,6 +501,7 @@ const gameStateFFTDia: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "AMF",
@@ -489,6 +518,7 @@ const gameStateFFTDia: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "CF",
@@ -505,6 +535,7 @@ const gameStateFFTDia: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "SS",
@@ -521,6 +552,7 @@ const gameStateFFTDia: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
   {
     role: "GK",
@@ -537,6 +569,7 @@ const gameStateFFTDia: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerId: 0,
   },
 ];
 

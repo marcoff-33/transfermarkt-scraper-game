@@ -15,6 +15,7 @@ export interface Player {
   playerHeight: string;
   shortPlayerName: string;
   fullPlayerName: string;
+  playerId: number;
 }
 
 export interface PlayerData {

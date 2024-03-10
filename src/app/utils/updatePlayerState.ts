@@ -22,6 +22,7 @@ export const updatePlayerState = (
             playerCountry: newPlayer.playerCountry,
             fullPlayerName: newPlayer.fullPlayerName,
             shortPlayerName: newPlayer.shortPlayerName,
+            playerId: newPlayer.playerId,
           }
         : player
   );
@@ -56,4 +57,58 @@ export const getPlayerColor = (playerValue: number, type: ColorType) => {
     : playerValue > 1
     ? "shadow-green-700"
     : "border-none";
+};
+
+export const swapPlayersByRole = (
+  playerState: Player[],
+  setPlayerState: (newPlayersState: Player[]) => void,
+  firstRole: Role,
+  secondRole: Role,
+  tierSets: number[][],
+  setTierSets: (newSets: number[][]) => void
+) => {
+  const firstPlayerIndex = playerState.findIndex(
+    (player) => player.role === firstRole
+  );
+  const secondPlayerIndex = playerState.findIndex(
+    (player) => player.role === secondRole
+  );
+
+  const firstPlayerTiersetId = tierSets.findIndex((tierset) =>
+    tierset.includes(playerState[firstPlayerIndex].playerId)
+  );
+  const secondPlayerTiersetId = tierSets.findIndex((tierset) =>
+    tierset.includes(playerState[secondPlayerIndex].playerId)
+  );
+
+  const updatedPlayers = [...playerState];
+  const updatedTiersets = [...tierSets];
+
+  const tempSet = updatedTiersets[firstPlayerTiersetId];
+  const firstPlayerId = playerState[firstPlayerIndex].playerId;
+  const secondPlayerId = playerState[secondPlayerIndex].playerId;
+  const updatedFirstTierset = tempSet.map((id) =>
+    id === firstPlayerId ? secondPlayerId : id
+  );
+  const updatedSecondTierset = tempSet.map((id) =>
+    id === secondPlayerId ? firstPlayerId : id
+  );
+  updatedTiersets[firstPlayerTiersetId] = updatedFirstTierset;
+  updatedTiersets[secondPlayerTiersetId] = updatedSecondTierset;
+
+  const temp = updatedPlayers[firstPlayerIndex];
+  updatedPlayers[firstPlayerIndex] = {
+    ...updatedPlayers[secondPlayerIndex],
+    role: firstRole,
+    playerRow: updatedPlayers[firstPlayerIndex].playerRow,
+    playerCol: updatedPlayers[firstPlayerIndex].playerCol,
+  };
+  updatedPlayers[secondPlayerIndex] = {
+    ...temp,
+    role: secondRole,
+    playerRow: updatedPlayers[secondPlayerIndex].playerRow,
+    playerCol: updatedPlayers[secondPlayerIndex].playerCol,
+  };
+  setPlayerState(updatedPlayers);
+  setTierSets(updatedTiersets);
 };

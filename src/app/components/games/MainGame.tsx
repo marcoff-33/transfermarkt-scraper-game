@@ -12,6 +12,7 @@ import PlayerCard from "../PlayerCard";
 import PlayerModal from "../PlayerModal";
 import PreGameModal from "../PreGameModal";
 import CardsWrapper from "../CardsWrapper";
+import SwapModal from "../SwapModal";
 
 export type GameState = "initial" | "in progress" | "ended";
 export type Formation = "3-4-3" | "4-3-3" | "4-4-2 ( Diamond )";
@@ -66,6 +67,7 @@ export default function MainGame() {
   ];
 
   const [roles, setRoles] = useState(formationTFT);
+  const [openSwap, setOpenSwap] = useState(false);
   const [currentBudget, setCurrentBudget] = useState(0);
   const [gameState, setGameState] = useState<GameState>("initial");
   const [openPlayerModal, setOpenPlayerModal] = useState(false);
@@ -77,7 +79,7 @@ export default function MainGame() {
   );
   const [currentPlayers, setCurrentPlayers] = useState<Player[]>(gameStateTFT);
   const [currentRound, setCurrentRound] = useState(0);
-
+  console.log(rolesTierSets);
   useEffect(() => {
     if (roles) {
       setRolesTierSets(
@@ -130,6 +132,7 @@ export default function MainGame() {
   const resetPlayerInRole = (role: Role) => {
     if (gameState == "ended") {
       const emptyPlayerTemplate: Player = {
+        playerId: 0,
         playerAge: "",
         role: role,
         playerCountry: "",
@@ -183,7 +186,7 @@ export default function MainGame() {
     if (player.playerValue <= currentBudget) {
       const newPlayersState = updatePlayerState(player, currentPlayers);
       setOpenPlayerModal(false);
-      setCurrentPlayers((prevState) => newPlayersState);
+      setCurrentPlayers(newPlayersState);
       gameState == "ended"
         ? setCurrentRound(12)
         : setCurrentRound((prevRound) => prevRound + 1);
@@ -217,7 +220,22 @@ export default function MainGame() {
         {currentBudget.toLocaleString()}, Rerolls left: {availableRerolls}{" "}
         {playerModalRole} {playerDataByRole.playerName}
         round: {currentRound} {gameState} {playerModalRole}
+        <button
+          onClick={() => setOpenSwap(!openSwap)}
+          className="text-white z-50 mx-20"
+        >
+          Open Swap
+        </button>
       </div>
+
+      {openSwap && (
+        <SwapModal
+          players={currentPlayers}
+          setPlayers={setCurrentPlayers}
+          tierSets={rolesTierSets}
+          setTierSets={setRolesTierSets}
+        />
+      )}
       {gameState == "initial" && (
         <PreGameModal
           setBudget={setCurrentBudget}

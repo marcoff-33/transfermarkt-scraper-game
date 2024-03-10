@@ -42,6 +42,8 @@ export default function PlayerCard({
       playerHeight: "",
       fullPlayerName: "",
       shortPlayerName: "",
+      playerAgeNumber: 0,
+      playerHeightNumber: 0,
     },
   };
   console.log(`${playerId} card rerender`);
@@ -112,6 +114,7 @@ export default function PlayerCard({
     playerHeight: playerData.scrapedPlayerData.playerHeight,
     shortPlayerName: playerData.scrapedPlayerData.shortPlayerName,
     fullPlayerName: playerData.scrapedPlayerData.fullPlayerName,
+    playerId: playerData.playerId,
   };
 
   return (
