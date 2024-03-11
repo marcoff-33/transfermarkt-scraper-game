@@ -97,8 +97,14 @@ export default function PlayerCard({
       }
     }
 
-    // Clear local storage when the page is unloaded
-    window.onbeforeunload = () => localStorage.clear();
+    // Clear all cards data in local storage when the page is unloaded
+    window.onbeforeunload = () => {
+      const allKeys = Object.keys(localStorage);
+
+      const playerKeys = allKeys.filter((key) => key.startsWith("player-"));
+
+      playerKeys.forEach((key) => localStorage.removeItem(key));
+    };
   }, [playerId]);
 
   const player: Player = {
