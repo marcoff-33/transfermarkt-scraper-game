@@ -29,7 +29,7 @@ export default function PreGameModal({
     setFormation(formation);
   };
   return (
-    <div className="min-w-full self-center justify-center items-center flex flex-col gap-10 shrink-0 min-h-[100vh] bg-zinc-500 z-50 overflow-hidden">
+    <div className="min-w-full self-center justify-center items-center flex flex-col gap-10 shrink-0 min-h-[100vh] bg-background-50 z-50 overflow-hidden">
       <div className="flex flex-row gap-5">
         <div className="">Team Budget: </div>
         {values.map((value, index) => (

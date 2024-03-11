@@ -13,6 +13,7 @@ import PlayerModal from "../PlayerModal";
 import PreGameModal from "../PreGameModal";
 import CardsWrapper from "../CardsWrapper";
 import SwapModal from "../SwapModal";
+import { useTheme } from "next-themes";
 
 export type GameState = "initial" | "in progress" | "ended";
 export type Formation = "3-4-3" | "4-3-3" | "4-4-2 ( Diamond )";
@@ -101,6 +102,8 @@ export default function MainGame() {
       setCurrentPlayers(gameStateFFTDia);
     }
   };
+
+  const { setTheme } = useTheme();
 
   // used by <CardsWrapper /> to reroll the selection of players for the current round
   const newTierSet = (role: Role, playersDb: PlayersDb) => {
@@ -230,6 +233,18 @@ export default function MainGame() {
           className="text-white z-50 mx-20"
         >
           Open Swap
+        </button>
+        <button
+          onClick={() => setTheme("dark")}
+          className="text-white z-50 mx-20"
+        >
+          dark
+        </button>
+        <button
+          onClick={() => setTheme("light")}
+          className="text-white z-50 mx-20"
+        >
+          light
         </button>
       </div>
 
