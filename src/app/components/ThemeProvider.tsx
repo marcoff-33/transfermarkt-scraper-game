@@ -14,7 +14,12 @@ function Providers({ children }: { children: React.ReactNode }) {
     return null;
   }
   return (
-    <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
+    <ThemeProvider
+      attribute="class"
+      enableSystem={true}
+      defaultTheme="light"
+      disableTransitionOnChange
+    >
       {children}
     </ThemeProvider>
   );
