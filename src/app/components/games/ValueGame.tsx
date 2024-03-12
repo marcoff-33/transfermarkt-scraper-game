@@ -55,8 +55,8 @@ export default function ValueGame() {
   };
 
   return (
-    <div className="flex justify-center py-20">
-      <div className="text-center relative flex flex-col md:flex-row gap-1 bg-zinc-900  w-screen h-screen">
+    <div className="flex justify-center py-20 bg-background-50">
+      <div className="text-center relative flex flex-col md:flex-row gap-1 bg-background-50 w-screen h-screen">
         <button onClick={() => handleClick()} className="fixed z-50">
           ValueGame
         </button>

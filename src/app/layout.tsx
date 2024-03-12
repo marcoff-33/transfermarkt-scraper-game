@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-background-50 flex justify-start flex-col">
+      <body className="min-h-screen bg-background-50 flex justify-start flex-col antialiased">
         <Providers>
           <Navbar />
           {children}

@@ -11,12 +11,12 @@ export default function ThemeToggler() {
   return (
     <button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="outline outline-1 p-1 outline-background-20 rounded-md"
+      className="outline outline-1 p-1 px-2 outline-background-20 rounded-lg hidden sm:block"
     >
       {theme == "light" ? (
-        <RxMoon className="" />
+        <RxMoon className="" size={20} />
       ) : (
-        <MdOutlineWbSunny className="" />
+        <MdOutlineWbSunny className="" size={20} />
       )}
     </button>
   );

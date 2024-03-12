@@ -15,7 +15,9 @@ export default function Navbar() {
         >
           <GiSoccerKick className="self-center" size={25} />
 
-          <div className="text-lg hidden md:block">Team Builder</div>
+          <div className="text-lg hidden md:block self-center">
+            Team Builder
+          </div>
         </Link>
         <div className="flex flex-row gap-5">
           <div className="">
@@ -23,13 +25,13 @@ export default function Navbar() {
           </div>
         </div>
         <div className="flex flex-row gap-5 ">
-          <div className="hidden md:block">About</div>
+          <div className="hidden md:block self-center">About</div>
           <a
             target="_blank"
             className="flex flex-row gap-1"
             href={"https://github.com/marcoff-33/transfermarkt-scraper-game"}
           >
-            <FaGithub className="self-center" size={25} />
+            <FaGithub className="self-center hidden sm:block" size={25} />
           </a>
           <ThemeToggler />
         </div>
