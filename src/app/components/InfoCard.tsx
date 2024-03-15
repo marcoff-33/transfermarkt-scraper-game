@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { drawRandomPlayer } from "../utils/randomRolePicks";
 import playerDb from "../../../public/players.json";
 import { saGetPlayerData } from "../utils/saGetPlayerData";
@@ -14,6 +14,7 @@ import { RiTeamLine } from "react-icons/ri";
 export default function InfoCard() {
   const [playerData, setPlayerData] = useState<PlayerData>();
   const [isHovering, setIsHovering] = useState(false);
+  const [isFirstrender, setIsFirstRender] = useState(true);
 
   const [show, setShow] = useState(false);
   const handleClick = async (playerId: number) => {
@@ -26,15 +27,23 @@ export default function InfoCard() {
   };
 
   useEffect(() => {
+    if (isFirstrender) {
+      const playerId = drawRandomPlayer(playerDb);
+      handleClick(playerId);
+      setIsFirstRender(false);
+    }
+  }, []);
+
+  useEffect(() => {
     const intervalId = setInterval(() => {
-      if (!isHovering) {
+      if (!isHovering && !isFirstrender) {
         const playerId = drawRandomPlayer(playerDb);
         handleClick(playerId);
       }
     }, 8000);
 
     return () => clearInterval(intervalId);
-  }, [isHovering]);
+  }, [isHovering, isFirstrender]);
 
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
@@ -61,7 +70,7 @@ export default function InfoCard() {
           <div className="absolute w-full h-full group hover:bg-black/70 top-0 hover:backdrop-blur-lg duration-500 transition-all rounded-xl border hover:border-background-500 border-transparent">
             <div className="py-2 px-5 group-hover:text-white text-transparent duration-500 delay-500 transition-colors z-50 flex flex-col gap-1">
               <div className="self-center flex flex-row gap-5 items-center text-lg">
-                {playerData?.scrapedPlayerData.fullPlayerName}
+                {playerData?.scrapedPlayerData.fullPlayerName}{" "}
               </div>
               <div className="flex flex-row gap-5 text-sm">
                 <div className="self-center text-center">
