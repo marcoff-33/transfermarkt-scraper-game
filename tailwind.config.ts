@@ -19,6 +19,8 @@ const config: Config = {
         marquee: "marquee 5s linear infinite",
         marqueeSlow: "marqueeSlow 9s linear infinite",
         "gradient-x": "gradient-x 10s ease infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
       colors: {
         text: {
@@ -89,6 +91,15 @@ const config: Config = {
       },
 
       keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+
         marquee: {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(-400%)" },
