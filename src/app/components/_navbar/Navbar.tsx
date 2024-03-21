@@ -7,20 +7,20 @@ import PlayBar from "./PlayBar";
 
 export default function Navbar() {
   return (
-    <div className="w-full bg-background-50/50 backdrop-blur-md top-0 sticky z-[1000] text-text-950 font-semibold py-3 transition-colors duration-500 border-b border-background-200">
+    <div className="w-full bg-background/50 backdrop-blur-md top-0 sticky z-[1000] text-text-950 font-semibold py-3 transition-colors duration-500 border-b border-front">
       <div className="container flex flex-row justify-between">
         <Link
           className="flex flex-row justify-center text-center gap-2"
           href={"/"}
         >
-          <GiSoccerKick className="self-center" size={25} />
+          <GiSoccerKick className="self-center text-accent" size={25} />
 
-          <div className="text-lg hidden md:block self-center">
+          <div className="text-lg hidden md:block self-center text-text-primary">
             Team Builder
           </div>
         </Link>
         <div className="flex flex-row gap-5">
-          <div className="">
+          <div className=" bg-background">
             <PlayBar />
           </div>
         </div>
@@ -30,7 +30,10 @@ export default function Navbar() {
             className="flex flex-row gap-1"
             href={"https://github.com/marcoff-33/transfermarkt-scraper-game"}
           >
-            <FaGithub className="self-center hidden sm:block" size={25} />
+            <FaGithub
+              className="self-center hidden sm:block text-text-primary"
+              size={25}
+            />
           </a>
           <ThemeToggler />
         </div>

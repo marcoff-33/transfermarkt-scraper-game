@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="min-h-screen bg-background-50 flex justify-start flex-col antialiased">
+      <body className="min-h-screen bg-background-deep flex justify-start flex-col antialiased">
         <Providers>
           <Navbar />
           {children}

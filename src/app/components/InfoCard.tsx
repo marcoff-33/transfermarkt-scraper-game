@@ -58,7 +58,7 @@ export default function InfoCard() {
           src={playerData?.scrapedPlayerData.playerHeroImg || ""}
           alt={"player picture"}
           fill
-          className={`absolute -z-20 rounded-xl border-background-200 transition-all duration-1000 contrast-100 border-[2px] saturate-50  ${
+          className={`absolute -z-20 rounded-xl border-primary transition-all duration-1000 contrast-100 border-[2px] saturate-50  ${
             show
               ? " brightness-75 opacity-100 blur-none shadow-zinc-950 shadow-lg"
               : " brightness-50 opacity-0 blur-sm  shadow-background-50 shadow-sm"
@@ -77,7 +77,7 @@ export default function InfoCard() {
                   <div className="flex flex-row gap-5">
                     <LiaBirthdayCakeSolid
                       size={22}
-                      className="group-hover:text-accent-500 transition-colors duration-500 delay-500"
+                      className="group-hover:text-primary transition-colors duration-500 delay-500"
                     />
                     <div className="self-end">=</div>
                   </div>
@@ -90,7 +90,7 @@ export default function InfoCard() {
                 <div className="flex flex-row gap-5">
                   <GiBodyHeight
                     size={22}
-                    className="group-hover:text-accent-500 transition-colors duration-500 delay-500"
+                    className="group-hover:text-primary transition-colors duration-500 delay-500"
                   />
                   <div className=""> =</div>
                 </div>
@@ -103,7 +103,7 @@ export default function InfoCard() {
                   <div className="flex flex-row gap-5">
                     <GiPassport
                       size={22}
-                      className="group-hover:text-accent-500 transition-colors duration-500 delay-500"
+                      className="group-hover:text-primary transition-colors duration-500 delay-500"
                     />
 
                     <div className="self-end">=</div>
@@ -118,7 +118,7 @@ export default function InfoCard() {
                   <div className="flex flex-row gap-5">
                     <LuFootprints
                       size={22}
-                      className="group-hover:text-accent-500 transition-colors duration-500 delay-500"
+                      className="group-hover:text-primary transition-colors duration-500 delay-500"
                     />
 
                     <div className="self-end">=</div>
@@ -133,7 +133,7 @@ export default function InfoCard() {
                   <div className="flex flex-row gap-5">
                     <RiTeamLine
                       size={22}
-                      className="group-hover:text-accent-500 transition-colors duration-500 delay-500"
+                      className="group-hover:text-primary transition-colors duration-500 delay-500"
                     />
 
                     <div className="self-end">=</div>

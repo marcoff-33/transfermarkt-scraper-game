@@ -20,10 +20,10 @@ export default function Play() {
     <div className="">
       <Popover>
         <PopoverTrigger
-          className={`outline outline-1 rounded-full transition-all duration-200 px-8 relative py-1 border-[1px] shadow-background-500  ${
+          className={`outline outline-1 rounded-full transition-all duration-200 px-8 relative py-1 border-[1px]     ${
             pressed
-              ? "border-background-200 outline-background-50 bg-background-50 shadow-[0_0px_3px_0px_rgba(250,250,250,0.3)] shadow-zinc-500 text-text-500 "
-              : "border-background-50 outline-background-50 bg-background-100 shadow-[0_3px_8px_1px_rgba(250,250,250,0.3)] shadow-zinc-700 text-text-900 "
+              ? "border-black/50 shadow-[0_0px_3px_0px_rgba(250,250,250,0.3)] shadow-black bg-primary/80 outline-white text-text-primary"
+              : "border-primary shadow-[0_3px_8px_1px_rgba(250,250,250,0.3)] shadow-black bg-primary outline-primary/90 text-primary-foreground"
           }`}
           onClick={() => setPressed(!pressed)}
         >
