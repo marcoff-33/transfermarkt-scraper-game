@@ -25,10 +25,10 @@ export default function Pitch({
   // the grid div is placed on top of the pitch to render the 11 players
   // positions on the grid are properties of each player in playerState
   return (
-    <div className="self-center md:rotate-90  flex shrink-0 pb-3 top-2 relative min-w-[400px] min-h-[650px]  md:min-h-[800px] md:min-w-[600px] overflow-hidden shadow-[0_0px_5px_rgba(0,0,0,0.25)] shadow-green-200">
+    <div className="self-center md:rotate-90  flex shrink-0 pb-3 top-2 relative min-w-[400px] min-h-[650px]  md:min-h-[800px] md:min-w-[600px] overflow-hidden">
       <Image
         alt="Pitch"
-        className="bg-black absolute grow"
+        className=" absolute grow"
         src={pitchSvg}
         fill
         objectFit="fill"

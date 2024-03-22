@@ -14,6 +14,7 @@ import PreGameModal from "../PreGameModal";
 import CardsWrapper from "../CardsWrapper";
 import SwapModal from "../SwapModal";
 import { useTheme } from "next-themes";
+import GameNavbar from "../_gameNavbar/GameNav";
 
 export type GameState = "initial" | "in progress" | "ended";
 export type Formation = "3-4-3" | "4-3-3" | "4-4-2 ( Diamond )";
@@ -223,30 +224,8 @@ export default function MainGame() {
   };
 
   return (
-    <div className="min-h-screen flex justify-start flex-col overflow-hidden pt-10 md:pt-0  relative">
-      <div className="text-white bg-purple-900 flex justify-center flex-row fixed w-screen z-[1000]">
-        {currentBudget.toLocaleString()}, Rerolls left: {availableRerolls}{" "}
-        {playerModalRole} {playerDataByRole.playerName}
-        round: {currentRound} {gameState} {playerModalRole}
-        <button
-          onClick={() => setOpenSwap(!openSwap)}
-          className="text-white z-50 mx-20"
-        >
-          Open Swap
-        </button>
-        <button
-          onClick={() => setTheme("dark")}
-          className="text-white z-50 mx-20"
-        >
-          dark
-        </button>
-        <button
-          onClick={() => setTheme("light")}
-          className="text-white z-50 mx-20"
-        >
-          light
-        </button>
-      </div>
+    <div className="min-h-screen flex justify-start flex-col  md:pt-0 relative">
+      <GameNavbar rerolls={availableRerolls} budget={currentBudget} />
 
       {openSwap && (
         <SwapModal
@@ -300,12 +279,6 @@ export default function MainGame() {
               currentRound={currentRound}
             />
           ))}
-          <button
-            onClick={() => console.log(currentPlayers)}
-            className="text-white"
-          >
-            log
-          </button>
         </CardsWrapper>
       )}
     </div>

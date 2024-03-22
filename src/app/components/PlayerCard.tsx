@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { saGetPlayerData } from "../utils/saGetPlayerData";
 import { Role } from "../types/playerDb";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { Player, PlayerData } from "../types/playerData";
 import { getPlayerColor } from "../utils/updatePlayerState";
 import { GameState } from "./games/MainGame";
+import PlaceholderImg from "@/app/public/blkplaceholder.png";
 
 export default function PlayerCard({
   playerId,
@@ -76,8 +77,8 @@ export default function PlayerCard({
   const [open, setOpen] = useState(false);
   const [loadingImg, setLoadingImg] = useState(false);
   const [loadingText, setLoadingText] = useState(false);
-  const [imageUrl, setImageUrl] = useState(
-    "https://placehold.co/333x186/black/white.png?text=|"
+  const [imageUrl, setImageUrl] = useState<string | StaticImageData>(
+    PlaceholderImg
   );
   const [isStored, setIsStored] = useState(false);
 
@@ -149,8 +150,7 @@ export default function PlayerCard({
           />
           <Image
             src={
-              playerData.scrapedPlayerData.playerProfileImgUrl ||
-              "https://placehold.co/333x186/black/white.png?text=|"
+              playerData.scrapedPlayerData.playerProfileImgUrl || PlaceholderImg
             }
             alt={playerData.playerName || ""}
             fill

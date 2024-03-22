@@ -26,14 +26,20 @@ export default function CardsWrapper({
             onClick={() => rerollPlayers(currentRole, playersDb)}
             className="text-white flex"
           >
-            <BiRefresh className="text-purple-800" size={24} />
+            <BiRefresh
+              className="text-primary bg-background-front rounded-md"
+              size={30}
+            />
           </button>
           {children}
           <button
             className="text-white flex flex-col"
             onClick={() => setMini(true)}
           >
-            <BiSolidHide className="text-purple-800 mx-3" size={24} />
+            <BiSolidHide
+              className="text-primary mx-3 bg-background-front rounded-md"
+              size={30}
+            />
           </button>
         </div>
       ) : (
@@ -42,7 +48,10 @@ export default function CardsWrapper({
             onClick={() => setMini(false)}
             className="items-center flex justify-end mx-3 animate-pulse"
           >
-            <BiSolidShow className="text-purple-800" size={24} />
+            <BiSolidShow
+              className="text-primary bg-background-mid rounded-md"
+              size={34}
+            />
           </button>
         </div>
       )}

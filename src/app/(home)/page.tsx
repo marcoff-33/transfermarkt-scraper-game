@@ -1,6 +1,6 @@
-import AccordionFaq from "./components/AccordionFaq";
-import { Button } from "./components/Buttons";
-import InfoCard from "./components/InfoCard";
+import AccordionFaq from "../components/AccordionFaq";
+import { Button } from "../components/Buttons";
+import InfoCard from "../components/InfoCard";
 
 export default async function Home() {
   return (

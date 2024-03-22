@@ -1,7 +1,8 @@
 import React, { SetStateAction, useState } from "react";
 import { Formation, GameState } from "./games/MainGame";
+import { Button } from "./Buttons";
 
-type BudgetSize = "small" | "medium" | "large";
+type BudgetSize = "Small" | "Medium" | "Large";
 
 export default function PreGameModal({
   setBudget,
@@ -12,17 +13,17 @@ export default function PreGameModal({
   setGameState: (state: GameState) => void;
   setFormation: (formation: Formation) => void;
 }) {
-  const [budgetValue, setBudgetValue] = useState<BudgetSize>("medium");
+  const [budgetValue, setBudgetValue] = useState<BudgetSize>("Medium");
   const [selectedFormation, setSelectedFormation] =
     useState<Formation>("4-3-3");
 
-  const values: BudgetSize[] = ["small", "medium", "large"];
+  const values: BudgetSize[] = ["Small", "Medium", "Large"];
   const formations: Formation[] = ["3-4-3", "4-3-3", "4-4-2 ( Diamond )"];
 
   const handleClick = (budget: BudgetSize, formation: Formation) => {
-    budget == "small"
+    budget == "Small"
       ? setBudget(450000000)
-      : budget == "medium"
+      : budget == "Medium"
       ? setBudget(500000000)
       : setBudget(600000000);
     setGameState("in progress");
@@ -34,8 +35,8 @@ export default function PreGameModal({
         <div className="">Team Budget: </div>
         {values.map((value, index) => (
           <button
-            className={`transition-colors ${
-              value == budgetValue ? "bg-red-500" : "bg-transparent"
+            className={`transition-colors rounded-full px-3 ${
+              value == budgetValue ? "bg-primary" : "bg-transparent"
             }`}
             onClick={() => setBudgetValue(value)}
             key={index}
@@ -45,21 +46,26 @@ export default function PreGameModal({
         ))}
       </div>
       <div className="flex flex-row gap-5">
+        <div className="">Team Formation: </div>
         {formations.map((formation, index) => (
           <button
             onClick={() => setSelectedFormation(formation)}
             key={index}
-            className={`${
-              selectedFormation == formation ? "bg-emerald-500" : ""
+            className={`transition-colors rounded-full px-3 ${
+              selectedFormation == formation ? "bg-primary" : ""
             }`}
           >
             {formation}
           </button>
         ))}
       </div>
-      <button onClick={() => handleClick(budgetValue, selectedFormation)}>
+      <Button
+        className="bg-primary"
+        variant={"default"}
+        onClick={() => handleClick(budgetValue, selectedFormation)}
+      >
         Start Game
-      </button>
+      </Button>
     </div>
   );
 }

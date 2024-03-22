@@ -11,7 +11,7 @@ export default function ThemeToggler() {
   return (
     <button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="outline outline-1 p-1 px-2 outline-background-front rounded-lg hidden sm:block"
+      className="outline outline-1 p-1 px-2 outline-background-front rounded-lg "
     >
       {theme == "light" ? (
         <RxMoon className="text-text-primary" size={20} />
