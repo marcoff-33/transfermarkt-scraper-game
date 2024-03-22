@@ -30,7 +30,7 @@ const config: Config = {
         "primary-foreground": "hsl(var(--primary-foreground) / <alpha-value>)",
         accent: "hsl(var(--accent) / <alpha-value>)",
         "text-primary": "hsl(var(--text-primary) / <alpha-value>)",
-        danger: "hsl(var(--text-primary) / <alpha-value>)",
+        danger: "hsl(var(--danger) / <alpha-value>)",
       },
 
       keyframes: {

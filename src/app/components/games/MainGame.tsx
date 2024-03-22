@@ -15,6 +15,7 @@ import CardsWrapper from "../CardsWrapper";
 import SwapModal from "../SwapModal";
 import { useTheme } from "next-themes";
 import GameNavbar from "../_gameNavbar/GameNav";
+import placeholderImage from "@/app/public/blkplaceholder.png";
 
 export type GameState = "initial" | "in progress" | "ended";
 export type Formation = "3-4-3" | "4-3-3" | "4-4-2 ( Diamond )";
@@ -145,7 +146,7 @@ export default function MainGame() {
         playerLeague: "",
         playerName: "",
         playerValue: 0,
-        profileImgUrl: "https://placehold.co/80x70/png?text=?",
+        profileImgUrl: placeholderImage,
         clubName: "",
         fullPlayerName: "",
         shortPlayerName: "",

@@ -1,10 +1,11 @@
+import { StaticImageData } from "next/image";
 import { Roles } from "./playerDb";
 
 export interface Player {
   role: Roles;
   playerRow?: number;
   playerCol?: number;
-  profileImgUrl: string;
+  profileImgUrl: string | StaticImageData;
   playerName: string;
   playerValue: number;
   playerAge: string;

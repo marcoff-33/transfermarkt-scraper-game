@@ -35,27 +35,27 @@ type ColorType = "border" | "shadow";
 export const getPlayerColor = (playerValue: number, type: ColorType) => {
   if (type == "shadow") {
     return playerValue > 50000000
-      ? "shadow-violet-700"
+      ? "shadow-orange-400"
       : playerValue > 25000000
-      ? "shadow-red-800"
+      ? "shadow-indigo-950"
       : playerValue > 10000000
-      ? "shadow-yellow-700"
+      ? "shadow-green-950"
       : playerValue > 1000000
-      ? "shadow-lime-700"
+      ? "shadow-gray-800"
       : playerValue > 1
-      ? "shadow-green-700"
+      ? "shadow-gray-800"
       : "shadow-none";
   }
   return playerValue > 50000000
-    ? "border-violet-700"
+    ? "border-orange-400"
     : playerValue > 25000000
-    ? "border-red-800"
+    ? "border-indigo-950"
     : playerValue > 10000000
-    ? "border-yellow-700"
+    ? "border-green-950"
     : playerValue > 1000000
-    ? "border-lime-700"
+    ? "border-gray-800"
     : playerValue > 1
-    ? "shadow-green-700"
+    ? "border-gray-800"
     : "border-none";
 };
 

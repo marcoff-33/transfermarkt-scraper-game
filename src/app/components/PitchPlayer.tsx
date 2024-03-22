@@ -3,6 +3,7 @@ import { Player } from "../types/playerData";
 import Image from "next/image";
 import { Role } from "../types/playerDb";
 import { getPlayerColor } from "../utils/updatePlayerState";
+import placeholderImage from "@/app/public/blkplaceholder.png";
 
 export default function PitchPlayer({
   player,
@@ -20,8 +21,8 @@ export default function PitchPlayer({
       key={player.playerName}
       className={`z-50 max-h-[70%] rounded-full md:-rotate-90   ${
         currentRoundRole == player.role
-          ? "animate-pulse border-black border-[5px]"
-          : "shadow-[0px_0px_100px_rgba(0,0,0,0)] " +
+          ? "animate-pulse border-primary border-[5px]"
+          : "shadow-[0px_0px_65px_rgba(0,0,0,0)] " +
             getPlayerColor(player.playerValue, "shadow") +
             " " +
             getPlayerColor(player.playerValue, "border")
@@ -40,7 +41,10 @@ export default function PitchPlayer({
         src={player.profileImgUrl}
         width={150}
         height={300}
-        className="rounded-full h-full w-full"
+        className={`rounded-full h-full w-full border ${getPlayerColor(
+          player.playerValue,
+          "border"
+        )}`}
         style={{ objectFit: "cover", objectPosition: "center" }}
       />
       <div className="z-50 text-sm font-semibold overflow-x-hidden">
