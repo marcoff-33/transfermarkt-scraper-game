@@ -226,7 +226,13 @@ export default function MainGame() {
 
   return (
     <div className="min-h-screen flex justify-start flex-col  md:pt-0 relative">
-      <GameNavbar rerolls={availableRerolls} budget={currentBudget} />
+      <GameNavbar
+        rerolls={availableRerolls}
+        budget={currentBudget}
+        setOpenSwap={setOpenSwap}
+        gameState={gameState}
+        swapState={openSwap}
+      />
 
       {openSwap && (
         <SwapModal
@@ -234,6 +240,7 @@ export default function MainGame() {
           setPlayers={setCurrentPlayers}
           tierSets={rolesTierSets}
           setTierSets={setRolesTierSets}
+          setOpenSwap={setOpenSwap}
         />
       )}
       {gameState == "initial" && (

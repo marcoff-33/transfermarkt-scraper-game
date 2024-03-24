@@ -24,3 +24,11 @@
     --danger: 354 100% 22%;
   }
 }
+
+.no-highlight {
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Chrome/Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}

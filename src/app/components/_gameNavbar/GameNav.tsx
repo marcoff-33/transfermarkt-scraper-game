@@ -5,13 +5,21 @@ import { GiSoccerKick } from "react-icons/gi";
 import { FaGithub } from "react-icons/fa";
 import PlayBar from "../_navbar/PlayBar";
 import { GrMoney } from "react-icons/gr";
+import { Button } from "../Buttons";
+import { GameState } from "../games/MainGame";
 
 export default function GameNavbar({
   rerolls,
   budget,
+  setOpenSwap,
+  gameState,
+  swapState,
 }: {
   rerolls: number;
   budget: number;
+  setOpenSwap: (swapState: boolean) => void;
+  gameState: GameState;
+  swapState: boolean;
 }) {
   const dots = [1, 2, 3, 4, 5];
 
@@ -28,28 +36,55 @@ export default function GameNavbar({
             Team Builder
           </div>
         </Link>
-        <div className="text-center flex items-center gap-2 bg-background-mid px-3 rounded-lg shadow-md">
+        <div
+          className={`text-center flex items-center gap-2 bg-background-mid px-3 rounded-lg shadow-md transition-all duration-1000 ${
+            gameState == "initial"
+              ? "bg-transparent text-transparent shadow-transparent"
+              : "block"
+          }`}
+        >
           <p className="hidden md:block">Rerolls : </p>
           {dots.map((dot, index) => (
             <div
-              className={`transition-colors ${
+              className={`transition-all duration-500 delay-100 ${
                 index < rerolls ? "text-primary" : "text-background-front"
-              }`}
+              } ${gameState == "initial" ? "text-transparent" : ""}`}
             >
               <p
                 style={
-                  index < rerolls ? { textShadow: "0px 0px 5px orange" } : {}
+                  index < rerolls && gameState !== "initial"
+                    ? { textShadow: "0px 0px 5px orange" }
+                    : {}
                 }
+                className="transition-all duration-1000 delay-100"
               >
                 •
               </p>
             </div>
           ))}
         </div>
-
-        <div className="text-center items-center flex bg-background-mid px-5 py-[0.12rem] rounded-lg shadow-md">
-          <GrMoney className="text-primary mx-2" size={30} /> :{" "}
-          {budget / 1000000}m €{" "}
+        <Button
+          onClick={() => setOpenSwap(true)}
+          className={`shadow-md ${
+            gameState == "initial" ? "text-transparent bg-transparent" : ""
+          } transition-all duration-1000 delay-700`}
+        >
+          Swap
+        </Button>
+        <div
+          className={`text-center items-center flex bg-background-mid px-5 py-[0.12rem] rounded-lg shadow-md transition-all duration-1000 delay-1000 ${
+            gameState == "initial"
+              ? "text-transparent bg-transparent shadow-transparent"
+              : ""
+          }`}
+        >
+          <GrMoney
+            className={`text-primary mx-2 transition-colors duration-1000 delay-1000 ${
+              gameState == "initial" ? "text-transparent bg-transparent" : ""
+            }`}
+            size={30}
+          />{" "}
+          : {budget / 1000000}m €{" "}
         </div>
         <div className="flex flex-row gap-5 ">
           <a
