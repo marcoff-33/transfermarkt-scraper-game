@@ -5,15 +5,18 @@ import Image from "next/image";
 import { PlayerData, Player, scrapedData } from "../types/playerData";
 import { Role } from "../types/playerDb";
 import { Button } from "./Buttons";
+import { GameState } from "./games/MainGame";
 
 export default function PlayerModal({
   playerState,
   setModalState,
   resetPlayer,
+  gameState,
 }: {
   playerState: Player;
   setModalState: (state: boolean) => void;
   resetPlayer: (role: Role) => void;
+  gameState: GameState;
 }) {
   return (
     <div className="min-w-[100vw] justify-center items-center flex bg-background-deep/90 backdrop-blur-md z-[1000] overflow-hidden absolute min-h-full">
@@ -74,7 +77,11 @@ export default function PlayerModal({
           </Button>
           <Button
             variant={"destructive"}
-            className="text-primary-foreground"
+            className={`text-primary-foreground ${
+              gameState == "in progress"
+                ? "pointer-events-none bg-danger/10 text-primary-foreground/10"
+                : "pointer-events-auto"
+            }`}
             onClick={() => {
               resetPlayer(playerState.role), setModalState(false);
             }}

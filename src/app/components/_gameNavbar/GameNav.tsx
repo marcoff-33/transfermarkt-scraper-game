@@ -13,13 +13,11 @@ export default function GameNavbar({
   budget,
   setOpenSwap,
   gameState,
-  swapState,
 }: {
   rerolls: number;
   budget: number;
   setOpenSwap: (swapState: boolean) => void;
   gameState: GameState;
-  swapState: boolean;
 }) {
   const dots = [1, 2, 3, 4, 5];
 
@@ -67,7 +65,11 @@ export default function GameNavbar({
           onClick={() => setOpenSwap(true)}
           className={`shadow-md ${
             gameState == "initial" ? "text-transparent bg-transparent" : ""
-          } transition-all duration-1000 delay-700`}
+          } transition-all duration-1000 delay-700 ${
+            gameState == "in progress"
+              ? "pointer-events-none bg-primary/10 text-text-primary/10"
+              : "pointer-events-auto"
+          }`}
         >
           Swap
         </Button>

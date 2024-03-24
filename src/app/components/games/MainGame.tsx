@@ -82,7 +82,7 @@ export default function MainGame() {
   );
   const [currentPlayers, setCurrentPlayers] = useState<Player[]>(gameStateTFT);
   const [currentRound, setCurrentRound] = useState(0);
-  console.log(rolesTierSets);
+
   useEffect(() => {
     if (roles) {
       setRolesTierSets(
@@ -104,8 +104,6 @@ export default function MainGame() {
       setCurrentPlayers(gameStateFFTDia);
     }
   };
-
-  const { setTheme } = useTheme();
 
   // used by <CardsWrapper /> to reroll the selection of players for the current round
   const newTierSet = (role: Role, playersDb: PlayersDb) => {
@@ -186,8 +184,6 @@ export default function MainGame() {
     return 0;
   };
 
-  console.log(currentPlayers, "currentplayers");
-
   // used by <PlayerCard> to update the currentPlayers state with the selected player.
   const addPlayerToPitch = (player: Player) => {
     if (currentPlayers.some((p) => p.playerId === player.playerId)) {
@@ -231,7 +227,6 @@ export default function MainGame() {
         budget={currentBudget}
         setOpenSwap={setOpenSwap}
         gameState={gameState}
-        swapState={openSwap}
       />
 
       {openSwap && (
@@ -255,6 +250,7 @@ export default function MainGame() {
           playerState={playerDataByRole}
           resetPlayer={resetRoundByRole}
           setModalState={setOpenPlayerModal}
+          gameState={gameState}
         />
       )}
 
