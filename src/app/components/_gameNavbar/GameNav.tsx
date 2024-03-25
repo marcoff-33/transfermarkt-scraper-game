@@ -7,6 +7,11 @@ import PlayBar from "../_navbar/PlayBar";
 import { GrMoney } from "react-icons/gr";
 import { Button } from "../Buttons";
 import { GameState } from "../games/MainGame";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 export default function GameNavbar({
   rerolls,
@@ -61,18 +66,28 @@ export default function GameNavbar({
             </div>
           ))}
         </div>
-        <Button
-          onClick={() => setOpenSwap(true)}
-          className={`shadow-md ${
-            gameState == "initial" ? "text-transparent bg-transparent" : ""
-          } transition-all duration-1000 delay-700 ${
-            gameState == "in progress"
-              ? "pointer-events-none bg-primary/10 text-text-primary/10"
-              : "pointer-events-auto"
-          }`}
-        >
-          Swap
-        </Button>
+        <HoverCard openDelay={100}>
+          <HoverCardTrigger>
+            <Button
+              onClick={() => setOpenSwap(true)}
+              className={`shadow-md ${
+                gameState == "initial" ? "text-transparent bg-transparent" : ""
+              } transition-all duration-1000 delay-700 ${
+                gameState == "in progress"
+                  ? "pointer-events-none bg-primary/10 text-text-primary/10"
+                  : "pointer-events-auto"
+              }`}
+            >
+              Swap
+            </Button>
+            {gameState == "in progress" && (
+              <HoverCardContent className="font-medium">
+                You can swap and sell players only when you've picked a player
+                for every position.
+              </HoverCardContent>
+            )}
+          </HoverCardTrigger>
+        </HoverCard>
         <div
           className={`text-center items-center flex bg-background-mid px-5 py-[0.12rem] rounded-lg shadow-md transition-all duration-1000 delay-1000 ${
             gameState == "initial"

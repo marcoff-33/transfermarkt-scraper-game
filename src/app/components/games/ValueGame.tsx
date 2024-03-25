@@ -9,6 +9,7 @@ import Image from "next/image";
 import ValueQuestion from "../_valueGameQuestions/ValueQuestion";
 import AgeQuestion from "../_valueGameQuestions/AgeQuestion";
 import HeightQuestion from "../_valueGameQuestions/HeightQuestion";
+import PreGameModal from "../PreGameModal";
 
 type GameState = "pending" | "in progress" | "failed";
 export type Solution = "pending" | "correct" | "wrong";
@@ -56,7 +57,7 @@ export default function ValueGame() {
 
   return (
     <div className="flex justify-center py-20 bg-background-50">
-      <div className="text-center relative flex flex-col md:flex-row gap-1 bg-background-50 w-screen h-screen">
+      <div className="text-center relative flex flex-col md:flex-row gap-1 bg-background-50 w-[50vw] h-[50vh]">
         <button onClick={() => handleClick()} className="fixed z-50">
           ValueGame
         </button>
