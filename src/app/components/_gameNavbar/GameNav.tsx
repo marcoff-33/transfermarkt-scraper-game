@@ -73,7 +73,7 @@ export default function GameNavbar({
               className={`shadow-md ${
                 gameState == "initial" ? "text-transparent bg-transparent" : ""
               } transition-all duration-1000 delay-700 ${
-                gameState == "in progress"
+                gameState == "in progress" || "initial"
                   ? "pointer-events-none bg-primary/10 text-text-primary/10"
                   : "pointer-events-auto"
               }`}
