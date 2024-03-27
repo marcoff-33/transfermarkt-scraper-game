@@ -18,6 +18,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import useEmblaCarousel from "embla-carousel-react";
+import { Button } from "../Buttons";
 
 type GameState = "pending" | "in progress" | "failed";
 export type Solution = "pending" | "correct" | "wrong";
@@ -32,6 +33,10 @@ export default function ValueGame() {
   const [questionIndexOne, setQuestionIndexOne] = useState(0);
   const [questionIndexTwo, setQuestionIndexTwo] = useState(1);
   const [newPlayerIndex, setNewPlayerIndex] = useState(3);
+  const [showQuestions, setShowQuestions] = useState(false);
+  const [isFirstRender, setIsfirstRender] = useState(true);
+  const [highscore, setHighscore] = useState(0);
+
   const playersArray = [1, 2, 3, 4];
   const drawFourPlayers = playersArray.map((player) =>
     drawRandomPlayer(playerDb)
@@ -50,6 +55,12 @@ export default function ValueGame() {
     setQuestionIndexTwo(1);
     setGameState("in progress");
     setScore(0);
+    setTimeout(() => {
+      setShowQuestions(true);
+      setIsfirstRender(false);
+    }, 2000);
+
+    setNewPlayerIndex(3);
   };
 
   const lastPlayerIndex = players.length - 1;
@@ -72,13 +83,14 @@ export default function ValueGame() {
       setTimeout(() => {
         api?.scrollNext();
       }, 1000);
-
       const updatedPlayers = [...currentPlayers];
       updatedPlayers[newPlayerIndex] = newPlayer;
-
+      setIsfirstRender(false);
       setCurrentQuestion((Math.floor(Math.random() * 3) + 1) as QuestionIndex);
       setScore((prevState) => prevState + 1);
-
+      setHighscore((prevState) =>
+        score == highscore ? prevState + 1 : highscore
+      );
       setQuestionIndexOne((prevState) => (prevState < 3 ? prevState + 1 : 0));
       setQuestionIndexTwo((prevState) => (prevState < 3 ? prevState + 1 : 0));
       setNewPlayerIndex((prevState) => (prevState < 3 ? prevState + 1 : 0));
@@ -86,36 +98,55 @@ export default function ValueGame() {
       setPlayers(updatedPlayers);
     } else {
       setGameState("failed");
+      setIsfirstRender(true);
     }
   };
 
   return (
-    <div className="flex justify-center py-20 bg-background-deep h-screen flex-col">
-      <div className="w-[50vw] self-center">
-        Score : {score} {isLoaded ? <p>true</p> : <p>false</p>}
-      </div>
-      <div className="text-center self-center relative flex flex-col md:flex-row gap-1 w-[50vw] h-[50vh] justify-center">
-        <button onClick={() => handleClick()} className="fixed z-50">
-          ValueGame
-        </button>
-        <button
-          onClickCapture={() => console.log(players)}
-          className="fixed z-50 my-10"
+    <div className="flex justify-center py-20 bg-background-deep h-screen flex-col container gap-2">
+      <div className="w-full self-center flex justify-around  bg-background-front shadow-lg rounded-lg py-2">
+        <p className="text-lg font-bold bg-background-mid self-center px-3 rounded-lg text-text-primary">
+          Score :{" "}
+          <span className="text-primary text-lg font-bold self-center">
+            {score}
+          </span>
+        </p>
+        <Button
+          className={` ml-9 ${
+            gameState == "in progress"
+              ? "pointer-events-none bg-primary/10 text-primary-foreground/50"
+              : ""
+          } `}
+          onClick={() => handleClick()}
         >
-          log {players.length} {questionIndexTwo}
-        </button>
+          Start
+        </Button>
+        <p className="text-lg font-bold bg-background-mid self-center px-3 rounded-lg text-text-primary">
+          Highscore :{" "}
+          <span className="text-primary text-lg font-bold self-center">
+            {highscore}
+          </span>
+        </p>
+      </div>
+      <div
+        className={`text-center self-center relative flex flex-row gap-1 w-[50vw] h-[50vh] justify-center transition-all duration-1000 min-w-full ${
+          gameState == "pending"
+            ? "blur-md bg-background-mid/50"
+            : "blur-none bg-transparent"
+        }`}
+      >
         <Carousel
-          className="w-full min-h-full grow flex"
+          className="min-w-full min-h-full "
           setApi={setApi}
           opts={{
             align: "start",
             loop: true,
           }}
         >
-          <CarouselContent className="min-h-full min">
+          <CarouselContent className="min-h-full min-w-full">
             {players.map((player, index) => (
               <CarouselItem
-                className="basis-1/2 h-[50vh] w-[50vw] relative mr-5 pl-0"
+                className="basis-1/2 h-[50vh] w-[50vw] relative mr-5 pl-0 "
                 key={index}
               >
                 <div className="">
@@ -130,49 +161,63 @@ export default function ValueGame() {
                         setIsLoaded(true);
                       }, 500)
                     }
-                    className={`min-w-full min-h-full grayscale duration-1000 relative `}
+                    className={`min-w-full min-h-full grayscale duration-1000 relative rounded-xl ${
+                      isLoaded && gameState == "in progress" ? "" : ""
+                    }`}
                   />
-                  <div className="w-full h-full absolute bg-primary/10"></div>
+
+                  <div
+                    className={`w-full h-full absolute transition-all duration-1000 rounded-xl ${
+                      isLoaded && gameState == "in progress"
+                        ? "bg-background-front/80 "
+                        : ""
+                    } ${
+                      !isLoaded && !isFirstRender && gameState == "in progress"
+                        ? "bg-green-500/50"
+                        : ""
+                    } ${gameState == "failed" && "bg-red-500"}`}
+                  ></div>
                 </div>
                 <Image
                   src={player.scrapedPlayerData.clubLogoUrl}
                   alt={player.scrapedPlayerData.clubName}
                   width={70}
                   height={70}
-                  className={`absolute inset-5 transition-all duration-1000 z-50 ${
+                  className={`absolute transition-all duration-1000 contrast-75 md:inset-10 left-[40%] right-5 bottom-10 ${
                     gameState == "failed" ? "hidden" : "block"
                   }`}
                 />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
         </Carousel>
-        <p className="inset-0 mx-auto text-white absolute bg-blue-900 px-5 rounded-full self-center flex justify-center max-w-fit text-sm">
+        <p
+          className={`font-bold inset-0 mx-auto absolute border border-primary bg-background-deep text-text-primary px-5 rounded-full self-center flex justify-center max-w-fit text-sm`}
+        >
           VS
         </p>
         {gameState == "in progress" && (
           <div className="absolute w-full h-full items-center flex flex-col justify-center">
-            <div className="md:hidden block grow absolute">{gameState}</div>
-            {currentQuestion == 1 ? (
+            {currentQuestion == 1 && showQuestions ? (
               <AgeQuestion
                 handleSolution={handleSolution}
                 playerOne={players[questionIndexOne]}
                 playerTwo={players[questionIndexTwo]}
               />
-            ) : currentQuestion == 2 ? (
+            ) : currentQuestion == 2 && showQuestions ? (
               <ValueQuestion
                 handleSolution={handleSolution}
                 playerOne={players[questionIndexOne]}
                 playerTwo={players[questionIndexTwo]}
               />
             ) : (
-              <HeightQuestion
-                handleSolution={handleSolution}
-                playerOne={players[questionIndexOne]}
-                playerTwo={players[questionIndexTwo]}
-              />
+              showQuestions && (
+                <HeightQuestion
+                  handleSolution={handleSolution}
+                  playerOne={players[questionIndexOne]}
+                  playerTwo={players[questionIndexTwo]}
+                />
+              )
             )}
           </div>
         )}

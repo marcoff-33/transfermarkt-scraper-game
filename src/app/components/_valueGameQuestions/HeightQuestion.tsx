@@ -1,6 +1,7 @@
 import React from "react";
 import { PlayerData } from "../../types/playerData";
 import { Solution } from "../games/ValueGame";
+import { Button } from "../Buttons";
 
 type Answer = "yes" | "no";
 
@@ -25,41 +26,68 @@ export default function AgeQuestion({
       : handleSolution("wrong");
   };
   return (
-    <div className="w-full md:right-0 text-lg font-semibold text-black self-center h-full flex items-center text-center justify-around flex-col md:flex-row">
+    <div className="w-full md:right-0 text-lg font-semibold text-text-primary self-center h-full flex items-center text-center justify-around flex-row">
       <div className="grow basis-1/2 flex flex-col gap-8 justify-center">
-        <div className="basis-1/2 grow items-end md:items-center flex md:flex-none self-center">
+        <div className="basis-1/2 grow items-center flex flex-none self-center text-text-primary px-3 rounded-lg md:px-10 text-xl">
           {playerOne.scrapedPlayerData.fullPlayerName}
         </div>
-        <div className="basis-1/2 grow flex flex-col ">
-          <p>Height</p>
-          {playerOne.scrapedPlayerData.playerHeight}
+        <div className="basis-1/2 grow flex flex-col">
+          <p className="text-text-primary max-w-fit self-center px-5 rounded-lg font-light">
+            Height
+          </p>
+          <p className="max-w-fit self-center px-5 rounded-lg text-text-primary font-bold">
+            {playerOne.scrapedPlayerData.playerHeight}{" "}
+          </p>
         </div>
       </div>
-      <div className="grow flex flex-col rounded-full gap-5 basis-1/2 justify-center">
-        <div className="flex-none bg-black/20 rounded-md mx-5 px-2">
-          is
-          <span className="text-purple-900">
-            {playerOne.scrapedPlayerData.fullPlayerName}
-          </span>
-          taller than
-          <span className="text-purple-900">
+      <div className="grow flex flex-col rounded-full gap-5 basis-1/2 justify-center mt-8">
+        <div className="text-text-primary block md:hidden">
+          <p className="text-text-primary font-bold underline">
             {playerTwo.scrapedPlayerData.fullPlayerName}
+          </p>
+          is ...
+        </div>
+        <div className="flex-none bg-background-deep/60 backdrop-blur-lg rounded-md mx-5 px-2 hidden md:block">
+          <span className="font-light">is</span>
+          <span className="text-text-primary font-bold">
+            {" "}
+            {playerOne.scrapedPlayerData.fullPlayerName}{" "}
           </span>
+          <span className="text-primary">Taller </span>
+          <span className="text-primary">Than</span>
+          <span className="text-text-primary font-bold">
+            {" "}
+            {playerTwo.scrapedPlayerData.fullPlayerName}
+          </span>{" "}
           ?
         </div>
-        <div className="flex flex-row self-center gap-5">
-          <button
+        <div className="flex flex-col self-center gap-2">
+          <Button
             onClick={() => handleClick("yes")}
-            className="bg-green-500 rounded-xl p-2"
+            className="bg-primary text-primary-foreground font-light hidden md:block"
           >
             Yes
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => handleClick("no")}
-            className="bg-red-500 rounded-xl p-2"
+            className="bg-primary text-primary-foreground font-light block md:hidden"
+          >
+            Taller
+          </Button>
+          <Button
+            onClick={() => handleClick("no")}
+            className="backdrop-blur-lg hidden md:block"
+            variant={"secondary"}
           >
             No
-          </button>
+          </Button>
+          <Button
+            onClick={() => handleClick("yes")}
+            variant={"secondary"}
+            className="font-light block md:hidden"
+          >
+            Shorter
+          </Button>
         </div>
       </div>
     </div>
