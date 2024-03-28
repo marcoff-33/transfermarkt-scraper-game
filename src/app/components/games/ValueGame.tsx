@@ -75,6 +75,7 @@ export default function ValueGame() {
 
   const handleSolution = async (solution: Solution) => {
     setIsLoaded(false);
+    setShowQuestions(false);
     const currentPlayers = [...players];
     const newPlayer = await saGetPlayerData(drawRandomPlayer(playerDb));
 
@@ -83,6 +84,9 @@ export default function ValueGame() {
       setTimeout(() => {
         api?.scrollNext();
       }, 1000);
+      setTimeout(() => {
+        setShowQuestions(true);
+      }, 2000);
       const updatedPlayers = [...currentPlayers];
       updatedPlayers[newPlayerIndex] = newPlayer;
       setIsfirstRender(false);
@@ -106,7 +110,7 @@ export default function ValueGame() {
     <div className="flex justify-center py-20 bg-background-deep h-screen flex-col container gap-2">
       <div className="w-full self-center flex justify-around  bg-background-front shadow-lg rounded-lg py-2">
         <p className="text-lg font-bold bg-background-mid self-center px-3 rounded-lg text-text-primary">
-          Score :{" "}
+          Score :
           <span className="text-primary text-lg font-bold self-center">
             {score}
           </span>
@@ -198,26 +202,27 @@ export default function ValueGame() {
         </p>
         {gameState == "in progress" && (
           <div className="absolute w-full h-full items-center flex flex-col justify-center">
-            {currentQuestion == 1 && showQuestions ? (
+            {currentQuestion == 1 ? (
               <AgeQuestion
                 handleSolution={handleSolution}
                 playerOne={players[questionIndexOne]}
                 playerTwo={players[questionIndexTwo]}
+                textState={showQuestions}
               />
-            ) : currentQuestion == 2 && showQuestions ? (
+            ) : currentQuestion == 2 ? (
               <ValueQuestion
                 handleSolution={handleSolution}
                 playerOne={players[questionIndexOne]}
                 playerTwo={players[questionIndexTwo]}
+                textState={showQuestions}
               />
             ) : (
-              showQuestions && (
-                <HeightQuestion
-                  handleSolution={handleSolution}
-                  playerOne={players[questionIndexOne]}
-                  playerTwo={players[questionIndexTwo]}
-                />
-              )
+              <HeightQuestion
+                handleSolution={handleSolution}
+                playerOne={players[questionIndexOne]}
+                playerTwo={players[questionIndexTwo]}
+                textState={showQuestions}
+              />
             )}
           </div>
         )}

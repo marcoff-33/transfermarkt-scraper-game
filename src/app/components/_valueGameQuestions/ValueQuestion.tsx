@@ -5,14 +5,16 @@ import { Button } from "../Buttons";
 
 type Answer = "yes" | "no";
 
-export default function ValueQuestion({
+export default function AgeQuestion({
   playerOne,
   playerTwo,
   handleSolution,
+  textState,
 }: {
   playerOne: PlayerData;
   playerTwo: PlayerData;
   handleSolution: (solution: Solution) => void;
+  textState: boolean;
 }) {
   const handleClick = (answer: Answer) => {
     const correctAnswer: Answer =
@@ -28,34 +30,84 @@ export default function ValueQuestion({
   return (
     <div className="w-full md:right-0 text-lg font-semibold text-text-primary self-center h-full flex items-center text-center justify-around flex-row">
       <div className="grow basis-1/2 flex flex-col gap-8 justify-center">
-        <div className="basis-1/2 grow items-center flex flex-none self-center text-text-primary px-3 rounded-lg md:px-10 text-xl">
+        <div
+          className={`basis-1/2 grow items-center flex flex-none self-center text-text-primary px-3 rounded-lg md:px-10 text-xl transition-all duration-500 ${
+            textState ? "" : "text-transparent"
+          }`}
+        >
           {playerOne.scrapedPlayerData.fullPlayerName}
         </div>
         <div className="basis-1/2 grow flex flex-col">
-          <p className="text-text-primary max-w-fit self-center px-5 rounded-lg font-light">
+          <p
+            className={`text-text-primary max-w-fit self-center px-5 rounded-lg font-light transition-all duration-500 ${
+              textState ? "" : "text-transparent"
+            }`}
+          >
             Market Value
           </p>
-          <p className="max-w-fit self-center px-5 rounded-lg text-text-primary font-bold">
+          <p
+            className={`max-w-fit self-center px-5 rounded-lg text-text-primary font-bold transition-all duration-500 ${
+              textState ? "" : "text-transparent"
+            }`}
+          >
             {playerOne.scrapedPlayerData.playerValue}{" "}
           </p>
         </div>
       </div>
-      <div className="grow flex flex-col rounded-full gap-5 basis-1/2 justify-center mt-8">
+      <div
+        className={`grow flex flex-col rounded-full gap-5 basis-1/2 justify-center mt-8 transition-all duration-500 ${
+          textState ? "" : "text-transparent"
+        }`}
+      >
         <div className="text-text-primary block md:hidden">
-          <p className="text-text-primary font-bold underline">
+          <p
+            className={`text-text-primary font-bold underline transition-all duration-500 ${
+              textState ? "" : "text-transparent"
+            }`}
+          >
             {playerTwo.scrapedPlayerData.fullPlayerName}
           </p>
-          is ...
+          <p
+            className={`transition-all duration-500 text-text-primary block md:hidden ${
+              textState ? "" : "text-transparent"
+            }`}
+          >
+            Is ...
+          </p>
         </div>
-        <div className="flex-none bg-background-deep/60 backdrop-blur-lg rounded-md mx-5 px-2 hidden md:block shadow-md">
+        <div
+          className={`flex-none bg-background-deep/60 backdrop-blur-lg rounded-md mx-5 px-2 hidden md:block transition-all duration-500 ${
+            textState ? "" : "bg-transparent backdrop-blur-0"
+          }`}
+        >
           <span className="font-light">is</span>
-          <span className="text-text-primary font-bold">
+          <span
+            className={`text-text-primary font-bold transition-all duration-500 ${
+              textState ? "" : "text-transparent"
+            }`}
+          >
             {" "}
             {playerOne.scrapedPlayerData.fullPlayerName}{" "}
           </span>
-          <span className="text-primary">More Expensive </span>
-          <span className="text-primary">Than</span>
-          <span className="text-text-primary font-bold">
+          <span
+            className={`text-primary transition-all duration-500 ${
+              textState ? "" : "text-transparent"
+            }`}
+          >
+            More Expensive{" "}
+          </span>
+          <span
+            className={`text-primary transition-all duration-500 ${
+              textState ? "" : "text-transparent"
+            }`}
+          >
+            Than
+          </span>
+          <span
+            className={`text-text-primary font-bold transition-all duration-500 ${
+              textState ? "" : "text-transparent"
+            }`}
+          >
             {" "}
             {playerTwo.scrapedPlayerData.fullPlayerName}
           </span>{" "}
@@ -64,19 +116,31 @@ export default function ValueQuestion({
         <div className="flex flex-col self-center gap-2">
           <Button
             onClick={() => handleClick("yes")}
-            className="bg-primary text-primary-foreground font-light hidden md:block"
+            className={`bg-primary text-primary-foreground font-light hidden md:block transition-all duration-500 ${
+              textState
+                ? ""
+                : "text-transparent bg-transparent border-transparent hover:bg-transparent"
+            }`}
           >
             Yes
           </Button>
           <Button
             onClick={() => handleClick("no")}
-            className="bg-primary text-primary-foreground font-light block md:hidden"
+            className={`bg-primary text-primary-foreground font-light block md:hidden transition-all duration-500 ${
+              textState
+                ? ""
+                : "text-transparent bg-transparent border-transparent hover:bg-transparent"
+            }`}
           >
             More Expensive
           </Button>
           <Button
             onClick={() => handleClick("no")}
-            className="backdrop-blur-lg hidden md:block"
+            className={`backdrop-blur-lg hidden md:block transition-all duration-500 ${
+              textState
+                ? ""
+                : "text-transparent bg-transparent border-transparent backdrop-blur-0 hover:bg-transparent"
+            }`}
             variant={"secondary"}
           >
             No
@@ -84,7 +148,11 @@ export default function ValueQuestion({
           <Button
             onClick={() => handleClick("yes")}
             variant={"secondary"}
-            className="font-light block md:hidden"
+            className={`font-light block md:hidden transition-all duration-500 ${
+              textState
+                ? ""
+                : "text-transparent bg-transparent border-transparent hover:bg-transparent"
+            }`}
           >
             Less Expensive
           </Button>
