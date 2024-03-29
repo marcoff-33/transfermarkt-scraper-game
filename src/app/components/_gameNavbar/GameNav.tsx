@@ -3,32 +3,44 @@ import ThemeToggler from "../_navbar/ThemeToggler";
 import Link from "next/link";
 import { GiSoccerKick } from "react-icons/gi";
 import { FaGithub } from "react-icons/fa";
-import PlayBar from "../_navbar/PlayBar";
+
 import { GrMoney } from "react-icons/gr";
-import { Button } from "../Buttons";
 import { GameState } from "../games/MainGame";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { LuRefreshCw } from "react-icons/lu";
+import { GiPlayerNext } from "react-icons/gi";
+import AlertDialogButton from "../RestartGameDialog";
+import SwapModalDialog from "../SwapPlayersDialog";
+import { Player } from "@/app/types/playerData";
 
 export default function GameNavbar({
   rerolls,
   budget,
-  setOpenSwap,
   gameState,
+  restartGame,
+  players,
+  setPlayers,
+  tierSets,
+  setTierSets,
 }: {
   rerolls: number;
   budget: number;
-  setOpenSwap: (swapState: boolean) => void;
   gameState: GameState;
+  restartGame: () => void;
+  players: Player[];
+  setPlayers: (newPlayerState: Player[]) => void;
+  tierSets: number[][];
+  setTierSets: (newSet: number[][]) => void;
 }) {
   const dots = [1, 2, 3, 4, 5];
 
   return (
     <div className="w-full bg-background/50 backdrop-blur-md top-0 sticky z-[1000] text-text-950 font-semibold py-3 transition-colors duration-500 border-b border-front">
-      <div className="container flex flex-row justify-between relative">
+      <div className="container flex flex-row justify-between relative items-center">
         <Link
           className="flex flex-row justify-center text-center gap-2"
           href={"/"}
@@ -49,6 +61,7 @@ export default function GameNavbar({
           <p className="hidden md:block">Rerolls : </p>
           {dots.map((dot, index) => (
             <div
+              key={index}
               className={`transition-all duration-500 delay-100 ${
                 index < rerolls ? "text-primary" : "text-background-front"
               } ${gameState == "initial" ? "text-transparent" : ""}`}
@@ -66,26 +79,27 @@ export default function GameNavbar({
             </div>
           ))}
         </div>
+
+        <div className="bottom-[-300%] left-[5%]  md:left-[20%] absolute">
+          <AlertDialogButton gameState={gameState} restartGame={restartGame} />
+        </div>
+
         <HoverCard openDelay={100}>
-          <HoverCardTrigger>
-            <Button
-              onClick={() => setOpenSwap(true)}
-              className={`shadow-md md:absolute md:left-[50%] md:translate-x-[-50%] self-center px-8 ${
-                gameState == "initial" ? "text-transparent bg-transparent" : ""
-              } transition-all duration-1000 delay-700 ${
-                gameState == "in progress" || "initial"
-                  ? "pointer-events-none bg-primary/10 text-text-primary/10"
-                  : "pointer-events-auto"
-              }`}
-            >
-              Swap
-            </Button>
-            {gameState == "in progress" && (
-              <HoverCardContent className="font-medium">
+          <HoverCardTrigger className="bottom-[-300%] right-[5%]  md:right-[20%] absolute">
+            <SwapModalDialog
+              gameState={gameState}
+              players={players}
+              setPlayers={setPlayers}
+              setTierSets={setTierSets}
+              tierSets={tierSets}
+              currentPlayers={players}
+            />
+            {gameState == "in progress" ? (
+              <HoverCardContent className="font-medium relative">
                 You can swap and sell players only when you've picked a player
                 for every position.
               </HoverCardContent>
-            )}
+            ) : null}
           </HoverCardTrigger>
         </HoverCard>
         <div
@@ -96,7 +110,7 @@ export default function GameNavbar({
           }`}
         >
           <GrMoney
-            className={`text-primary mx-2 transition-colors duration-1000 delay-1000 hidden md:block  ${
+            className={`text-primary mx-2 transition-colors duration-1000 delay-1000 hidden md:block self-center  ${
               gameState == "initial" ? "text-transparent bg-transparent" : ""
             }`}
             size={30}

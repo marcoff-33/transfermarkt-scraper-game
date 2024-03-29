@@ -573,5 +573,6 @@ const gameStateFFTDia: Player[] = [
     playerId: 0,
   },
 ];
+const gameStates = { gameStateFTT, gameStateTFT, gameStateFFTDia };
 
-export default { gameStateFTT, gameStateTFT, gameStateFFTDia };
+export default gameStates;

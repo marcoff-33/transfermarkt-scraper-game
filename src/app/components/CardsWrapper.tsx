@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { PlayersDb, Role } from "../types/playerDb";
-import { BiRefresh } from "react-icons/bi";
+
 import { BiSolidHide } from "react-icons/bi";
 import { BiSolidShow } from "react-icons/bi";
+import { GiRollingDices } from "react-icons/gi";
 
 export default function CardsWrapper({
   children,
@@ -18,6 +19,7 @@ export default function CardsWrapper({
   playersDb: PlayersDb;
 }) {
   const [mini, setMini] = useState(false);
+
   return (
     <div className="container fixed bottom-5 self-center">
       {!mini ? (
@@ -26,7 +28,7 @@ export default function CardsWrapper({
             onClick={() => rerollPlayers(currentRole, playersDb)}
             className="text-white flex"
           >
-            <BiRefresh
+            <GiRollingDices
               className="text-primary bg-background-front rounded-md"
               size={30}
             />

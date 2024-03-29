@@ -8,6 +8,7 @@ import { Player, PlayerData } from "../types/playerData";
 import { getPlayerColor } from "../utils/updatePlayerState";
 import { GameState } from "./games/MainGame";
 import PlaceholderImg from "@/app/public/blkplaceholder.png";
+import { useRouter } from "next/navigation";
 
 export default function PlayerCard({
   playerId,
@@ -16,6 +17,8 @@ export default function PlayerCard({
   currentBudget,
   setGameState,
   currentRound,
+  isNewGame,
+  setIsNewGame,
 }: {
   playerId: number;
   confirmPlayer: (player: Player) => void;
@@ -23,6 +26,8 @@ export default function PlayerCard({
   currentBudget: number;
   setGameState: (state: GameState) => void;
   currentRound: number;
+  isNewGame: boolean;
+  setIsNewGame: (isNewGame: boolean) => void;
 }) {
   // used to fill the playerData state before fetching any real data
   // to avoid type errors
@@ -47,7 +52,6 @@ export default function PlayerCard({
       playerHeightNumber: 0,
     },
   };
-  console.log(`${playerId} card rerender`);
 
   const handleButtonClick = async () => {
     if (open) {
@@ -82,15 +86,32 @@ export default function PlayerCard({
   );
   const [isStored, setIsStored] = useState(false);
 
+  const handleFreshGame = () => {
+    // Clear all locally stored player data
+    // to ensure no unveiled cards on new game or restart
+    const allKeys = Object.keys(localStorage);
+    const playerKeys = allKeys.filter((key) => key.startsWith("player-"));
+    playerKeys.forEach((key) => localStorage.removeItem(key));
+    setIsNewGame(false);
+  };
+
   useEffect(() => {
-    // Check for existing data in local storage
+    if (isNewGame) {
+      handleFreshGame();
+      console.log("!!!!!!!!!! handlefreshgame", isNewGame);
+    }
+  }, [isNewGame]);
+
+  useEffect(() => {
+    // Stores player data in local storage
+    // Used for preserving previously unveiled cards in earlier rounds
+    // Needed to enable round replayability
     const storedItem = localStorage.getItem(`player-${playerId}`);
 
     if (storedItem) {
       const storedData = JSON.parse(storedItem);
 
       if (storedData) {
-        // Set playerData state from local storage
         setPlayerData(storedData);
         setImageUrl(storedData.scrapedPlayerData.playerHeroImg);
         setIsStored(true);
@@ -135,6 +156,7 @@ export default function PlayerCard({
             )
       } `}
       onClick={handleButtonClick}
+      disabled={loadingImg}
     >
       <div className="min-h-full flex flex-col justify-center items-center relative overflow-hidden ">
         <div className="z-50 bg-transparent overflow-hidden flex items-center justify-center flex-col min-h-full min-w-full relative grow">

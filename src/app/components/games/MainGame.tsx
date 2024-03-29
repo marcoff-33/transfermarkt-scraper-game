@@ -12,8 +12,6 @@ import PlayerCard from "../PlayerCard";
 import PlayerModal from "../PlayerModal";
 import PreGameModal from "../PreGameModal";
 import CardsWrapper from "../CardsWrapper";
-import SwapModal from "../SwapModal";
-import { useTheme } from "next-themes";
 import GameNavbar from "../_gameNavbar/GameNav";
 import placeholderImage from "@/app/public/blkplaceholder.png";
 
@@ -70,12 +68,12 @@ export default function MainGame() {
   ];
 
   const [roles, setRoles] = useState(formationTFT);
-  const [openSwap, setOpenSwap] = useState(false);
   const [currentBudget, setCurrentBudget] = useState(0);
   const [gameState, setGameState] = useState<GameState>("initial");
   const [openPlayerModal, setOpenPlayerModal] = useState(false);
   const [playerModalRole, setPlayerModalRole] = useState<Role>("GK");
   const [availableRerolls, setAvailableRerolls] = useState(5);
+  const [isNewGame, setIsNewGame] = useState(true);
   // sets a selection of 1 player from each tier for each role.
   const [rolesTierSets, setRolesTierSets] = useState(
     roles.map((role) => drawPlayerFromEachTier(playersDb, role))
@@ -83,13 +81,22 @@ export default function MainGame() {
   const [currentPlayers, setCurrentPlayers] = useState<Player[]>(gameStateTFT);
   const [currentRound, setCurrentRound] = useState(0);
 
+  const restartGame = () => {
+    setIsNewGame(true);
+    setCurrentBudget(0);
+    setGameState("initial");
+    setAvailableRerolls(5);
+    setCurrentRound(0);
+  };
+
   useEffect(() => {
     if (roles) {
       setRolesTierSets(
         roles.map((role) => drawPlayerFromEachTier(playersDb, role))
       );
+      console.log("rerolled tier sets");
     }
-  }, [roles]);
+  }, [roles, playersDb, isNewGame]);
 
   // used by <PreGameModal /> to set the game formation
   const setFormation = (formation: Formation) => {
@@ -225,19 +232,13 @@ export default function MainGame() {
       <GameNavbar
         rerolls={availableRerolls}
         budget={currentBudget}
-        setOpenSwap={setOpenSwap}
         gameState={gameState}
+        restartGame={restartGame}
+        players={currentPlayers}
+        setPlayers={setCurrentPlayers}
+        tierSets={rolesTierSets}
+        setTierSets={setRolesTierSets}
       />
-
-      {openSwap && (
-        <SwapModal
-          players={currentPlayers}
-          setPlayers={setCurrentPlayers}
-          tierSets={rolesTierSets}
-          setTierSets={setRolesTierSets}
-          setOpenSwap={setOpenSwap}
-        />
-      )}
       {gameState == "initial" && (
         <PreGameModal
           setBudget={setCurrentBudget}
@@ -281,6 +282,8 @@ export default function MainGame() {
               currentBudget={currentBudget}
               setGameState={setGameState}
               currentRound={currentRound}
+              isNewGame={isNewGame}
+              setIsNewGame={setIsNewGame}
             />
           ))}
         </CardsWrapper>

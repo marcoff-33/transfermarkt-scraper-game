@@ -4,9 +4,9 @@ import InfoCard from "../components/InfoCard";
 
 export default async function Home() {
   return (
-    <div className="w-full h-screen flex flex-col justify-start gap-20 z-50 relative text-text-primary">
+    <div className="w-full h-screen flex flex-col justify-start gap-2 z-50 text-text-primary">
       <div className="-z-50">
-        <div className="flex justify-between flex-col gap-5 py-20 container ">
+        <div className="flex justify-between flex-col gap-5 pt-20 container">
           <div className=" ">
             <h1 className="text-4xl font-bold text-text-primary lg:font-extrabold md:tracking-tight tracking-wide text-left py-2 lg:text-center">
               Team Builder / Quiz games built with{" "}
@@ -39,11 +39,11 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row justify-between gap-10 container bg-background">
-        <div className="grow pb-2">
+      <div className="flex lg:flex-row flex-col justify-between gap-10 container bg-background">
+        <div className="grow pb-2 order-2 lg:order-2">
           <AccordionFaq />
         </div>
-        <div className=" hidden lg:block self-end">
+        <div className="block order-1 lg:order-2 self-center">
           <InfoCard />
         </div>
       </div>
