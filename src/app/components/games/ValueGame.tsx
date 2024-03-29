@@ -107,7 +107,7 @@ export default function ValueGame() {
   };
 
   return (
-    <div className="flex justify-center py-20 bg-background-deep h-screen flex-col container gap-2">
+    <div className="flex justify-center bg-background-deep h-screen flex-col container gap-2 relative">
       <div className="w-full self-center flex justify-around  bg-background-front shadow-lg rounded-lg py-2">
         <p className="text-lg font-bold bg-background-mid self-center px-3 rounded-lg text-text-primary">
           Score :
@@ -116,7 +116,7 @@ export default function ValueGame() {
           </span>
         </p>
         <Button
-          className={` ml-9 ${
+          className={`self-center md:absolute md:left-[50%] md:translate-x-[-50%] order-4 ${
             gameState == "in progress"
               ? "pointer-events-none bg-primary/10 text-primary-foreground/50"
               : ""
@@ -125,7 +125,7 @@ export default function ValueGame() {
         >
           Start
         </Button>
-        <p className="text-lg font-bold bg-background-mid self-center px-3 rounded-lg text-text-primary">
+        <p className="text-lg font-bold bg-background-mid self-center px-3 rounded-lg text-text-primary order-1">
           Highscore :{" "}
           <span className="text-primary text-lg font-bold self-center">
             {highscore}

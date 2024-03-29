@@ -40,10 +40,10 @@ export default async function Home() {
         </div>
       </div>
       <div className="flex flex-row justify-between gap-10 container bg-background">
-        <div className="grow">
+        <div className="grow pb-2">
           <AccordionFaq />
         </div>
-        <div className=" hidden lg:block self-start">
+        <div className=" hidden lg:block self-end">
           <InfoCard />
         </div>
       </div>

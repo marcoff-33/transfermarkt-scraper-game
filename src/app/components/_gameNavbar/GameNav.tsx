@@ -28,19 +28,19 @@ export default function GameNavbar({
 
   return (
     <div className="w-full bg-background/50 backdrop-blur-md top-0 sticky z-[1000] text-text-950 font-semibold py-3 transition-colors duration-500 border-b border-front">
-      <div className="container flex flex-row justify-between">
+      <div className="container flex flex-row justify-between relative">
         <Link
           className="flex flex-row justify-center text-center gap-2"
           href={"/"}
         >
           <GiSoccerKick className="self-center text-accent" size={25} />
 
-          <div className="text-lg hidden md:block self-center text-text-primary">
+          <div className="text-lg hidden lg:block self-center text-text-primary">
             Team Builder
           </div>
         </Link>
         <div
-          className={`text-center flex items-center gap-2 bg-background-mid px-3 rounded-lg shadow-md transition-all duration-1000 ${
+          className={`md:absolute md:left-[30%] md:translate-x-[-50%] text-center self-center flex items-center gap-2 bg-background-mid px-3 rounded-lg shadow-md transition-all duration-1000 ${
             gameState == "initial"
               ? "bg-transparent text-transparent shadow-transparent"
               : "block"
@@ -70,7 +70,7 @@ export default function GameNavbar({
           <HoverCardTrigger>
             <Button
               onClick={() => setOpenSwap(true)}
-              className={`shadow-md ${
+              className={`shadow-md md:absolute md:left-[50%] md:translate-x-[-50%] self-center px-8 ${
                 gameState == "initial" ? "text-transparent bg-transparent" : ""
               } transition-all duration-1000 delay-700 ${
                 gameState == "in progress" || "initial"
@@ -89,21 +89,21 @@ export default function GameNavbar({
           </HoverCardTrigger>
         </HoverCard>
         <div
-          className={`text-center items-center flex bg-background-mid px-5 py-[0.12rem] rounded-lg shadow-md transition-all duration-1000 delay-1000 ${
+          className={`md:absolute md:left-[70%] md:translate-x-[-50%] text-center items-center flex bg-background-mid px-5 py-[0.12rem] rounded-lg shadow-md transition-all duration-1000 delay-1000 ${
             gameState == "initial"
               ? "text-transparent bg-transparent shadow-transparent"
               : ""
           }`}
         >
           <GrMoney
-            className={`text-primary mx-2 transition-colors duration-1000 delay-1000 ${
+            className={`text-primary mx-2 transition-colors duration-1000 delay-1000 hidden md:block  ${
               gameState == "initial" ? "text-transparent bg-transparent" : ""
             }`}
             size={30}
           />{" "}
-          : {budget / 1000000}m €{" "}
+          {budget / 1000000}m €{" "}
         </div>
-        <div className="flex flex-row gap-5 ">
+        <div className="flex flex-row gap-5">
           <a
             target="_blank"
             className="flex flex-row gap-1"
