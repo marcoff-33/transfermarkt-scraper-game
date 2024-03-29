@@ -56,7 +56,7 @@ export default function AgeQuestion({
       </div>
       <div
         className={`grow flex flex-col rounded-full gap-5 basis-1/2 justify-center mt-8 transition-all duration-500 ${
-          textState ? "" : "text-transparent"
+          textState ? "" : ""
         }`}
       >
         <div className="text-text-primary block md:hidden">
@@ -77,10 +77,18 @@ export default function AgeQuestion({
         </div>
         <div
           className={`flex-none bg-background-deep/60 backdrop-blur-lg rounded-md mx-5 px-2 hidden md:block transition-all duration-500 ${
-            textState ? "" : "bg-transparent backdrop-blur-0"
+            textState ? "" : "bg-transparent backdrop-blur-none"
           }`}
         >
-          <span className="font-light">is</span>
+          <span
+            className={`font-light transition-all duration-500 ${
+              textState
+                ? ""
+                : "bg-transparent backdrop-blur-none text-transparent"
+            }`}
+          >
+            is
+          </span>
           <span
             className={`text-text-primary font-bold transition-all duration-500 ${
               textState ? "" : "text-transparent"
@@ -94,14 +102,7 @@ export default function AgeQuestion({
               textState ? "" : "text-transparent"
             }`}
           >
-            Taller
-          </span>
-          <span
-            className={`text-primary transition-all duration-500 ${
-              textState ? "" : "text-transparent"
-            }`}
-          >
-            Than
+            Taller Than{" "}
           </span>
           <span
             className={`text-text-primary font-bold transition-all duration-500 ${
@@ -109,9 +110,8 @@ export default function AgeQuestion({
             }`}
           >
             {" "}
-            {playerTwo.scrapedPlayerData.fullPlayerName}
+            {playerTwo.scrapedPlayerData.fullPlayerName} ?
           </span>{" "}
-          ?
         </div>
         <div className="flex flex-col self-center gap-2">
           <Button
@@ -139,7 +139,7 @@ export default function AgeQuestion({
             className={`backdrop-blur-lg hidden md:block transition-all duration-500 ${
               textState
                 ? ""
-                : "text-transparent bg-transparent border-transparent backdrop-blur-0 hover:bg-transparent"
+                : "text-transparent bg-transparent border-transparent backdrop-blur-none hover:bg-transparent"
             }`}
             variant={"secondary"}
           >
@@ -151,7 +151,7 @@ export default function AgeQuestion({
             className={`font-light block md:hidden transition-all duration-500 ${
               textState
                 ? ""
-                : "text-transparent bg-transparent border-transparent hover:bg-transparent"
+                : "text-transparent bg-transparent border-transparent hover:bg-transparent backdrop-blur-none"
             }`}
           >
             Shorter
