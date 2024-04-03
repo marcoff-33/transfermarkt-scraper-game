@@ -14,13 +14,16 @@ export default function Pitch({
   currentRoundRole,
   openPlayerModal,
   displayPlayerStatsFor,
+  gameState,
+  resetPlayer,
 }: {
   playerState: Player[];
   resetRoleRound: (role: Role) => void;
   currentRoundRole: Role;
-  hasGameEnded: GameState;
+  gameState: GameState;
   openPlayerModal: (open: boolean) => void;
   displayPlayerStatsFor: (role: Role) => void;
+  resetPlayer: (role: Role) => void;
 }) {
   // the grid div is placed on top of the pitch to render the 11 players
   // positions on the grid are properties of each player in playerState
@@ -41,6 +44,8 @@ export default function Pitch({
             displayPlayerStatsFor={displayPlayerStatsFor}
             openPlayerModal={openPlayerModal}
             key={index}
+            gameState={gameState}
+            resetPlayer={resetPlayer}
           />
         ))}
       </div>

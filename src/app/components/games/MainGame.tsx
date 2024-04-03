@@ -260,9 +260,10 @@ export default function MainGame() {
           playerState={currentPlayers}
           resetRoleRound={resetRoundByRole}
           currentRoundRole={roles[currentRound]}
-          hasGameEnded={gameState}
+          gameState={gameState}
           openPlayerModal={setOpenPlayerModal}
           displayPlayerStatsFor={setModalRole}
+          resetPlayer={resetRoundByRole}
         />
       )}
 
