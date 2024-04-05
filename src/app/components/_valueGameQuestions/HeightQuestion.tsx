@@ -1,161 +1,117 @@
-import React from "react";
+import React, { useState } from "react";
 import { PlayerData } from "../../types/playerData";
 import { Solution } from "../games/ValueGame";
 import { Button } from "../Buttons";
+import Image from "next/image";
+import AnswerButtons from "../AnswerButtons";
+import { text } from "stream/consumers";
+import { ValueAnswers } from "./ValueQuestion";
+import { AgeAnswers } from "./AgeQuestion";
 
-type Answer = "yes" | "no";
+export type HeightAnswers = "Taller" | "Shorter";
+export type AnswerState = "pending" | "correct" | "wrong";
 
 export default function AgeQuestion({
   playerOne,
   playerTwo,
   handleSolution,
   textState,
+  answerState,
+  setAnswerState,
 }: {
   playerOne: PlayerData;
   playerTwo: PlayerData;
   handleSolution: (solution: Solution) => void;
   textState: boolean;
+  answerState: AnswerState;
+  setAnswerState: (answerState: AnswerState) => void;
 }) {
-  const handleClick = (answer: Answer) => {
-    const correctAnswer: Answer =
+  const handleClick = (answer: HeightAnswers | AgeAnswers | ValueAnswers) => {
+    const correctAnswer: HeightAnswers =
       playerOne.scrapedPlayerData.playerHeightNumber >
       playerTwo.scrapedPlayerData.playerHeightNumber
-        ? "yes"
-        : "no";
+        ? "Shorter"
+        : "Taller";
 
-    answer == correctAnswer
-      ? handleSolution("correct")
-      : handleSolution("wrong");
+    if (answer == correctAnswer) {
+      setAnswerState("correct");
+      setTimeout(() => {
+        setAnswerState("pending");
+      }, 2000);
+      setTimeout(() => {
+        handleSolution("correct");
+      }, 2000);
+    } else {
+      setAnswerState("wrong");
+      setTimeout(() => {
+        setAnswerState("pending");
+      }, 2000);
+      setTimeout(() => {
+        handleSolution("wrong");
+      }, 2000);
+    }
   };
+
+  const answers: HeightAnswers[] = ["Taller", "Shorter"];
+  const textAnimations = !textState
+    ? "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent"
+    : "";
+  // this component is an overlay to the carousel that displays the 2 current players and renders the relative questions
   return (
-    <div className="w-full md:right-0 text-lg font-semibold text-text-primary self-center h-full flex items-center text-center justify-around flex-row">
-      <div className="grow basis-1/2 flex flex-col gap-8 justify-center">
-        <div
-          className={`basis-1/2 grow items-center flex flex-none self-center text-text-primary px-3 rounded-lg md:px-10 text-xl transition-all duration-500 ${
-            textState ? "" : "text-transparent"
-          }`}
-        >
-          {playerOne.scrapedPlayerData.fullPlayerName}
-        </div>
-        <div className="basis-1/2 grow flex flex-col">
-          <p
-            className={`text-text-primary max-w-fit self-center px-5 rounded-lg font-light transition-all duration-500 ${
-              textState ? "" : "text-transparent"
+    <div className="min-w-full md:right-0 text-lg font-semibold text-text-primary self-center min-h-full flex items-center text-center justify-center flex-col relative gap-10">
+      <div className={`w-full flex ${textAnimations}`}>
+        {/*this row renders both player's name*/}
+        <div className="basis-1/2 flex flex-row self-center items-center justify-center gap-2">
+          <p className={`pl-5 transition-all duration-200 ${textAnimations}`}>
+            {playerOne.scrapedPlayerData.fullPlayerName}
+          </p>
+          <Image
+            src={playerOne.scrapedPlayerData.clubLogoUrl}
+            width={25}
+            height={25}
+            alt="Player One Club Logo"
+            className={`transition-all duration-200 ${
+              !textState ? "opacity-0" : "opacity-100"
             }`}
+          />
+        </div>
+        <div className="basis-1/2 flex flex-row self-center items-center justify-center gap-2">
+          <p className={`pl-5 transition-all duration-200 ${textAnimations}`}>
+            {playerTwo.scrapedPlayerData.fullPlayerName}
+          </p>
+          <Image
+            src={playerTwo.scrapedPlayerData.clubLogoUrl}
+            width={25}
+            height={25}
+            alt="Player Two Club Logo"
+            className={`transition-all duration-200 ${
+              !textState ? "opacity-0" : "opacity-100"
+            }`}
+          />
+        </div>
+      </div>
+      <div className="w-full flex">
+        {/*this row renders the age of the first player and buttons for the second one*/}
+        <div
+          className={`basis-1/2 flex flex-col justify-center gap-2 ${textAnimations}`}
+        >
+          <p
+            className={`w-[30%] self-center border-b transition-all duration-500 ${textAnimations}`}
           >
             Height
           </p>
-          <p
-            className={`max-w-fit self-center px-5 rounded-lg text-text-primary font-bold transition-all duration-500 ${
-              textState ? "" : "text-transparent"
-            }`}
-          >
-            {playerOne.scrapedPlayerData.playerHeight}{" "}
+          <p className="transition-all duration-500">
+            {playerOne.scrapedPlayerData.playerHeight}
           </p>
         </div>
-      </div>
-      <div
-        className={`grow flex flex-col rounded-full gap-5 basis-1/2 justify-center mt-8 transition-all duration-500 ${
-          textState ? "" : ""
-        }`}
-      >
-        <div className="text-text-primary block md:hidden">
-          <p
-            className={`text-text-primary font-bold underline transition-all duration-500 ${
-              textState ? "" : "text-transparent"
-            }`}
-          >
-            {playerTwo.scrapedPlayerData.fullPlayerName}
-          </p>
-          <p
-            className={`transition-all duration-500 text-text-primary block md:hidden ${
-              textState ? "" : "text-transparent"
-            }`}
-          >
-            Is ...
-          </p>
-        </div>
-        <div
-          className={`flex-none bg-background-deep/60 backdrop-blur-lg rounded-md mx-5 px-2 hidden md:block transition-all duration-500 ${
-            textState ? "" : "bg-transparent backdrop-blur-none"
-          }`}
-        >
-          <span
-            className={`font-light transition-all duration-500 ${
-              textState
-                ? ""
-                : "bg-transparent backdrop-blur-none text-transparent"
-            }`}
-          >
-            is
-          </span>
-          <span
-            className={`text-text-primary font-bold transition-all duration-500 ${
-              textState ? "" : "text-transparent"
-            }`}
-          >
-            {" "}
-            {playerOne.scrapedPlayerData.fullPlayerName}{" "}
-          </span>
-          <span
-            className={`text-primary transition-all duration-500 ${
-              textState ? "" : "text-transparent"
-            }`}
-          >
-            Taller Than{" "}
-          </span>
-          <span
-            className={`text-text-primary font-bold transition-all duration-500 ${
-              textState ? "" : "text-transparent"
-            }`}
-          >
-            {" "}
-            {playerTwo.scrapedPlayerData.fullPlayerName} ?
-          </span>{" "}
-        </div>
-        <div className="flex flex-col self-center gap-2">
-          <Button
-            onClick={() => handleClick("yes")}
-            className={`bg-primary text-primary-foreground font-light hidden md:block transition-all duration-500 ${
-              textState
-                ? ""
-                : "text-transparent bg-transparent border-transparent hover:bg-transparent"
-            }`}
-          >
-            Yes
-          </Button>
-          <Button
-            onClick={() => handleClick("no")}
-            className={`bg-primary text-primary-foreground font-light block md:hidden transition-all duration-500 ${
-              textState
-                ? ""
-                : "text-transparent bg-transparent border-transparent hover:bg-transparent"
-            }`}
-          >
-            Taller
-          </Button>
-          <Button
-            onClick={() => handleClick("no")}
-            className={`backdrop-blur-lg hidden md:block transition-all duration-500 ${
-              textState
-                ? ""
-                : "text-transparent bg-transparent border-transparent backdrop-blur-none hover:bg-transparent"
-            }`}
-            variant={"secondary"}
-          >
-            No
-          </Button>
-          <Button
-            onClick={() => handleClick("yes")}
-            variant={"secondary"}
-            className={`font-light block md:hidden transition-all duration-500 ${
-              textState
-                ? ""
-                : "text-transparent bg-transparent border-transparent hover:bg-transparent backdrop-blur-none"
-            }`}
-          >
-            Shorter
-          </Button>
+        <div className="basis-1/2 flex flex-col gap-2 items-center">
+          <AnswerButtons
+            answerState={answerState}
+            showQuestions={textState}
+            answers={answers}
+            handleAnswer={handleClick}
+            revealText={playerTwo.scrapedPlayerData.playerHeight}
+          />
         </div>
       </div>
     </div>
