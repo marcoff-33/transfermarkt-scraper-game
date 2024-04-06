@@ -96,7 +96,7 @@ export default function AgeQuestion({
           className={`basis-1/2 flex flex-col justify-center gap-2 ${textAnimations}`}
         >
           <p
-            className={`w-[30%] self-center border-b transition-all duration-500 ${textAnimations}`}
+            className={`w-[30%] self-center border-b transition-all duration-500 border-primary ${textAnimations}`}
           >
             Age
           </p>

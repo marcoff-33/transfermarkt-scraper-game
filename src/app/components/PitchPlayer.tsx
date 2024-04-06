@@ -74,11 +74,10 @@ export default function PitchPlayer({
         </div>
       </AlertDialogTrigger>
       <AlertDialogContent className="z-[2000] flex justify-center flex-col items-center">
-        <div className="z-50 w-[50%] text-text-primary text-center flex flex-col gap-2">
+        <div className="z-50 w-[50%] text-text-primary text-center flex flex-col gap-2 w-full">
           <div className="text-text-primary text-xl font-bold flex flex-row justify-center items-center w-full">
             <p className="self-center grow">{player.fullPlayerName}</p>
           </div>
-
           <Image
             src={player.profileImgUrl}
             alt={player.playerName}
@@ -86,42 +85,49 @@ export default function PitchPlayer({
             width={100}
             className="self-center rounded-full outline outline-primary shadow-lg shadow-black"
           />
-
-          <div className="flex flex-row self-center gap-5 items-center">
-            <p className="text-text-primary text-lg font-bold">
+          <div className="flex flex-row self-center gap-5 items-center w-full">
+            <p className="text-text-primary text-lg font-bold basis-1/2 text-end">
               Date of Birth:{" "}
             </p>
-            <p className="text-center">{player.playerAge}</p>
+            <p className="text-start basis-1/2">{player.playerAge}</p>
           </div>
-          <div className="flex flex-row self-center gap-5 items-center">
-            <p className="text-text-primary text-lg font-bold">Club: </p>
-            <p className="text-center">{player.clubName}</p>
+          <div className="flex flex-row self-center gap-5 items-center w-full">
+            <p className="text-text-primary text-lg font-bold basis-1/2 text-end">
+              Club:{" "}
+            </p>
+            <p className="basis-1/2 text-start">{player.clubName}</p>
           </div>
-          <div className="flex flex-row self-center gap-5 items-center">
-            <p className="text-text-primary text-lg font-bold">League: </p>
-            <p className="text-center">{player.playerLeague}</p>
+          <div className="flex flex-row self-center gap-5 items-center w-full">
+            <p className="text-text-primary text-lg font-bold basis-1/2 text-end">
+              League:{" "}
+            </p>
+            <p className="basis-1/2 text-start">{player.playerLeague}</p>
           </div>
-          <div className="flex flex-row self-center gap-5 items-center">
-            <p className="text-text-primary text-lg font-bold">Height: </p>
-            <p className="text-center">{player.playerHeight}</p>
+          <div className="flex flex-row self-center gap-5 items-center w-full">
+            <p className="text-text-primary text-lg font-bold basis-1/2 text-end">
+              Height:{" "}
+            </p>
+            <p className="basis-1/2 text-start">{player.playerHeight}</p>
           </div>
-          <div className="flex flex-row self-center gap-5 items-center">
-            <p className="text-text-primary text-lg font-bold">
+          <div className="flex flex-row self-center gap-5 items-center w-full">
+            <p className="text-text-primary text-lg font-bold basis-1/2 text-end">
               National Team:{" "}
             </p>
-            <p className="text-center">{player.playerCountry}</p>
+            <p className="basis-1/2 text-start">{player.playerCountry}</p>
           </div>
-          <div className="flex flex-row self-center gap-5 items-center">
-            <p className="text-text-primary text-lg font-bold">
+          <div className="flex flex-row self-center gap-5 items-center w-full">
+            <p className="text-text-primary text-lg font-bold basis-1/2 text-end">
               Dominant Foot:{" "}
             </p>
-            <p className="text-center">{player.playerFoot}</p>
+            <p className="basis-1/2 text-start">{player.playerFoot}</p>
           </div>
-          <div className="flex flex-row self-center gap-5 items-center">
-            <p className="text-text-primary text-lg font-bold">
+          <div className="flex flex-row self-center gap-5 items-center w-full">
+            <p className="text-text-primary text-lg font-bold basis-1/2 text-end">
               Market Value:{" "}
             </p>
-            <p className="text-center">{player.playerValue / 1000000}m €</p>
+            <p className="basis-1/2 text-start">
+              {player.playerValue / 1000000}m €
+            </p>
           </div>
           <div className="flex flex-row self-end gap-5 max-w-fit justify-between py-5"></div>
         </div>

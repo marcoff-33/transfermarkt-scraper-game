@@ -112,11 +112,11 @@ export default function ValueGame() {
   };
 
   return (
-    <div className="justify-center bg-background-deep md:container gap-2 relative py-10 max-w-full">
-      <div className="w-full self-center flex justify-around  bg-background-front shadow-lg rounded-lg py-2 gap-5 my-5">
-        <p className="text-lg font-bold bg-background-mid self-center px-3 rounded-lg text-text-primary">
+    <div className="justify-center bg-background-deep md:container gap-2 relative max-w-full">
+      <div className="w-full self-center flex justify-around  bg-background-mid rounded-lg py-2 gap-5 my-5">
+        <p className="text-lg font-bold bg-background-front self-center px-3 rounded-lg text-text-primary shadow-md">
           Score :{" "}
-          <span className="text-primary font-bold self-center">{score}</span>
+          <span className="text-accent font-bold self-center">{score}</span>
         </p>
         <Button
           className={`self-center md:absolute md:left-[50%] md:translate-x-[-50%] order-4 ${
@@ -128,9 +128,9 @@ export default function ValueGame() {
         >
           Start
         </Button>
-        <p className="text-lg font-bold bg-background-mid self-center px-3 rounded-lg text-text-primary order-1">
+        <p className="text-lg font-bold bg-background-mid self-center px-3 rounded-lg text-text-primary order-1 shadow-md">
           Highscore :{" "}
-          <span className="text-primary text-lg font-bold self-center">
+          <span className="text-accent text-lg font-bold self-center">
             {highscore}
           </span>
         </p>
@@ -209,7 +209,7 @@ export default function ValueGame() {
                   <div
                     className={`w-full h-full absolute transition-all duration-500 rounded-xl delay-200 ${
                       answerState == "correct" && questionIndexTwo == index
-                        ? "bg-green-900/80 backdrop-blur-md"
+                        ? "bg-primary/80 backdrop-blur-md"
                         : "bg-background-front/90"
                     } ${
                       answerState == "wrong" && questionIndexTwo == index

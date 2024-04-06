@@ -29,7 +29,7 @@ export default function CardsWrapper({
             className="text-white flex"
           >
             <GiRollingDices
-              className="text-primary bg-background-front rounded-md"
+              className="text-primary bg-background-mid shadow-md rounded-md"
               size={30}
             />
           </button>
@@ -39,7 +39,7 @@ export default function CardsWrapper({
             onClick={() => setMini(true)}
           >
             <BiSolidHide
-              className="text-primary mx-3 bg-background-front rounded-md"
+              className="text-primary mx-3 bg-background-mid shadow-md rounded-md"
               size={30}
             />
           </button>

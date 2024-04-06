@@ -4,22 +4,22 @@
 
 @layer base {
   :root {
-    --background-deep: 120 20% 99%;
-    --background-mid: 120 7% 97%;
-    --background-front: 120 3% 73%;
-    --primary: 18 60% 50%;
-    --primary-foreground: 120 20% 99%;
-    --accent: 18 60% 50%;
+    --background-deep: 0 0% 100%;
+    --background-mid: 0 0% 98%;
+    --background-front: 0 0% 84%;
+    --primary: 74 65% 54%;
+    --primary-foreground: 74 5% 20%;
+    --accent: 154 50% 52%;
     --text-primary: 120 5% 5%;
     --danger: 354 100% 22%;
   }
   .dark {
-    --background-deep: 120 10% 4%;
-    --background-mid: 120 9% 10%;
-    --background-front: 120 3% 15%;
-    --primary: 18 60% 50%;
-    --primary-foreground: 120 55% 95%;
-    --accent: 18 60% 50%;
+    --background-deep: 0 0% 8%;
+    --background-mid: 0 0% 12%;
+    --background-front: 0 0% 16%;
+    --primary: 74 65% 54%;
+    --primary-foreground: 74 5% 20%;
+    --accent: 154 50% 52%;
     --text-primary: 120 98% 98%;
     --danger: 354 100% 22%;
   }

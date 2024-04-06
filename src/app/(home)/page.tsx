@@ -18,7 +18,7 @@ export default async function Home() {
                 TransferMarkt{" "}
               </a>
               <p>
-                data <span className="text-accent">.</span>
+                data <span className="text-primary">.</span>
               </p>
             </h1>
             <div className="text-lg text-text-secondary font-md py-2 text-text-primary/80">

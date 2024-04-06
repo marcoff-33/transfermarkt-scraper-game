@@ -45,7 +45,7 @@ export default function GameNavbar({
           className="flex flex-row justify-center text-center gap-2"
           href={"/"}
         >
-          <GiSoccerKick className="self-center text-accent" size={25} />
+          <GiSoccerKick className="self-center text-primary" size={25} />
 
           <div className="text-lg hidden lg:block self-center text-text-primary">
             Team Builder
@@ -63,13 +63,13 @@ export default function GameNavbar({
             <div
               key={index}
               className={`transition-all duration-500 delay-100 ${
-                index < rerolls ? "text-primary" : "text-background-front"
+                index < rerolls ? "text-accent" : "text-background-front"
               } ${gameState == "initial" ? "text-transparent" : ""}`}
             >
               <p
                 style={
                   index < rerolls && gameState !== "initial"
-                    ? { textShadow: "0px 0px 5px orange" }
+                    ? { textShadow: "0px 0px 5px cyan" }
                     : {}
                 }
                 className="transition-all duration-1000 delay-100"

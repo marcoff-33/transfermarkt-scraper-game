@@ -7,13 +7,13 @@ import PlayBar from "./PlayBar";
 
 export default function Navbar() {
   return (
-    <div className="w-full bg-background/50 backdrop-blur-md top-0 sticky z-[1000] text-text-950 font-semibold py-3 transition-colors duration-500 border-b border-front">
+    <div className="w-full bg-background/50 backdrop-blur-md top-0 sticky z-[1000] text-text-950 font-semibold py-3 transition-colors duration-500 border-b border-background-front">
       <div className="container flex flex-row justify-between relative">
         <Link
           className="flex flex-row justify-center text-center gap-2"
           href={"/"}
         >
-          <GiSoccerKick className="self-center text-accent" size={25} />
+          <GiSoccerKick className="self-center text-primary" size={25} />
 
           <div className="text-lg hidden md:block self-center text-text-primary">
             Team Builder
