@@ -39,7 +39,7 @@ export default function GameNavbar({
   const dots = [1, 2, 3, 4, 5];
 
   return (
-    <div className="w-full bg-background/50 backdrop-blur-md top-0 sticky z-[1000] text-text-950 font-semibold py-3 transition-colors duration-500 border-b border-front">
+    <div className="w-full bg-background/50 backdrop-blur-md top-0 sticky z-[1000] text-text-950 font-semibold py-5 transition-colors duration-500 border-b border-primary">
       <div className="container flex flex-row justify-between relative items-center">
         <Link
           className="flex flex-row justify-center text-center gap-2"
@@ -63,13 +63,13 @@ export default function GameNavbar({
             <div
               key={index}
               className={`transition-all duration-500 delay-100 ${
-                index < rerolls ? "text-accent" : "text-background-front"
+                index < rerolls ? "text-primary" : "text-background-front"
               } ${gameState == "initial" ? "text-transparent" : ""}`}
             >
               <p
                 style={
                   index < rerolls && gameState !== "initial"
-                    ? { textShadow: "0px 0px 5px cyan" }
+                    ? { textShadow: "0px 0px 5px greenyellow" }
                     : {}
                 }
                 className="transition-all duration-1000 delay-100"

@@ -36,7 +36,9 @@ export default function PreGameModal({
         {values.map((value, index) => (
           <button
             className={`transition-colors rounded-full px-3 ${
-              value == budgetValue ? "bg-primary" : "bg-transparent"
+              value == budgetValue
+                ? "bg-primary text-primary-foreground"
+                : "bg-transparent"
             }`}
             onClick={() => setBudgetValue(value)}
             key={index}
@@ -52,7 +54,9 @@ export default function PreGameModal({
             onClick={() => setSelectedFormation(formation)}
             key={index}
             className={`transition-colors rounded-full px-3 ${
-              selectedFormation == formation ? "bg-primary" : ""
+              selectedFormation == formation
+                ? "bg-primary text-primary-foreground"
+                : ""
             }`}
           >
             {formation}

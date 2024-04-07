@@ -112,11 +112,11 @@ export default function ValueGame() {
   };
 
   return (
-    <div className="justify-center bg-background-deep md:container gap-2 relative max-w-full">
-      <div className="w-full self-center flex justify-around  bg-background-mid rounded-lg py-2 gap-5 my-5">
-        <p className="text-lg font-bold bg-background-front self-center px-3 rounded-lg text-text-primary shadow-md">
+    <div className="justify-center bg-background-deep 2xl container gap-2 relative max-w-full">
+      <div className="w-full self-center flex justify-around  rounded-lg py-4 gap-5 rounded-b-none">
+        <p className="text-lg font-bold self-center bg-background-mid text-text-primary px-3 rounded-lg  shadow-md">
           Score :{" "}
-          <span className="text-accent font-bold self-center">{score}</span>
+          <span className="text-primary font-bold self-center">{score}</span>
         </p>
         <Button
           className={`self-center md:absolute md:left-[50%] md:translate-x-[-50%] order-4 ${
@@ -130,7 +130,7 @@ export default function ValueGame() {
         </Button>
         <p className="text-lg font-bold bg-background-mid self-center px-3 rounded-lg text-text-primary order-1 shadow-md">
           Highscore :{" "}
-          <span className="text-accent text-lg font-bold self-center">
+          <span className="text-primary text-lg font-bold self-center">
             {highscore}
           </span>
         </p>
@@ -147,17 +147,17 @@ export default function ValueGame() {
           }}
         >
           <div
-            className={`absolute z-[1000] inset-0 transition-all duration-500 delay-1000 ${
+            className={`absolute z-[1000] inset-0 transition-all duration-500 delay-1000  ${
               gameState !== "in progress"
-                ? "bg-background-front"
-                : "bg-transparent invisible"
+                ? "bg-background-deep border-primary border-[2px]"
+                : "bg-transparent invisible border-transparent"
             }`}
           >
             {gameState == "pending" && (
               <div
                 className={`transition-all duration-800 delay-1000 text-center flex flex-col justify-center h-full items-center gap-5 ${
                   gameState == "pending"
-                    ? "text-primary-foreground"
+                    ? "text-text-primary"
                     : "text-transparent no-highlight"
                 }`}
               >
@@ -166,7 +166,9 @@ export default function ValueGame() {
                   <button
                     onClick={() => setPlayersDb(allPlayerDb)}
                     className={`transition-colors duraiton-300 rounded-full px-5 ${
-                      playerDb == allPlayerDb ? "bg-primary" : ""
+                      playerDb == allPlayerDb
+                        ? "bg-primary text-primary-foreground"
+                        : ""
                     }`}
                   >
                     Global
@@ -174,7 +176,9 @@ export default function ValueGame() {
                   <button
                     onClick={() => setPlayersDb(serieaDb)}
                     className={`transition-colors duraiton-300 ${
-                      playerDb == serieaDb ? "bg-primary" : ""
+                      playerDb == serieaDb
+                        ? "bg-primary text-primary-foreground"
+                        : ""
                     } rounded-full px-5`}
                   >
                     Serie A
@@ -186,7 +190,7 @@ export default function ValueGame() {
           <CarouselContent className="min-h-full min-w-full h-[500px]">
             {players.map((player, index) => (
               <CarouselItem
-                className="basis-1/2 h-[500px] w-[50vw] relative mr-5 pl-0 "
+                className="basis-1/2 h-[500px] w-[50vw] relative mr-[0.8rem] pl-0 border-x-[3px] border-primary"
                 key={index}
               >
                 <div className="">
@@ -201,19 +205,19 @@ export default function ValueGame() {
                         setIsLoaded(true);
                       }, 500)
                     }
-                    className={`min-w-full min-h-full grayscale duration-1000 relative rounded-xl ${
+                    className={`min-w-full min-h-full grayscale duration-1000 relative rounded-sm ${
                       isLoaded && gameState == "in progress" ? "" : ""
                     }`}
                   />
 
                   <div
-                    className={`w-full h-full absolute transition-all duration-500 rounded-xl delay-200 ${
+                    className={`w-full h-full absolute transition-all duration-500 rounded-sm delay-200 ${
                       answerState == "correct" && questionIndexTwo == index
                         ? "bg-primary/80 backdrop-blur-md"
-                        : "bg-background-front/90"
+                        : "bg-background-front/80"
                     } ${
                       answerState == "wrong" && questionIndexTwo == index
-                        ? "bg-red-800/80 backdrop-blur-md"
+                        ? "bg-red-900/80 backdrop-blur-lg"
                         : "bg-background-front/90"
                     }`}
                   ></div>
@@ -223,7 +227,7 @@ export default function ValueGame() {
           </CarouselContent>
         </Carousel>
         <p
-          className={`font-bold inset-0 mx-auto absolute border border-primary bg-background-deep text-text-primary px-5 rounded-full self-center flex justify-center max-w-fit text-sm`}
+          className={`font-bold left-[47.9%] absolute border border-primary backdrop-blur-md bg-background-deep text-text-primary px-3 rounded-full self-center flex justify-center max-w-fit ?text-sm`}
         >
           VS
         </p>
@@ -260,6 +264,7 @@ export default function ValueGame() {
           </div>
         )}
       </div>
+      <div className="w-full self-center flex justify-around  rounded-lg py-5 gap-5 rounded-t-none"></div>
     </div>
   );
 }

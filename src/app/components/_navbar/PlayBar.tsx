@@ -22,8 +22,8 @@ export default function Play() {
         <PopoverTrigger
           className={`outline outline-1 rounded-full transition-all duration-200 px-8 relative py-1 border-[1px]     ${
             pressed
-              ? "border-black/50 shadow-[0_0px_3px_0px_rgba(250,250,250,0.3)] shadow-black bg-primary/80 outline-white text-text-primary"
-              : "border-primary shadow-[0_3px_8px_1px_rgba(250,250,250,0.3)] shadow-black bg-primary outline-primary/90 text-primary-foreground"
+              ? "border-black/50 shadow-[0_0px_3px_0px_rgba(250,250,250,0.3)] shadow-black bg-primary/80 outline-primary text-primary-foreground/80"
+              : "border-primary/10 shadow-[0_0px_5px_1px_rgba(250,250,250,0.3)] shadow-black bg-primary outline-primary/10 text-primary-foreground"
           }`}
           onClick={() => setPressed(!pressed)}
         >

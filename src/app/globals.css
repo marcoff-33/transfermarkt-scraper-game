@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    --background-deep: 0 0% 100%;
-    --background-mid: 0 0% 98%;
+    --background-deep: 0 0% 99%;
+    --background-mid: 0 0% 100%;
     --background-front: 0 0% 84%;
-    --primary: 74 65% 54%;
-    --primary-foreground: 74 5% 20%;
+    --primary: 74 35% 34%;
+    --primary-foreground: 74 0% 100%;
     --accent: 154 50% 52%;
     --text-primary: 120 5% 5%;
     --danger: 354 100% 22%;
@@ -18,7 +18,7 @@
     --background-mid: 0 0% 12%;
     --background-front: 0 0% 16%;
     --primary: 74 65% 54%;
-    --primary-foreground: 74 5% 20%;
+    --primary-foreground: 74 0% 10%;
     --accent: 154 50% 52%;
     --text-primary: 120 98% 98%;
     --danger: 354 100% 22%;
