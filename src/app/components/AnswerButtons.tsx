@@ -38,19 +38,20 @@ export default function AnswerButtons({
         </p>
         <p>{revealText}</p>
       </div>
-      {answers.map((answer) => (
+      {answers.map((answer, index) => (
         <Button
           className={`w-[30%] text-center duration-200 ${
             !showQuestions
-              ? "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent"
+              ? "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent pointer-events-none"
               : ""
           } ${
             answerState !== "pending" && showQuestions
-              ? "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent"
+              ? "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent pointer-events-none"
               : ""
           }`}
           onClick={() => handleAnswer(answer)}
           disabled={answerState !== "pending"}
+          key={index}
         >
           {answer}
         </Button>

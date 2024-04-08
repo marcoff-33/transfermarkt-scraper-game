@@ -1,5 +1,5 @@
 "use client";
-
+import { ImSpinner3 } from "react-icons/im";
 import { drawRandomPlayer } from "@/app/utils/randomRolePicks";
 import React, { useEffect, useRef, useState } from "react";
 import allPlayerDb from "../../../../public/players.json";
@@ -47,6 +47,8 @@ export default function ValueGame() {
   const [api, setApi] = React.useState<CarouselApi>();
 
   const handleClick = async () => {
+    setIsLoaded(true);
+    console.log("clicked");
     api?.scrollTo(0);
     const playerPromises = drawFourPlayers.map(async (player) => {
       const playerData = await saGetPlayerData(player);
@@ -57,6 +59,7 @@ export default function ValueGame() {
     setQuestionIndexOne(0);
     setQuestionIndexTwo(1);
     setGameState("in progress");
+    setIsLoaded(false);
     setScore(0);
     setTimeout(() => {
       setShowQuestions(true);
@@ -77,7 +80,6 @@ export default function ValueGame() {
   };
 
   const handleSolution = async (solution: Solution) => {
-    setIsLoaded(false);
     setShowQuestions(false);
     const currentPlayers = [...players];
     const newPlayer = await saGetPlayerData(drawRandomPlayer(playerDb));
@@ -124,7 +126,9 @@ export default function ValueGame() {
               ? "pointer-events-none bg-primary/10 text-primary-foreground/50"
               : ""
           } `}
-          onClick={() => handleClick()}
+          onClick={() => {
+            !isLoaded && handleClick();
+          }}
         >
           Start
         </Button>
@@ -161,6 +165,13 @@ export default function ValueGame() {
                     : "text-transparent no-highlight"
                 }`}
               >
+                <ImSpinner3
+                  className={`duration-3000 transition-colors ${
+                    isLoaded ? "text-primary animate-spin" : "text-transparent"
+                  } ${showQuestions ? "hidden" : "block"}`}
+                  size={50}
+                />
+
                 <div className="">Select Players :</div>
                 <div className="flex flex-row">
                   <button
@@ -200,14 +211,7 @@ export default function ValueGame() {
                     fill
                     objectFit="cover"
                     objectPosition="center"
-                    onLoadingComplete={() =>
-                      setTimeout(() => {
-                        setIsLoaded(true);
-                      }, 500)
-                    }
-                    className={`min-w-full min-h-full grayscale duration-1000 relative rounded-sm ${
-                      isLoaded && gameState == "in progress" ? "" : ""
-                    }`}
+                    className={`min-w-full min-h-full grayscale duration-1000 relative rounded-sm `}
                   />
 
                   <div
