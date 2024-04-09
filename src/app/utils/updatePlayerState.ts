@@ -35,9 +35,9 @@ type ColorType = "border" | "shadow";
 export const getPlayerColor = (playerValue: number, type: ColorType) => {
   if (type == "shadow") {
     return playerValue > 50000000
-      ? "shadow-orange-400"
+      ? "shadow-primary"
       : playerValue > 25000000
-      ? "shadow-indigo-950"
+      ? "shadow-accent/50"
       : playerValue > 10000000
       ? "shadow-green-950"
       : playerValue > 1000000
@@ -47,7 +47,7 @@ export const getPlayerColor = (playerValue: number, type: ColorType) => {
       : "shadow-none";
   }
   return playerValue > 50000000
-    ? "border-orange-400"
+    ? "border-primary"
     : playerValue > 25000000
     ? "border-indigo-950"
     : playerValue > 10000000

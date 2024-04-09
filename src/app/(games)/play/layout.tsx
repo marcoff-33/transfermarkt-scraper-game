@@ -3,5 +3,5 @@ export default function GameLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="flex min-h-screen flex-col">{children}</div>;
+  return <div className="flex min-h-screen flex-col pb-20">{children}</div>;
 }

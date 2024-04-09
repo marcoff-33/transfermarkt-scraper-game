@@ -110,7 +110,7 @@ export default function GameNavbar({
           }`}
         >
           <GrMoney
-            className={`text-primary mx-2 transition-colors duration-1000 delay-1000 hidden md:block self-center  ${
+            className={`text-primary mx-2 transition-colors duration-1000 delay-1000  self-center  ${
               gameState == "initial" ? "text-transparent bg-transparent" : ""
             }`}
             size={30}

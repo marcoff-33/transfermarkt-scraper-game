@@ -159,7 +159,7 @@ export default function PlayerCard({
       disabled={loadingImg}
     >
       <div className="min-h-full flex flex-col justify-center items-center relative overflow-hidden ">
-        <div className="z-50 bg-transparent overflow-hidden flex items-center justify-center flex-col min-h-full min-w-full relative grow">
+        <div className="bg-transparent overflow-hidden flex items-center justify-center flex-col min-h-full min-w-full relative grow ">
           <Image
             src={imageUrl}
             alt={playerData.playerName || ""}
@@ -176,9 +176,9 @@ export default function PlayerCard({
             }
             alt={playerData.playerName || ""}
             fill
-            style={{ objectFit: "unset" }}
+            style={{ objectFit: "cover" }}
             objectPosition="center"
-            className={`self-center rounded-lg transition-all duration-1000 w-full h-full sm:hidden ${
+            className={`z-[1000] self-center rounded-lg transition-all duration-1000 w-full h-full sm:hidden ${
               loadingImg ? "blur-xl" : "blur-none"
             }`}
           />

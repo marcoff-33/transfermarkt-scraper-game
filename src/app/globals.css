@@ -21,7 +21,7 @@
     --primary-foreground: 74 0% 10%;
     --accent: 154 50% 52%;
     --text-primary: 120 98% 98%;
-    --danger: 354 100% 22%;
+    --danger: 1 100% 64%;
   }
 }
 
@@ -31,4 +31,12 @@
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
+}
+
+.pitchSvgStyles svg path {
+  fill: #0000ff; /* Blue color for the field */
+}
+
+.pitchSvgStyles svg g[stroke] {
+  stroke: #ff0000; /* Red color for the lines */
 }
