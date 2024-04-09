@@ -32,11 +32,3 @@
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
 }
-
-.pitchSvgStyles svg path {
-  fill: #0000ff; /* Blue color for the field */
-}
-
-.pitchSvgStyles svg g[stroke] {
-  stroke: #ff0000; /* Red color for the lines */
-}
