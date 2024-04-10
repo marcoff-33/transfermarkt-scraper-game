@@ -60,6 +60,7 @@ export default function SwapModalDialog({
           gameState == "in progress" &&
           "shadow-transparent text-primary/20 pointer-events-none"
         } ${gameState == "ended" && "text-primary shadow-primary"}`}
+        disabled={gameState !== "ended"}
       >
         <GiPlayerNext className="min-h-full" size={25} />
       </AlertDialogTrigger>

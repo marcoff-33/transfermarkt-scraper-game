@@ -12,6 +12,7 @@ import imageOne from "@/app/public/menuImage1.jpg";
 import imageTwo from "@/app/public/menuImage3.jpg";
 import Link from "next/link";
 import { PopoverClose } from "@radix-ui/react-popover";
+import path from "path";
 export default function Play() {
   const pathname = usePathname();
   const [pressed, setPressed] = useState(false);
@@ -30,13 +31,17 @@ export default function Play() {
           Play
         </PopoverTrigger>
         <PopoverContent
-          className="z-[1000] bg-background-mid/50 backdrop-blur-md min-h-[25rem] relative flex p-1 sm:w-[50vw] w-[80vw] max-h-[70vh]"
+          className="z-[1000] bg-background-mid/50 backdrop-blur-md min-h-[25rem] relative flex p-1 sm:w-[50vw] w-[80vw] max-h-[70vh] border-background-front"
           onCloseAutoFocus={() => setPressed(false)}
         >
           <div className="bg-background-mid grow flex flex-row gap-1 justify-between">
             <PopoverClose asChild onClick={() => setPressed(false)}>
               <Link
-                className="grow basis-1/2 relative grayscale hover:grayscale-0 transition-all duration-500 group "
+                className={`no-highlight grow basis-1/2 relative grayscale transition-all duration-500 group ${
+                  pathname == "/play"
+                    ? "opacity-20 pointer-events-none"
+                    : "hover:grayscale-0"
+                }`}
                 href={"/play"}
               >
                 <Image
@@ -57,7 +62,11 @@ export default function Play() {
             <PopoverClose asChild>
               <Link
                 href={"/valuegame"}
-                className="grow basis-1/2 relative grayscale hover:grayscale-0 transition-all duration-500 group"
+                className={`no-highlight grow basis-1/2 relative grayscale transition-all duration-500 group ${
+                  pathname == "/valuegame"
+                    ? "opacity-20 pointer-events-none"
+                    : "hover:grayscale-0"
+                }`}
               >
                 <Image
                   alt="Team Builder"

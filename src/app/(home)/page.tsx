@@ -10,13 +10,19 @@ export default async function Home() {
           <div className=" ">
             <h1 className="text-4xl font-bold text-text-primary lg:font-extrabold md:tracking-tight tracking-wide text-left py-2 lg:text-center">
               Team Builder / Quiz games built with{" "}
-              <a
-                className="text-primary hover:text-primary/90 transition-colors duration-200"
-                target="_blank"
-                href={"https://www.transfermarkt.com/"}
+              <Button
+                variant={"link"}
+                asChild
+                className="text-4xl font-bold px-0"
               >
-                TransferMarkt{" "}
-              </a>
+                <a
+                  className=""
+                  target="_blank"
+                  href={"https://www.transfermarkt.com/"}
+                >
+                  TransferMarkt{" "}
+                </a>
+              </Button>
               <p>
                 data <span className="text-primary">.</span>
               </p>

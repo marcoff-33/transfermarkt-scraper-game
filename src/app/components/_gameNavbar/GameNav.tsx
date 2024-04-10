@@ -16,6 +16,7 @@ import { GiPlayerNext } from "react-icons/gi";
 import AlertDialogButton from "../RestartGameDialog";
 import SwapModalDialog from "../SwapPlayersDialog";
 import { Player } from "@/app/types/playerData";
+import PlayBar from "../_navbar/PlayBar";
 
 export default function GameNavbar({
   rerolls,
@@ -82,6 +83,10 @@ export default function GameNavbar({
 
         <div className="bottom-[-300%] left-[5%]  md:left-[20%] absolute">
           <AlertDialogButton gameState={gameState} restartGame={restartGame} />
+        </div>
+
+        <div className="absolute -translate-y-1 left-[50%] translate-x-[-50%] md:block hidden mt-1">
+          <PlayBar />
         </div>
 
         <HoverCard openDelay={100}>

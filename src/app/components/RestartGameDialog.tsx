@@ -43,7 +43,7 @@ export default function AlertDialogButton({
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={() => restartGame()}
-            className="bg-danger hover:bg-danger/80 text-primary-foreground"
+            className="bg-danger hover:bg-danger/80 text-danger-foreground"
           >
             Continue
           </AlertDialogAction>

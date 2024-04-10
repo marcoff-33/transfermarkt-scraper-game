@@ -35,6 +35,9 @@ export default function PitchPlayer({
   gameState: GameState;
 }) {
   const blockModal = player.playerName === "" && gameState == "ended";
+  // the blockModal conditional is to prevent a certain case at the end of the game
+  // where if 2 players are missing/sold, the player modal will open with an empty player.
+  // instead, a button replacement is rendered which sets the current round to the missing player's role
   return (
     <AlertDialog>
       {!blockModal ? (
@@ -73,10 +76,10 @@ export default function PitchPlayer({
             )}`}
             style={{ objectFit: "cover", objectPosition: "center" }}
           />
-          <div className="z-50 text-sm font-semibold overflow-x-hidden">
+          <div className="z-50 text-sm font-semibold overflow-x-hidden sm:overflow-x-visible">
             <p
-              className={`whitespace-nowrap text-white sm:animate-none animate-marquee ${
-                player.fullPlayerName.length > 10 ? "sm:animate-marquee" : ""
+              className={`whitespace-nowrap text-text-primary font-bold sm:animate-none animate-marquee ${
+                player.fullPlayerName.length > 10 ? "animate-marquee" : ""
               }`}
             >
               {player.shortPlayerName}
@@ -121,7 +124,7 @@ export default function PitchPlayer({
           />
           <div className="z-50 text-sm font-semibold overflow-x-hidden">
             <p
-              className={`whitespace-nowrap text-white sm:animate-none animate-marquee ${
+              className={`whitespace-nowrap text-text-primary sm:animate-none animate-marquee ${
                 player.fullPlayerName.length > 10 ? "sm:animate-marquee" : ""
               }`}
             >

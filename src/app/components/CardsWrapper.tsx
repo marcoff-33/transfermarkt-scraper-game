@@ -21,7 +21,7 @@ export default function CardsWrapper({
   const [mini, setMini] = useState(false);
 
   return (
-    <div className="md:container fixed bottom-5 self-center w-full">
+    <div className="px-2 fixed bottom-5 self-center w-full">
       {!mini ? (
         <div
           className={`flex flex-row justify-around w-full sm:py-2 z-50 backdrop-blur-sm bottom-5 self-center h-[150px] sm:h-[200px] md:gap-5 gap-2`}

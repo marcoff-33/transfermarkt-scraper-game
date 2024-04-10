@@ -20,7 +20,7 @@ export default function Navbar() {
           </div>
         </Link>
         <div className="flex flex-row gap-5">
-          <div className="md:absolute -translate-y-1 left-[50%] translate-x-[-50%]">
+          <div className="absolute -translate-y-1 left-[50%] translate-x-[-50%]">
             <PlayBar />
           </div>
         </div>

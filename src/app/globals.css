@@ -12,6 +12,7 @@
     --accent: 154 50% 52%;
     --text-primary: 120 5% 5%;
     --danger: 354 100% 22%;
+    --danger-foreground: 120 98% 98%;
   }
   .dark {
     --background-deep: 0 0% 8%;
@@ -21,7 +22,8 @@
     --primary-foreground: 74 0% 10%;
     --accent: 154 50% 52%;
     --text-primary: 120 98% 98%;
-    --danger: 1 100% 64%;
+    --danger: 354 100% 22%;
+    --danger-foreground: 120 98% 98%;
   }
 }
 
