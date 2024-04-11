@@ -8,8 +8,7 @@ import { text } from "stream/consumers";
 import { AgeAnswers } from "./AgeQuestion";
 import { HeightAnswers } from "./HeightQuestion";
 
-export type ValueAnswers = "More Expensive" | "Less Expensive";
-export type AnswerState = "pending" | "correct" | "wrong";
+export type ValueAnswers = "Higher" | "Lower";
 
 export default function AgeQuestion({
   playerOne,
@@ -23,15 +22,15 @@ export default function AgeQuestion({
   playerTwo: PlayerData;
   handleSolution: (solution: Solution) => void;
   textState: boolean;
-  answerState: AnswerState;
-  setAnswerState: (answerState: AnswerState) => void;
+  answerState: Solution;
+  setAnswerState: (answerState: Solution) => void;
 }) {
   const handleClick = (answer: HeightAnswers | AgeAnswers | ValueAnswers) => {
     const correctAnswer: ValueAnswers =
-      playerOne.scrapedPlayerData.marketValueNumber >
+      playerOne.scrapedPlayerData.marketValueNumber >=
       playerTwo.scrapedPlayerData.marketValueNumber
-        ? "Less Expensive"
-        : "More Expensive";
+        ? "Lower"
+        : "Higher";
 
     if (answer == correctAnswer) {
       setAnswerState("correct");
@@ -52,7 +51,7 @@ export default function AgeQuestion({
     }
   };
 
-  const answers: ValueAnswers[] = ["More Expensive", "Less Expensive"];
+  const answers: ValueAnswers[] = ["Higher", "Lower"];
   const textAnimations = !textState
     ? "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent"
     : "";

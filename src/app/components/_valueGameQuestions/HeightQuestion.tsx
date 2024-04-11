@@ -9,7 +9,6 @@ import { ValueAnswers } from "./ValueQuestion";
 import { AgeAnswers } from "./AgeQuestion";
 
 export type HeightAnswers = "Taller" | "Shorter";
-export type AnswerState = "pending" | "correct" | "wrong";
 
 export default function AgeQuestion({
   playerOne,
@@ -23,8 +22,8 @@ export default function AgeQuestion({
   playerTwo: PlayerData;
   handleSolution: (solution: Solution) => void;
   textState: boolean;
-  answerState: AnswerState;
-  setAnswerState: (answerState: AnswerState) => void;
+  answerState: Solution;
+  setAnswerState: (answerState: Solution) => void;
 }) {
   const handleClick = (answer: HeightAnswers | AgeAnswers | ValueAnswers) => {
     const correctAnswer: HeightAnswers =

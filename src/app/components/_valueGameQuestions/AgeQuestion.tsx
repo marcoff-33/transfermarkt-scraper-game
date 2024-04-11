@@ -8,8 +8,7 @@ import { text } from "stream/consumers";
 import { HeightAnswers } from "./HeightQuestion";
 import { ValueAnswers } from "./ValueQuestion";
 
-export type AgeAnswers = "Younger" | "Older";
-export type AnswerState = "pending" | "correct" | "wrong";
+export type AgeAnswers = "Younger" | "Older" | "Equal";
 
 export default function AgeQuestion({
   playerOne,
@@ -23,12 +22,12 @@ export default function AgeQuestion({
   playerTwo: PlayerData;
   handleSolution: (solution: Solution) => void;
   textState: boolean;
-  answerState: AnswerState;
-  setAnswerState: (answerState: AnswerState) => void;
+  answerState: Solution;
+  setAnswerState: (answerState: Solution) => void;
 }) {
   const handleClick = (answer: AgeAnswers | HeightAnswers | ValueAnswers) => {
     const correctAnswer: AgeAnswers =
-      playerOne.scrapedPlayerData.playerAgeNumber >
+      playerOne.scrapedPlayerData.playerAgeNumber >=
       playerTwo.scrapedPlayerData.playerAgeNumber
         ? "Younger"
         : "Older";
