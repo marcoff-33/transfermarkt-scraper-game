@@ -18,16 +18,20 @@ import {
 import QuizMenu from "../QuizMenu";
 import QuizGameBar from "../QuizGameBar";
 import CarouselPlayer from "../CarouselPlayer";
+import Questions from "../_valueGameQuestions/Questions";
 
 export type QuizGameState = "pending" | "in progress" | "failed";
 export type Solution = "pending" | "correct" | "wrong";
 export type PlayerLeagueDb = "Serie A" | "International";
+export type QuestionType = "Height" | "Age" | "Market Value";
+
 type QuestionIndex = 1 | 2;
 
 export default function ValueGame() {
   const [players, setPlayers] = useState<PlayerData[]>([]);
   const [playerDb, setPlayersDb] = useState<PlayerLeagueDb>("International"); // this dictates which local db is used to draw players from
-  const [currentQuestion, setCurrentQuestion] = useState<QuestionIndex>(1);
+  const [currentQuestion, setCurrentQuestion] =
+    useState<QuestionType>("Market Value");
   const [gameState, setGameState] = useState<QuizGameState>("pending");
   const [score, setScore] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState(false); //handles the loading spinner
@@ -44,6 +48,7 @@ export default function ValueGame() {
   // and the next incoming player is already fetched before it animates.
 
   const CurrentDbType = playerDb == "International" ? allPlayerDb : serieaDb;
+  const gameQuestions: QuestionType[] = ["Age", "Height", "Market Value"];
 
   const playersArray = [0, 1, 2, 3];
   const drawFourPlayers = playersArray.map(() =>
@@ -79,7 +84,7 @@ export default function ValueGame() {
 
     if (solution === "correct") {
       setGameState("in progress");
-      setCurrentQuestion((Math.floor(Math.random() * 3) + 1) as QuestionIndex);
+      setCurrentQuestion(gameQuestions[Math.floor(Math.random() * 3)]);
       setTimeout(() => {
         carouselApi?.scrollNext();
       }, 1000);
@@ -150,34 +155,15 @@ export default function ValueGame() {
         </div>
         {gameState == "in progress" && (
           <div className="absolute w-full h-full items-center flex flex-col justify-center">
-            {currentQuestion == 1 ? (
-              <AgeQuestion
-                handleSolution={handleSolution}
-                playerOne={players[questionIndex]}
-                playerTwo={players[secondQuestionIndex]}
-                textState={showQuestions}
-                answerState={answerState}
-                setAnswerState={setAnswerState}
-              />
-            ) : currentQuestion == 2 ? (
-              <ValueQuestion
-                handleSolution={handleSolution}
-                playerOne={players[questionIndex]}
-                playerTwo={players[secondQuestionIndex]}
-                textState={showQuestions}
-                answerState={answerState}
-                setAnswerState={setAnswerState}
-              />
-            ) : (
-              <HeightQuestion
-                handleSolution={handleSolution}
-                playerOne={players[questionIndex]}
-                playerTwo={players[secondQuestionIndex]}
-                textState={showQuestions}
-                answerState={answerState}
-                setAnswerState={setAnswerState}
-              />
-            )}
+            <Questions
+              answerState={answerState}
+              handleSolution={handleSolution}
+              playerOne={players[questionIndex]}
+              playerTwo={players[secondQuestionIndex]}
+              questionType={currentQuestion}
+              setAnswerState={setAnswerState}
+              textState={showQuestions}
+            />
           </div>
         )}
       </div>

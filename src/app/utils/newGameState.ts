@@ -4,7 +4,7 @@ import placeholderImage from "@/app/public/blkplaceholder.png";
 // the positions are used by the "Pitch.tsx" component when passed as props to map over and
 // render each player's icon and name in the correct position on the pitch.
 
-const gameStateFTT: Player[] = [
+const gameState433: Player[] = [
   {
     role: "RB",
     playerRow: 6,
@@ -194,7 +194,7 @@ const gameStateFTT: Player[] = [
   },
 ];
 
-const gameStateTFT: Player[] = [
+const gameState3142: Player[] = [
   {
     role: "RCB",
     playerRow: 6,
@@ -384,7 +384,7 @@ const gameStateTFT: Player[] = [
   },
 ];
 
-const gameStateFFTDia: Player[] = [
+const gameState442Diamond: Player[] = [
   {
     role: "RB",
     playerRow: 6,
@@ -573,6 +573,6 @@ const gameStateFFTDia: Player[] = [
     playerId: 0,
   },
 ];
-const gameStates = { gameStateFTT, gameStateTFT, gameStateFFTDia };
+const gameStates = { gameState3142, gameState433, gameState442Diamond };
 
 export default gameStates;

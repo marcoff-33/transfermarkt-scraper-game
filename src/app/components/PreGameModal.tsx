@@ -18,7 +18,7 @@ export default function PreGameModal({
     useState<Formation>("4-3-3");
 
   const values: BudgetSize[] = ["Small", "Medium", "Large"];
-  const formations: Formation[] = ["3-4-3", "4-3-3", "4-4-2 ( Diamond )"];
+  const formations: Formation[] = ["3-5-2", "4-3-3", "4-4-2 ( Diamond )"];
 
   const handleClick = (budget: BudgetSize, formation: Formation) => {
     budget == "Small"

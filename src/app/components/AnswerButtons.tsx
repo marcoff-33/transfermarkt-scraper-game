@@ -4,6 +4,7 @@ import { AgeAnswers } from "./_valueGameQuestions/AgeQuestion";
 import { HeightAnswers } from "./_valueGameQuestions/HeightQuestion";
 import { ValueAnswers } from "./_valueGameQuestions/ValueQuestion";
 import { Solution } from "./games/ValueGame";
+import { QuizGameAnswers } from "./_valueGameQuestions/Questions";
 
 export default function AnswerButtons({
   answerState,
@@ -14,8 +15,8 @@ export default function AnswerButtons({
 }: {
   answerState: Solution;
   showQuestions: boolean;
-  answers: AgeAnswers[] | HeightAnswers[] | ValueAnswers[];
-  handleAnswer: (answer: AgeAnswers | HeightAnswers | ValueAnswers) => void;
+  answers: QuizGameAnswers[];
+  handleAnswer: (answer: QuizGameAnswers) => void;
   revealText: number | string;
 }) {
   const textAnimations = !showQuestions
@@ -31,7 +32,7 @@ export default function AnswerButtons({
         }`}
       >
         <p>
-          {answers[0] == "Younger"
+          {answers[0] == "Older"
             ? "Age"
             : answers[0] == "Higher"
             ? "Market Value"

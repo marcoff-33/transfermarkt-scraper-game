@@ -16,7 +16,7 @@ import GameNavbar from "../_gameNavbar/GameNav";
 import placeholderImage from "@/app/public/blkplaceholder.png";
 
 export type GameState = "initial" | "in progress" | "ended";
-export type Formation = "3-4-3" | "4-3-3" | "4-4-2 ( Diamond )";
+export type Formation = "3-5-2" | "4-3-3" | "4-4-2 ( Diamond )";
 
 export default function MainGame() {
   const playersDb: PlayersDb = db;
@@ -24,7 +24,7 @@ export default function MainGame() {
   // empty player states for each formation
   // selected by <PreGameModal /> at game start
   // also containing grid position data for <Pitch />
-  const { gameStateTFT, gameStateFTT, gameStateFFTDia } = emptyGameStates;
+  const { gameState3142, gameState433, gameState442Diamond } = emptyGameStates;
 
   const formationFTT: Role[] = [
     "GK",
@@ -53,7 +53,7 @@ export default function MainGame() {
     "CF",
   ];
 
-  const formationTFT: Role[] = [
+  const formation3142: Role[] = [
     "GK",
     "LCB",
     "MCB",
@@ -67,7 +67,7 @@ export default function MainGame() {
     "SS",
   ];
 
-  const [roles, setRoles] = useState(formationTFT);
+  const [roles, setRoles] = useState(formation3142);
   const [currentBudget, setCurrentBudget] = useState(0);
   const [gameState, setGameState] = useState<GameState>("initial");
   const [openPlayerModal, setOpenPlayerModal] = useState(false);
@@ -78,7 +78,7 @@ export default function MainGame() {
   const [rolesTierSets, setRolesTierSets] = useState(
     roles.map((role) => drawPlayerFromEachTier(playersDb, role))
   );
-  const [currentPlayers, setCurrentPlayers] = useState<Player[]>(gameStateTFT);
+  const [currentPlayers, setCurrentPlayers] = useState<Player[]>(gameState3142);
   const [currentRound, setCurrentRound] = useState(0);
 
   const restartGame = () => {
@@ -100,15 +100,15 @@ export default function MainGame() {
 
   // used by <PreGameModal /> to set the game formation
   const setFormation = (formation: Formation) => {
-    if (formation == "3-4-3") {
-      setRoles(formationTFT);
-      setCurrentPlayers(gameStateTFT);
+    if (formation == "3-5-2") {
+      setRoles(formation3142);
+      setCurrentPlayers(gameState3142);
     } else if (formation == "4-3-3") {
       setRoles(formationFTT);
-      setCurrentPlayers(gameStateFTT);
+      setCurrentPlayers(gameState433);
     } else if (formation == "4-4-2 ( Diamond )") {
       setRoles(formationFFTDia);
-      setCurrentPlayers(gameStateFFTDia);
+      setCurrentPlayers(gameState442Diamond);
     }
   };
 
