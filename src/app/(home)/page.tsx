@@ -1,6 +1,7 @@
-import AccordionFaq from "../components/AccordionFaq";
-import { Button } from "../components/Buttons";
-import InfoCard from "../components/InfoCard";
+import Link from "next/link";
+import AccordionFaq from "../_components/AccordionFaq";
+import { Button } from "../_components/Buttons";
+import InfoCard from "../_components/InfoCard";
 
 export default async function Home() {
   return (
@@ -35,11 +36,11 @@ export default async function Home() {
           </div>
           <div className=" gap-5  flex flex-col self-center">
             <div className="gap-5 flex flex-row py-5 self-center">
-              <Button variant={"default"} className="font-semibold">
-                Start Building
+              <Button variant={"default"} className="font-semibold" asChild>
+                <Link href={"/teams"}>Start Building</Link>
               </Button>
               <Button variant={"secondary"} className="">
-                Quiz Game
+                <Link href={"/quiz"}>Quiz</Link>
               </Button>
             </div>
           </div>
