@@ -40,14 +40,14 @@ export default function PitchPlayer({
           key={player.playerName}
           className={`max-h-[70%] rounded-full md:-rotate-90 outline-offset-4 z-50 ${
             currentRoundRole == player.role
-              ? "animate-pulse border-primary border-[5px]"
+              ? "animate-pulse border-primary border-[5px] "
               : "shadow-[0px_0px_65px_rgba(0,0,0,0)] border-primary " +
                 getPlayerColor(player.playerValue, "shadow") +
                 " " +
                 getPlayerColor(player.playerValue, "border")
           } ${
             player.playerName == "" && gameState !== "ended"
-              ? "pointer-events-none -z-[100]"
+              ? "pointer-events-none"
               : ""
           }`}
           style={{
@@ -65,7 +65,7 @@ export default function PitchPlayer({
             src={player.profileImgUrl}
             width={150}
             height={300}
-            className={`rounded-full h-full w-full border ${getPlayerColor(
+            className={`rounded-full h-full w-full border z-[1000] ${getPlayerColor(
               player.playerValue,
               "border"
             )}`}
@@ -84,7 +84,7 @@ export default function PitchPlayer({
       ) : (
         <button
           key={player.playerName}
-          className={`max-h-[70%] rounded-full md:-rotate-90 outline-offset-4  ${
+          className={`max-h-[70%] z-50 rounded-full md:-rotate-90 outline-offset-4  ${
             currentRoundRole == player.role
               ? "animate-pulse border-primary border-[5px] "
               : "shadow-[0px_0px_65px_rgba(0,0,0,0)] border-primary  " +
@@ -128,9 +128,9 @@ export default function PitchPlayer({
           </div>
         </button>
       )}
-      <AlertDialogContent className="z-[1000] flex justify-center flex-col items-center">
+      <AlertDialogContent className="z-[100] flex justify-center flex-col items-center">
         <AlertDialogHeader>
-          <div className="z-50 w-[50%] text-text-primary text-center flex flex-col gap-2 w-full">
+          <div className="z-50 text-text-primary text-center flex flex-col gap-2 w-full">
             <div className="text-text-primary text-xl font-bold flex flex-row justify-center items-center w-full">
               <p className="self-center grow">{player.fullPlayerName}</p>
             </div>
