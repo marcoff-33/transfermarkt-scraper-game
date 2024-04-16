@@ -134,6 +134,7 @@ export default function ValueGame() {
                 index={index}
                 playerData={player}
                 secondQuestionIndex={secondQuestionIndex}
+                key={index}
               />
             ))}
           </CarouselContent>

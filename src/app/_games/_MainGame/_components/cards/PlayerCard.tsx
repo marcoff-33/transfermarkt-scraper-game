@@ -174,7 +174,7 @@ export default function PlayerCard({
             fill
             sizes="200px"
             className={`z-[1000] self-center rounded-lg object-cover transition-all duration-1000 w-full h-full sm:hidden ${
-              loadingImg ? "blur-xl" : "blur-none"
+              loadingImg ? "blur-xl animate-pulse" : "blur-none"
             }`}
           />
           {open && (
