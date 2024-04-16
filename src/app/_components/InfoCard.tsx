@@ -61,7 +61,7 @@ export default function InfoCard() {
           className={`absolute object-cover rounded-xl border-primary transition-all duration-1000 contrast-100 border-[2px] saturate-50  ${
             show
               ? " brightness-75 opacity-100 blur-none shadow-zinc-950 shadow-lg"
-              : " brightness-50 opacity-0 blur-sm  shadow-background-50 shadow-sm"
+              : " brightness-50 opacity-0 blur-sm  shadow-background-front"
           }`}
           sizes="400px"
           priority

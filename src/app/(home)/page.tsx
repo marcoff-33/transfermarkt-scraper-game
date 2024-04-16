@@ -42,7 +42,7 @@ export default async function Home() {
                 className="font-semibold z-50"
                 asChild
               >
-                <Link href={"/teams"}>Start Building</Link>
+                <Link href={"/teams"}>Team Builder</Link>
               </Button>
               <Button variant={"secondary"} className="z-50">
                 <Link href={"/quiz"}>Quiz</Link>

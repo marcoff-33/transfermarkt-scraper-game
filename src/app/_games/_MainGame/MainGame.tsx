@@ -16,7 +16,7 @@ import PlayerCard from "@/app/_games/_MainGame/_components/cards/PlayerCard";
 import CardsWrapper from "@/app/_games/_MainGame/_components/cards/CardsWrapper";
 
 export type GameState = "initial" | "in progress" | "ended";
-export type Formation = "3-5-2" | "4-3-3" | "4-4-2 ( Diamond )";
+export type Formation = "3-1-4-2" | "4-3-3" | "4-4-2 ( Diamond )";
 
 export default function MainGame() {
   const playersDb: PlayersDb = db;
@@ -99,7 +99,7 @@ export default function MainGame() {
 
   // used by <PreGameModal /> to set the game formation
   const setFormation = (formation: Formation) => {
-    if (formation == "3-5-2") {
+    if (formation == "3-1-4-2") {
       setRoles(formation3142);
       setCurrentPlayers(gameState3142);
     } else if (formation == "4-3-3") {

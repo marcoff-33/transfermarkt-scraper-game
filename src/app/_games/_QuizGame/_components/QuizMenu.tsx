@@ -17,7 +17,7 @@ export default function QuizMenu({
 }) {
   return (
     <div
-      className={`absolute z-[1000] inset-0 transition-all duration-500 delay-1000  ${
+      className={`absolute z-[1000] inset-0 transition-all duration-500 delay-1000 ${
         gameState !== "in progress"
           ? "bg-background-deep border-primary border-[2px]"
           : "bg-transparent invisible border-transparent"

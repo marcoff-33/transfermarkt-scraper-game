@@ -161,9 +161,8 @@ export default function PlayerCard({
             src={imageUrl}
             alt={playerData.playerName || ""}
             fill
-            style={{ objectFit: "cover" }}
-            objectPosition="top"
-            className={`self-center rounded-lg transition-all duration-1000 w-full h-full grow sm:block hidden ${
+            sizes="400px"
+            className={`self-center obje object-cover rounded-lg transition-all duration-1000 w-full h-full grow sm:block hidden ${
               loadingImg ? "blur-xl animate-pulse" : "blur-none"
             }`}
           />
@@ -173,9 +172,8 @@ export default function PlayerCard({
             }
             alt={playerData.playerName || ""}
             fill
-            style={{ objectFit: "cover" }}
-            objectPosition="center"
-            className={`z-[1000] self-center rounded-lg transition-all duration-1000 w-full h-full sm:hidden ${
+            sizes="200px"
+            className={`z-[1000] self-center rounded-lg object-cover transition-all duration-1000 w-full h-full sm:hidden ${
               loadingImg ? "blur-xl" : "blur-none"
             }`}
           />
