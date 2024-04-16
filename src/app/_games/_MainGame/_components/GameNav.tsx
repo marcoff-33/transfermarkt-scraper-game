@@ -18,6 +18,8 @@ import RestartGameDialog from "./RestartGameDialog";
 import PlayBar from "@/app/_components/_navbar/PlayBar";
 import SwapModalDialog from "./SwapPlayersDialog";
 
+// custom navbar that replaces the global one with added functionality for the main game
+
 export default function GameNavbar({
   rerolls,
   budget,

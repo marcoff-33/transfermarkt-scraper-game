@@ -10,11 +10,12 @@ import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { GiBodyHeight, GiPassport } from "react-icons/gi";
 import { LuFootprints } from "react-icons/lu";
 import { RiTeamLine } from "react-icons/ri";
+import placeholderImage from "@/app/_public/blkplaceholder.png";
 
 export default function InfoCard() {
   const [playerData, setPlayerData] = useState<PlayerData>();
   const [isHovering, setIsHovering] = useState(false);
-  const [isFirstrender, setIsFirstRender] = useState(true);
+  const [delay, setDelay] = useState<number>(200);
 
   const [show, setShow] = useState(false);
   const handleClick = async (playerId: number) => {
@@ -27,44 +28,43 @@ export default function InfoCard() {
   };
 
   useEffect(() => {
-    if (isFirstrender) {
-      const playerId = drawRandomPlayer(playerDb);
-      handleClick(playerId);
-      setIsFirstRender(false);
-    }
-  }, []);
+    let initialRender = true;
 
-  useEffect(() => {
     const intervalId = setInterval(() => {
-      if (!isHovering && !isFirstrender) {
+      if (!isHovering) {
         const playerId = drawRandomPlayer(playerDb);
         handleClick(playerId);
       }
-    }, 8000);
+
+      if (initialRender) {
+        initialRender = false;
+        setDelay(8000);
+      }
+    }, delay);
 
     return () => clearInterval(intervalId);
-  }, [isHovering, isFirstrender]);
+  }, [isHovering, delay, setDelay]);
 
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
   return (
     <div
-      className="w-[400px] h-[200px] flex "
+      className="w-[400px] h-[200px] flex"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="relative grow group">
         <Image
-          src={playerData?.scrapedPlayerData.playerHeroImg || ""}
+          src={playerData?.scrapedPlayerData.playerHeroImg || placeholderImage}
           alt={"player picture"}
           fill
-          className={`absolute -z-20 rounded-xl border-primary transition-all duration-1000 contrast-100 border-[2px] saturate-50  ${
+          className={`absolute object-cover rounded-xl border-primary transition-all duration-1000 contrast-100 border-[2px] saturate-50  ${
             show
               ? " brightness-75 opacity-100 blur-none shadow-zinc-950 shadow-lg"
               : " brightness-50 opacity-0 blur-sm  shadow-background-50 shadow-sm"
           }`}
-          objectFit="cover"
-          objectPosition="center"
+          sizes="400px"
+          priority
         />
         {playerData?.playerName && (
           <div className="absolute w-full h-full group hover:bg-black/70 top-0 hover:backdrop-blur-lg duration-500 transition-all rounded-xl border hover:border-background-500 border-transparent">
@@ -142,13 +142,15 @@ export default function InfoCard() {
                 <div className="self-center">
                   {playerData.scrapedPlayerData.clubName}
                 </div>
-                <Image
-                  src={playerData.scrapedPlayerData.clubLogoUrl}
-                  alt={playerData.scrapedPlayerData.clubName}
-                  height={25}
-                  width={30}
-                  className="group-hover:visible invisible delay-500 b brightness-75"
-                />
+                <div className="w-[20px] h-[20px] relative">
+                  <Image
+                    src={playerData.scrapedPlayerData.clubLogoUrl}
+                    alt={playerData.scrapedPlayerData.clubName}
+                    fill
+                    sizes="20px"
+                    className="group-hover:visible invisible delay-500 b brightness-75"
+                  />
+                </div>
               </div>
             </div>
           </div>
