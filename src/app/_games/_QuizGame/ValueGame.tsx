@@ -140,9 +140,9 @@ export default function ValueGame() {
           </CarouselContent>
         </Carousel>
         <div
-          className={`font-bold inset-0 min-w-full absolute  self-center flex justify-center max-w-full max-h-fit text-sm`}
+          className={`font-bold top-[50%] min-w-full absolute  self-center flex justify-center max-w-full max-h-fit text-sm`}
         >
-          <p className="px-2 rounded-full border-primary bg-background-deep text-text-primary border">
+          <p className="px-2 rounded-full border-primary bg-background-deep text-text-primary border self-start">
             VS
           </p>
         </div>
