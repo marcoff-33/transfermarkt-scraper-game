@@ -4,7 +4,7 @@ import { PlayerData } from "../../../_types/playerData";
 import { Button } from "../../../_components/Buttons";
 import Image from "next/image";
 import AnswerButtons from "./AnswerButtons";
-import { QuestionType, Solution } from "@/app/games/ValueGame";
+import { QuestionType, Solution } from "../ValueGame";
 
 export type HeightAnswers = "Taller" | "Shorter";
 export type AgeAnswers = "Younger" | "Older" | "Equal";

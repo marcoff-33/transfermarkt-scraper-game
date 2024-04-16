@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "../../../_components/Buttons";
-import { QuizGameState } from "@/app/games/ValueGame";
+import { QuizGameState } from "../ValueGame";
 
 export default function QuizGameBar({
   gameState,
