@@ -6,6 +6,7 @@ const nextConfig = {
       "placehold.co",
       "tmssl.akamaized.net",
     ],
+    unoptimized: true,
   },
 };
 
