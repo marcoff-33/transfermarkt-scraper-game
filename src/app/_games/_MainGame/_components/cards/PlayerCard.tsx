@@ -146,7 +146,7 @@ export default function PlayerCard({
     <button
       className={`overflow-hidden grow shadow-[5px_5px_15px_rgba(0,0,0,0.250)] duration-1000 transition-all p-1 w-full h-full bg-background-deep ${
         playerData.scrapedPlayerData.marketValueNumber == 0
-          ? "shadow-white"
+          ? "shadow-text-primary"
           : getPlayerColor(
               playerData.scrapedPlayerData.marketValueNumber,
               "shadow"
@@ -176,7 +176,7 @@ export default function PlayerCard({
               alt={playerData.playerName || ""}
               fill
               sizes="200px"
-              className={`z-[50] self-center object-cover rounded-lg  object-scale-down transition-all duration-1000 w-full h-full sm:hidden ${
+              className={`z-[50] self-center rounded-lg  object-scale-down transition-all duration-1000 w-full h-full sm:hidden ${
                 loadingImg
                   ? "blur-xl animate-pulse backdrop-blur-lg"
                   : "blur-none"

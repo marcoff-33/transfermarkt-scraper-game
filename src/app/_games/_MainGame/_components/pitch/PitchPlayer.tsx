@@ -65,8 +65,8 @@ export default function PitchPlayer({
               <Image
                 alt={player.role}
                 src={player.profileImgUrl}
-                width={150}
-                height={300}
+                width={100}
+                height={150}
                 className={`rounded-full h-full w-full relative z-[1000]  ${getPlayerColor(
                   player.playerValue,
                   "border"
@@ -119,8 +119,8 @@ export default function PitchPlayer({
               <Image
                 alt={player.role}
                 src={player.profileImgUrl}
-                width={150}
-                height={300}
+                width={100}
+                height={150}
                 className={`rounded-full h-full w-full relative z-[1000]  ${getPlayerColor(
                   player.playerValue,
                   "border"
@@ -153,7 +153,7 @@ export default function PitchPlayer({
             <Image
               src={player.profileImgUrl}
               alt={player.playerName}
-              height={100}
+              height={130}
               width={100}
               className="self-center rounded-full outline outline-primary shadow-lg shadow-black"
             />

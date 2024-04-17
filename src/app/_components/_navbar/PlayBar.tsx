@@ -23,7 +23,7 @@ export default function Play() {
           Play
         </PopoverTrigger>
         <PopoverContent
-          className="z-[1000] bg-background-front backdrop-blur-md relative flex p-1 w-[400px] border-background-front h-[100px]"
+          className="z-[1000] bg-background-front backdrop-blur-md relative flex p-1 md:w-[400px] border-background-front h-[100px] w-[200px]"
           onCloseAutoFocus={() => setPressed(false)}
         >
           <div className="bg-background-front grow flex flex-row gap-1 justify-between">

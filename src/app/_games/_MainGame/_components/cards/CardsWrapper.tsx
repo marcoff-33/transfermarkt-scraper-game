@@ -23,7 +23,7 @@ export default function CardsWrapper({
   const [mini, setMini] = useState(false);
 
   return (
-    <div className="px-2 fixed bottom-5 self-center w-full container">
+    <div className="px-2 fixed bottom-2 self-center w-full container">
       {!mini ? (
         <div
           className={`flex flex-row justify-around w-full sm:py-2 z-50 backdrop-blur-sm bottom-5 self-center h-[150px] sm:h-[200px] md:gap-5 gap-2`}
@@ -34,10 +34,10 @@ export default function CardsWrapper({
             disabled={!allowRerolls}
           >
             <GiRollingDices
-              className={`bg-background-mid shadow-md rounded-md transition-colors duration-500 delay-200 ${
+              className={`absolute top-0 -translate-y-[120%] translate-x-5 bg-background-mid shadow-md rounded-md transition-colors duration-500 delay-200 ${
                 allowRerolls ? "text-primary" : "text-danger"
               }`}
-              size={30}
+              size={35}
             />
           </button>
           {children}
@@ -46,20 +46,20 @@ export default function CardsWrapper({
             onClick={() => setMini(true)}
           >
             <BiSolidHide
-              className="text-primary md:mx-3 bg-background-mid shadow-md rounded-md"
-              size={30}
+              className="text-primary md:mx-3 bg-background-mid shadow-md rounded-md absolute top-0 right-0 -translate-y-[120%] -translate-x-5"
+              size={35}
             />
           </button>
         </div>
       ) : (
-        <div className="flex flex-row justify-end w-full sm:py-2 z-50 bottom-5 self-center h-[30px] sm:h-[30px] md:gap-5 gap-2">
+        <div className="flex flex-row justify-end w-full sm:py-2 z-50 bottom-5 self-center h-[30px] sm:h-[30px] md:gap-5 gap-2 relative">
           <button
             onClick={() => setMini(false)}
             className="items-center flex justify-end mx-3 animate-pulse"
           >
             <BiSolidShow
-              className="text-primary bg-background-mid rounded-md"
-              size={34}
+              className="text-primary bg-background-mid rounded-md absolute top-0 -translate-y-[120%] -translate-x-5"
+              size={35}
             />
           </button>
         </div>

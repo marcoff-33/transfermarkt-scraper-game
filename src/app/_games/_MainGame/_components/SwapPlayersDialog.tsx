@@ -190,6 +190,7 @@ export default function SwapModalDialog({
                         src={player.profileImgUrl}
                         alt={player.fullPlayerName}
                         fill
+                        sizes="200px"
                         className={`self-center min-h-full md:max-w-fit rounded-xl border-[3px] transition-all duration-300 ${
                           player.role == secondRole
                             ? "border-primary"

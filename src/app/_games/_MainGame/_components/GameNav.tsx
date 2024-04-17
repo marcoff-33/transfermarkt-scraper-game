@@ -55,7 +55,7 @@ export default function GameNavbar({
           </div>
         </Link>
         <div
-          className={`md:absolute md:left-[30%] md:translate-x-[-50%] text-center self-center flex items-center gap-2 bg-background-mid px-3 rounded-lg shadow-md transition-all duration-1000 ${
+          className={`md:absolute md:left-[30%] md:translate-x-[-50%] left-[50%] translate-x-[-50%] absolute text-center self-center flex items-center gap-2 bg-background-mid px-3 rounded-lg shadow-md transition-colors duration-1000 ${
             gameState == "initial"
               ? "bg-transparent text-transparent shadow-transparent"
               : "block"
@@ -110,7 +110,7 @@ export default function GameNavbar({
           </HoverCardTrigger>
         </HoverCard>
         <div
-          className={`md:absolute md:left-[70%] md:translate-x-[-50%] text-center items-center flex bg-background-mid px-5 py-[0.12rem] rounded-lg shadow-md transition-all duration-1000 delay-1000 ${
+          className={`md:absolute  md:left-[70%] shadow-primary md:translate-x-[-50%] left-[50%] translate-x-[-50%] absolute md:top-0 top-10 text-center items-center flex bg-background-mid px-5 py-[0.12rem] rounded-lg shadow-md transition-colors duration-1000 delay-1000 ${
             gameState == "initial"
               ? "text-transparent bg-transparent shadow-transparent"
               : ""

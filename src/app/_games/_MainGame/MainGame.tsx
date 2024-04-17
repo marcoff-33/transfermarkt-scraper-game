@@ -136,6 +136,7 @@ export default function MainGame() {
       });
 
       setAvailableRerolls((rerolls) => rerolls - 1);
+      setAllowRerolls(false);
     }
   };
 
@@ -161,6 +162,9 @@ export default function MainGame() {
         currentPlayers
       );
       setCurrentPlayers(defaultRoleState);
+      if (availableRerolls >= 1) {
+        setAllowRerolls(true);
+      }
     }
   };
 
@@ -257,6 +261,7 @@ export default function MainGame() {
           openPlayerModal={setOpenPlayerModal}
           displayPlayerStatsFor={setModalRole}
           resetPlayer={resetRoundByRole}
+          setAllowRerolls={setAllowRerolls}
         />
       )}
 
