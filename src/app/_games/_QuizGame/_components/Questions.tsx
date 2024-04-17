@@ -99,8 +99,10 @@ export default function AgeQuestion({
     <div className="min-w-full md:right-0 text-lg font-semibold text-text-primary self-center min-h-full flex items-center text-center justify-center flex-col relative gap-10">
       <div className={`w-full flex ${textAnimations}`}>
         {/*this row renders both player's name*/}
-        <div className="basis-1/2 flex flex-row self-center items-center justify-center gap-2">
-          <p className={`pl-5 transition-all duration-200 ${textAnimations}`}>
+        <div className="basis-1/2 flex sm:flex-row flex-col self-center items-center justify-center gap-2">
+          <p
+            className={`md:pl-5 px-5 md:px-0 transition-all duration-200 text-sm md:text-lg ${textAnimations}`}
+          >
             {playerOne.scrapedPlayerData.fullPlayerName}
           </p>
           <Image
@@ -113,8 +115,10 @@ export default function AgeQuestion({
             }`}
           />
         </div>
-        <div className="basis-1/2 flex flex-row self-center items-center justify-center gap-2">
-          <p className={`pl-5 transition-all duration-200 ${textAnimations}`}>
+        <div className="basis-1/2 flex sm:flex-row self-center items-center justify-center gap-2 flex-col">
+          <p
+            className={`md:pl-5 px-5 md:px-0 transition-all duration-200 text-sm md:text-lg ${textAnimations}`}
+          >
             {playerTwo.scrapedPlayerData.fullPlayerName}
           </p>
           <Image
@@ -134,11 +138,13 @@ export default function AgeQuestion({
           className={`basis-1/2 flex flex-col justify-center gap-2 ${textAnimations}`}
         >
           <p
-            className={`w-[30%] self-center border-b transition-all duration-500 ${textAnimations}`}
+            className={`w-[30%] self-center border-b transition-all duration-500  text-sm md:text-lg  ${textAnimations}`}
           >
             {questionType}
           </p>
-          <p className="transition-all duration-500">{playerOneData[1]}</p>
+          <p className="transition-all duration-500  text-sm md:text-lg ">
+            {playerOneData[1]}
+          </p>
         </div>
         <div className="basis-1/2 flex flex-col gap-2 items-center">
           {/* this component renders the answer buttons, and also reveals player 2 data on correct answer */}

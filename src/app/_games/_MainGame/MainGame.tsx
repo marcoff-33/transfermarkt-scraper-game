@@ -74,6 +74,7 @@ export default function MainGame() {
   const [playerModalRole, setPlayerModalRole] = useState<Role>("GK");
   const [availableRerolls, setAvailableRerolls] = useState(5);
   const [isNewGame, setIsNewGame] = useState(true);
+  const [allowRerolls, setAllowRerolls] = useState(false);
   // sets a selection of 1 player from each tier for each role.
   const [rolesTierSets, setRolesTierSets] = useState(
     roles.map((role) => drawPlayerFromEachTier(playersDb, role))
@@ -273,6 +274,7 @@ export default function MainGame() {
           availableRerolls={availableRerolls}
           currentRole={roles[currentRound]}
           playersDb={playersDb}
+          allowRerolls={allowRerolls}
         >
           {rolesTierSets[currentRound].map((playerId) => (
             <PlayerCard
@@ -285,6 +287,8 @@ export default function MainGame() {
               currentRound={currentRound}
               isNewGame={isNewGame}
               setIsNewGame={setIsNewGame}
+              allowRerolls={allowRerolls}
+              setAllowRerolls={setAllowRerolls}
             />
           ))}
         </CardsWrapper>

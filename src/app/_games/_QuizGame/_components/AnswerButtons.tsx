@@ -49,7 +49,7 @@ export default function AnswerButtons({
               : ""
           }`}
           onClick={() => handleAnswer(answer)}
-          disabled={answerState !== "pending"}
+          disabled={answerState !== "pending" || !showQuestions}
           key={index}
         >
           {answer}

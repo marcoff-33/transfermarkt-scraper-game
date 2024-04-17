@@ -3,12 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/_ui/popover";
-import Image from "next/image";
-import imageOne from "@/app/_public/menuImage1.jpg";
-import imageTwo from "@/app/_public/menuImage3.jpg";
 import Link from "next/link";
 import { PopoverClose } from "@radix-ui/react-popover";
-import path from "path";
 export default function Play() {
   const pathname = usePathname();
   const [pressed, setPressed] = useState(false);
@@ -27,29 +23,21 @@ export default function Play() {
           Play
         </PopoverTrigger>
         <PopoverContent
-          className="z-[1000] bg-background-mid/50 backdrop-blur-md min-h-[25rem] relative flex p-1 sm:w-[50vw] w-[80vw] max-h-[70vh] border-background-front"
+          className="z-[1000] bg-background-front backdrop-blur-md relative flex p-1 w-[400px] border-background-front h-[100px]"
           onCloseAutoFocus={() => setPressed(false)}
         >
-          <div className="bg-background-mid grow flex flex-row gap-1 justify-between">
+          <div className="bg-background-front grow flex flex-row gap-1 justify-between">
             <PopoverClose asChild onClick={() => setPressed(false)}>
               <Link
-                className={`no-highlight grow basis-1/2 relative grayscale transition-all duration-500 group ${
+                className={`no-highlight grow basis-1/2 relative grayscale transition-all duration-500 group border border-primary rounded-lg ${
                   pathname == "/teams"
                     ? "opacity-20 pointer-events-none"
                     : "hover:grayscale-0"
                 }`}
                 href={"/teams"}
               >
-                <Image
-                  alt="Team Builder"
-                  src={imageTwo}
-                  fill
-                  objectFit="cover"
-                  objectPosition="center"
-                  className=""
-                />
-                <div className="w-full h-full text-center absolute flex justify-center items-center">
-                  <div className="bg-black/60 backdrop-blur-sm px-5 font-semibold rounded-full shadow-md shadow-black text-zinc-400 group-hover:text-white transition-colors duration-200">
+                <div className="w-full h-full text-center absolute flex justify-center items-center flex-col gap-5 ">
+                  <div className="backdrop-blur-sm px-5 font-semibold rounded-full text-text-primary group-hover:text-primary transition-colors duration-200 flex">
                     Team Builder
                   </div>
                 </div>
@@ -58,22 +46,14 @@ export default function Play() {
             <PopoverClose asChild>
               <Link
                 href={"/quiz"}
-                className={`no-highlight grow basis-1/2 relative grayscale transition-all duration-500 group ${
+                className={`no-highlight grow basis-1/2 relative grayscale transition-all duration-500 group border border-primary rounded-lg ${
                   pathname == "/quiz"
                     ? "opacity-20 pointer-events-none"
                     : "hover:grayscale-0"
                 }`}
               >
-                <Image
-                  alt="Team Builder"
-                  src={imageOne}
-                  fill
-                  objectFit="cover"
-                  objectPosition="end"
-                  className=""
-                />
-                <div className="w-full h-full text-center absolute flex justify-center items-center">
-                  <div className="bg-black/60 backdrop-blur-sm px-5 font-semibold rounded-full shadow-md shadow-black text-zinc-400 group-hover:text-white transition-colors duration-200">
+                <div className="w-full h-full text-center absolute flex justify-center items-center flex-col gap-5 ">
+                  <div className="backdrop-blur-sm px-5 font-semibold rounded-full text-text-primary group-hover:text-primary transition-colors duration-200 flex">
                     Quiz
                   </div>
                 </div>

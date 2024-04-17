@@ -5,7 +5,7 @@ import { saGetPlayerData } from "../../../../_utils/saGetPlayerData";
 import { Role } from "../../../../_types/playerDb";
 import Image, { StaticImageData } from "next/image";
 import { Player, PlayerData } from "../../../../_types/playerData";
-import PlaceholderImg from "@/app/_public/blkplaceholder.png";
+
 import { GameState } from "../../MainGame";
 import { getPlayerColor } from "../../_utils/updatePlayerState";
 
@@ -16,6 +16,8 @@ export default function PlayerCard({
   currentBudget,
   isNewGame,
   setIsNewGame,
+  allowRerolls,
+  setAllowRerolls,
 }: {
   playerId: number;
   confirmPlayer: (player: Player) => void;
@@ -25,6 +27,8 @@ export default function PlayerCard({
   currentRound: number;
   isNewGame: boolean;
   setIsNewGame: (isNewGame: boolean) => void;
+  allowRerolls: boolean;
+  setAllowRerolls: (rerolls: boolean) => void;
 }) {
   // used to fill the playerData state before fetching any real data
   // to avoid type errors
@@ -53,8 +57,10 @@ export default function PlayerCard({
   const handleButtonClick = async () => {
     if (open) {
       confirmPlayer(player);
+      setAllowRerolls(false);
     } else if (isStored == false) {
       // timeouts are used for animating the card after data is fetched
+      setAllowRerolls(true);
       setLoadingImg(true);
       setLoadingText(true);
       // Next server action
@@ -62,9 +68,6 @@ export default function PlayerCard({
       setPlayerData(newData);
       localStorage.setItem(`player-${playerId}`, JSON.stringify(newData));
       setOpen(true);
-      setTimeout(() => {
-        setImageUrl(newData.scrapedPlayerData.playerHeroImg);
-      }, 800);
       setTimeout(() => {
         setLoadingText(false);
       }, 500);
@@ -78,9 +81,7 @@ export default function PlayerCard({
   const [open, setOpen] = useState(false);
   const [loadingImg, setLoadingImg] = useState(false);
   const [loadingText, setLoadingText] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string | StaticImageData>(
-    PlaceholderImg
-  );
+
   const [isStored, setIsStored] = useState(false);
 
   const handleFreshGame = () => {
@@ -95,7 +96,6 @@ export default function PlayerCard({
   useEffect(() => {
     if (isNewGame) {
       handleFreshGame();
-      console.log("!!!!!!!!!! handlefreshgame", isNewGame);
     }
   }, [isNewGame]);
 
@@ -110,7 +110,7 @@ export default function PlayerCard({
 
       if (storedData) {
         setPlayerData(storedData);
-        setImageUrl(storedData.scrapedPlayerData.playerHeroImg);
+
         setIsStored(true);
         setOpen(true);
       }
@@ -144,7 +144,7 @@ export default function PlayerCard({
 
   return (
     <button
-      className={`overflow-hidden grow shadow-[5px_5px_15px_rgba(0,0,0,0.250)] duration-1000 transition-all p-1 sm:bg-zinc-900 w-full h-full ${
+      className={`overflow-hidden grow shadow-[5px_5px_15px_rgba(0,0,0,0.250)] duration-1000 transition-all p-1 w-full h-full bg-background-deep ${
         playerData.scrapedPlayerData.marketValueNumber == 0
           ? "shadow-white"
           : getPlayerColor(
@@ -156,27 +156,35 @@ export default function PlayerCard({
       disabled={loadingImg}
     >
       <div className="min-h-full flex flex-col justify-center items-center relative overflow-hidden ">
-        <div className="bg-transparent overflow-hidden flex items-center justify-center flex-col min-h-full min-w-full relative grow ">
-          <Image
-            src={imageUrl}
-            alt={playerData.playerName || ""}
-            fill
-            sizes="400px"
-            className={`self-center obje object-cover rounded-lg transition-all duration-1000 w-full h-full grow sm:block hidden ${
-              loadingImg ? "blur-xl animate-pulse" : "blur-none"
-            }`}
-          />
-          <Image
-            src={
-              playerData.scrapedPlayerData.playerProfileImgUrl || PlaceholderImg
-            }
-            alt={playerData.playerName || ""}
-            fill
-            sizes="200px"
-            className={`z-[1000] self-center rounded-lg object-cover transition-all duration-1000 w-full h-full sm:hidden ${
-              loadingImg ? "blur-xl animate-pulse" : "blur-none"
-            }`}
-          />
+        <div className="bg-background-deep overflow-hidden flex items-center justify-center flex-col min-h-full min-w-full relative grow ">
+          {playerData.playerName !== "" && (
+            <Image
+              src={playerData.scrapedPlayerData.playerHeroImg}
+              alt={"player card"}
+              fill
+              sizes="400px"
+              className={`self-center object-cover rounded-lg transition-all duration-1000 w-full h-full grow sm:block hidden ${
+                loadingImg
+                  ? "blur-xl animate-pulse backdrop-blur-lg"
+                  : "blur-none"
+              } ${playerData.playerName == "" ? "hidden" : "block"}`}
+            />
+          )}
+          {playerData.playerName !== "" && (
+            <Image
+              src={playerData.scrapedPlayerData.playerProfileImgUrl || ""}
+              alt={playerData.playerName || ""}
+              fill
+              sizes="200px"
+              className={`z-[50] self-center rounded-lg object-cover transition-all duration-1000 w-full h-full sm:hidden ${
+                loadingImg
+                  ? "blur-xl animate-pulse backdrop-blur-lg"
+                  : "blur-none"
+              }
+
+            `}
+            />
+          )}
           {open && (
             <Image
               src={playerData.scrapedPlayerData.clubLogoUrl}
@@ -204,14 +212,18 @@ export default function PlayerCard({
           </p>
 
           <div
-            className={`z-50 left-1/2 transform -translate-x-1/2 rounded-full text-nowrap absolute md:bottom-7 bottom-0 sm:top-auto self-center text-center w-fit transition-colors md:duration-1000 shadow-md md:backdrop-blur-lg px-2 shadow-black bg-black/50 ${
+            className={`z-50 left-1/2 transform -translate-x-1/2 sm:rounded-full text-nowrap absolute md:bottom-7 bottom-0 sm:top-auto self-center text-center w-fit transition-colors md:duration-1000 shadow-md md:backdrop-blur-lg px-2 shadow-black bg-background-mid/50 ${
               loadingImg ? "invisible text-zinc-500" : "block text-white"
             }`}
           >
-            <p className="hidden md:block whitespace-nowrap sm:animate-none z-50 text-white px-5">
+            <p
+              className={`hidden md:block whitespace-nowrap sm:animate-none z-50 px-5 ${
+                loadingImg ? "text-red-500" : "text-text-primary"
+              }`}
+            >
               {playerData.scrapedPlayerData.fullPlayerName}
             </p>
-            <p className="md:hidden animate-marqueeSlow whitespace-nowrap sm:animate-none z-50 text-white px-5">
+            <p className="md:hidden animate-marqueeSlow whitespace-nowrap sm:animate-none z-50 text-text-primary px-5">
               {playerData.scrapedPlayerData.shortPlayerName}
             </p>
           </div>

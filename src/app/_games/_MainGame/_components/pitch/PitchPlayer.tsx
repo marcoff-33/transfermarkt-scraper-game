@@ -128,9 +128,9 @@ export default function PitchPlayer({
           </div>
         </button>
       )}
-      <AlertDialogContent className="z-[100] flex justify-center flex-col items-center">
-        <AlertDialogHeader>
-          <div className="z-50 text-text-primary text-center flex flex-col gap-2 w-full">
+      <AlertDialogContent className="z-[5000] flex justify-center flex-col items-center">
+        <AlertDialogHeader className="w-full">
+          <div className="z-50 text-text-primary text-center flex flex-col gap-2 min-w-full">
             <div className="text-text-primary text-xl font-bold flex flex-row justify-center items-center w-full">
               <p className="self-center grow">{player.fullPlayerName}</p>
             </div>

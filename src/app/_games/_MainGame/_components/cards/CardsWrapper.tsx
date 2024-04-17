@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { PlayersDb, Role } from "../../../../_types/playerDb";
 
 import { BiSolidHide } from "react-icons/bi";
@@ -11,12 +11,14 @@ export default function CardsWrapper({
   currentRole,
   availableRerolls,
   playersDb,
+  allowRerolls,
 }: {
   children: React.ReactNode;
   rerollPlayers: (role: Role, playersDb: PlayersDb) => void;
   currentRole: Role;
   availableRerolls: number;
   playersDb: PlayersDb;
+  allowRerolls: boolean;
 }) {
   const [mini, setMini] = useState(false);
 
@@ -29,9 +31,12 @@ export default function CardsWrapper({
           <button
             onClick={() => rerollPlayers(currentRole, playersDb)}
             className="text-white flex"
+            disabled={!allowRerolls}
           >
             <GiRollingDices
-              className="text-primary bg-background-mid shadow-md rounded-md"
+              className={`bg-background-mid shadow-md rounded-md transition-colors duration-500 delay-200 ${
+                allowRerolls ? "text-primary" : "text-danger"
+              }`}
               size={30}
             />
           </button>

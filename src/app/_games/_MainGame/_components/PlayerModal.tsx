@@ -20,7 +20,7 @@ export default function PlayerModal({
 }) {
   return (
     <div className="min-w-[100vw] justify-center items-center flex bg-background-deep/90 backdrop-blur-md z-[1000] overflow-hidden absolute min-h-full">
-      <div className="z-50 w-[50%] h-full text-text-primary text-center flex flex-col gap-2">
+      <div className="z-50  h-full text-text-primary text-center flex flex-col gap-2">
         <div className="text-text-primary text-xl font-bold flex flex-row justify-center items-center w-full">
           <p className="self-center grow">{playerState.fullPlayerName}</p>
           <button

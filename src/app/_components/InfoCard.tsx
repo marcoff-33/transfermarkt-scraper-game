@@ -10,7 +10,6 @@ import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { GiBodyHeight, GiPassport } from "react-icons/gi";
 import { LuFootprints } from "react-icons/lu";
 import { RiTeamLine } from "react-icons/ri";
-import placeholderImage from "@/app/_public/blkplaceholder.png";
 
 export default function InfoCard() {
   const [playerData, setPlayerData] = useState<PlayerData>();
@@ -55,7 +54,7 @@ export default function InfoCard() {
     >
       <div className="relative grow group">
         <Image
-          src={playerData?.scrapedPlayerData.playerHeroImg || placeholderImage}
+          src={playerData?.scrapedPlayerData.playerHeroImg || ""}
           alt={"player picture"}
           fill
           className={`absolute object-cover rounded-xl border-primary transition-all duration-1000 contrast-100 border-[2px] saturate-50  ${
