@@ -176,7 +176,7 @@ export default function PlayerCard({
               alt={playerData.playerName || ""}
               fill
               sizes="200px"
-              className={`z-[50] self-center rounded-lg object-cover transition-all duration-1000 w-full h-full sm:hidden ${
+              className={`z-[50] self-center object-cover rounded-lg  object-scale-down transition-all duration-1000 w-full h-full sm:hidden ${
                 loadingImg
                   ? "blur-xl animate-pulse backdrop-blur-lg"
                   : "blur-none"

@@ -60,17 +60,25 @@ export default function PitchPlayer({
               resetPlayer(player.role);
           }}
         >
-          <Image
-            alt={player.role}
-            src={player.profileImgUrl}
-            width={150}
-            height={300}
-            className={`rounded-full h-full w-full border z-[1000] ${getPlayerColor(
-              player.playerValue,
-              "border"
-            )}`}
-            style={{ objectFit: "cover", objectPosition: "center" }}
-          />
+          <div className="relative h-full w-full">
+            {player.playerName !== "" ? (
+              <Image
+                alt={player.role}
+                src={player.profileImgUrl}
+                width={150}
+                height={300}
+                className={`rounded-full h-full w-full relative z-[1000]  ${getPlayerColor(
+                  player.playerValue,
+                  "border"
+                )}`}
+                style={{ objectFit: "cover", objectPosition: "center" }}
+              />
+            ) : (
+              <div className="absolute border border-primary w-full bg-background-mid min-h-full inset-0 rounded-full text-center flex justify-center items-center">
+                ?
+              </div>
+            )}
+          </div>
           <div className="text-sm font-semibold overflow-x-hidden sm:overflow-x-visible">
             <p
               className={`whitespace-nowrap text-text-primary font-bold sm:animate-none animate-marquee ${
@@ -106,17 +114,25 @@ export default function PitchPlayer({
               resetPlayer(player.role);
           }}
         >
-          <Image
-            alt={player.role}
-            src={player.profileImgUrl}
-            width={150}
-            height={300}
-            className={`rounded-full h-full w-full border ${getPlayerColor(
-              player.playerValue,
-              "border"
-            )}`}
-            style={{ objectFit: "cover", objectPosition: "center" }}
-          />
+          <div className="relative h-full w-full">
+            {player.playerName !== "" ? (
+              <Image
+                alt={player.role}
+                src={player.profileImgUrl}
+                width={150}
+                height={300}
+                className={`rounded-full h-full w-full relative z-[1000]  ${getPlayerColor(
+                  player.playerValue,
+                  "border"
+                )}`}
+                style={{ objectFit: "cover", objectPosition: "center" }}
+              />
+            ) : (
+              <div className="absolute border border-primary w-full bg-background-mid min-h-full inset-0 rounded-full text-center flex justify-center items-center">
+                ?
+              </div>
+            )}
+          </div>
           <div className=" text-sm font-semibold overflow-x-hidden">
             <p
               className={`whitespace-nowrap text-text-primary sm:animate-none animate-marquee ${

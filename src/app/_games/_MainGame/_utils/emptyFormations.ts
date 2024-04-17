@@ -1,9 +1,8 @@
 import { Player } from "../../../_types/playerData";
-import placeholderImage from "@/app/_public/blkplaceholder.png";
 // this is the clean sheet game state used in "MainGame" component.
 // the positions are used by the "Pitch.tsx" component when passed as props to map over and
 // render each player's icon and name in the correct position on the pitch.
-
+const placeholderImage = "";
 const gameState433: Player[] = [
   {
     role: "RB",

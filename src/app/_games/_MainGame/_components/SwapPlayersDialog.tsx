@@ -21,6 +21,7 @@ import {
 import { GiPlayerNext } from "react-icons/gi";
 import { swapPlayersByRole } from "../_utils/updatePlayerState";
 import { GameState } from "../MainGame";
+import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
 
 export default function SwapModalDialog({
   players,
@@ -208,16 +209,18 @@ export default function SwapModalDialog({
           </Carousel>
           <div className="flex justify-between gap-10 py-10">
             <AlertDialogCancel>Close</AlertDialogCancel>
-            <Button
-              onClick={() => handleSwap()}
-              className={`${
-                firstRole == secondRole
-                  ? "pointer-events-none bg-primary/10 text-primary-foreground/30"
-                  : "pointer-events-auto"
-              }`}
-            >
-              Accept
-            </Button>
+            <AlertDialogAction asChild>
+              <Button
+                onClick={() => handleSwap()}
+                className={`${
+                  firstRole == secondRole
+                    ? "pointer-events-none bg-primary/10 text-primary-foreground/30"
+                    : "pointer-events-auto"
+                }`}
+              >
+                Accept
+              </Button>
+            </AlertDialogAction>
           </div>
         </div>
       </AlertDialogContent>

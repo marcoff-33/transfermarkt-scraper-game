@@ -42,7 +42,7 @@ export default function GameNavbar({
   const dots = [1, 2, 3, 4, 5];
 
   return (
-    <div className="w-full bg-background/50 backdrop-blur-md top-0 sticky z-[50] text-text-950 font-semibold py-5 transition-colors duration-500 border-b border-primary">
+    <div className="w-full bg-background/50 backdrop-blur-md top-0 sticky z-[100] text-text-950 font-semibold py-5 transition-colors duration-500 border-b border-primary">
       <div className="container flex flex-row justify-between relative items-center">
         <Link
           className="flex flex-row justify-center text-center gap-2"

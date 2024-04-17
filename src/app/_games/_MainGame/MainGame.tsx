@@ -10,7 +10,7 @@ import GameNavbar from "./_components/GameNav";
 import placeholderImage from "@/app/_public/blkplaceholder.png";
 import { updatePlayerState } from "./_utils/updatePlayerState";
 import PreGameModal from "@/app/_games/_MainGame/_components/PreGameModal";
-import PlayerModal from "@/app/_games/_MainGame/_components/PlayerModal";
+
 import Pitch from "@/app/_games/_MainGame/_components/pitch/Pitch";
 import PlayerCard from "@/app/_games/_MainGame/_components/cards/PlayerCard";
 import CardsWrapper from "@/app/_games/_MainGame/_components/cards/CardsWrapper";
@@ -245,14 +245,6 @@ export default function MainGame() {
           setBudget={setCurrentBudget}
           setGameState={setGameState}
           setFormation={setFormation}
-        />
-      )}
-      {openPlayerModal && playerDataByRole.playerName !== "" && (
-        <PlayerModal
-          playerState={playerDataByRole}
-          resetPlayer={resetRoundByRole}
-          setModalState={setOpenPlayerModal}
-          gameState={gameState}
         />
       )}
 

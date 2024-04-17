@@ -7,7 +7,7 @@ import PlayBar from "./PlayBar";
 
 export default function Navbar() {
   return (
-    <div className="w-full bg-background/50 backdrop-blur-md top-0 sticky z-50 text-text-950 font-semibold py-5 transition-colors duration-500 border-b border-primary ">
+    <div className="w-full bg-background/50 backdrop-blur-md top-0 sticky z-[1000] text-text-950 font-semibold py-5 transition-colors duration-500 border-b border-primary ">
       <div className="container flex flex-row justify-between relative">
         <Link
           className="flex flex-row justify-center text-center gap-2"
