@@ -1,6 +1,11 @@
 import { scrapedData } from "@/app/_types/playerData";
 import { fetchPlayerHeroImg } from "./api-fetches";
 
+// if adding more data to this, make sure to update the "updatePlayerState.ts" function,
+// so that the player state in the main game receives the new data
+// as it will not throw a type error if data is incomplete.
+// path > @/app/_games/_MainGame/_utils/updatePlayerState
+
 export const getPlayerData = async (
   document: Document,
   playerId: number,
@@ -9,7 +14,7 @@ export const getPlayerData = async (
   const PlayerBirthDay = getPlayerBirthDay(document);
   //playerDetails = Dominant foot, Height, Citizenship
   const playerDetails = getPlayerDetails(document);
-  const { playerFoot, playerHeight, playerCitizenship } = playerDetails;
+  const { playerFoot, playerHeight, playerPosition } = playerDetails;
   const playerLeague = getPlayerLeague(document);
   // Player Value string, ex: "€7.00m"
   const playerValue = getPlayerValue(document);
@@ -24,14 +29,16 @@ export const getPlayerData = async (
   const fullPlayerName = formatFullPlayerName(playerName);
   const playerAgeNumber = getAge(PlayerBirthDay);
   const playerHeightNumber = getHeight(playerHeight);
-  console.log(playerHeightNumber);
+  const { playerNationality, playerNationalFlag, marketValueUpdateDate } =
+    getPlayerInfo(document);
+
   return {
     clubLogoUrl: clubLogo,
     clubName: clubName || "",
     fullPlayerName: fullPlayerName,
     marketValueNumber: marketValueNumber,
     playerAge: PlayerBirthDay,
-    playerCountry: playerCitizenship,
+    playerCountry: playerNationality,
     playerFoot: playerFoot,
     playerHeight: playerHeight,
     playerHeroImg: playerHeroImg,
@@ -41,6 +48,9 @@ export const getPlayerData = async (
     shortPlayerName: shortPlayerName,
     playerAgeNumber: playerAgeNumber,
     playerHeightNumber: playerHeightNumber,
+    playerPosition: playerPosition,
+    playerNationalFlag: playerNationalFlag,
+    marketValueUpdateDate: marketValueUpdateDate,
   };
 };
 
@@ -70,6 +80,7 @@ export type playerDetails = {
   playerFoot: string;
   playerHeight: string;
   playerCitizenship: string;
+  playerPosition: string;
 };
 
 export const getPlayerDetails = (document: Document): playerDetails => {
@@ -83,11 +94,12 @@ export const getPlayerDetails = (document: Document): playerDetails => {
     ".info-table__content.info-table__content--bold"
   );
 
-  const targetTitles = ["Foot:", "Height:", "Citizenship:"];
+  const targetTitles = ["Foot:", "Height:", "Citizenship:", "Position:"];
 
   let playerFoot = "";
   let playerHeight = "";
   let playerCitizenship = "";
+  let playerPosition = "";
 
   targetTitles.forEach((label) => {
     const index = Array.from(allTableTitles).findIndex(
@@ -113,13 +125,17 @@ export const getPlayerDetails = (document: Document): playerDetails => {
         case "Citizenship:":
           playerCitizenship = content || "";
           break;
+        case "Position:":
+          playerPosition = content || "";
+          break;
       }
     }
   });
   return {
-    playerFoot: playerFoot,
+    playerFoot: capitalizeFirstLetter(playerFoot),
     playerHeight: playerHeight,
     playerCitizenship: playerCitizenship,
+    playerPosition: playerPosition,
   };
 };
 
@@ -130,6 +146,27 @@ export const getPlayerLeague = (document: Document) => {
     playerLeague = leagueElement.textContent.trim();
   }
   return playerLeague;
+};
+
+export interface playerNationality {
+  marketValueUpdateDate: string;
+  playerNationalFlag: string;
+  playerNationality: string;
+}
+// this also gets the market value last update string for convenience(nested in same box)
+export const getPlayerInfo = (document: Document): playerNationality => {
+  const nationalityElement = document.querySelector(
+    'span[itemprop="nationality"]'
+  );
+  const flagElement = nationalityElement?.querySelector("img");
+  const infoBox = document.querySelector(".data-header__market-value-wrapper");
+  const updateElement = infoBox?.querySelector(".data-header__last-update");
+  console.log(flagElement?.src.trim());
+  return {
+    marketValueUpdateDate: updateElement?.textContent?.trim() || "",
+    playerNationalFlag: flagElement?.src.trim() || "",
+    playerNationality: nationalityElement?.textContent || "",
+  };
 };
 
 export const getPlayerProfileImg = (document: Document) => {
@@ -198,4 +235,8 @@ function getHeight(heightString: string): number {
     return parseInt(height);
   }
   return 0;
+}
+
+function capitalizeFirstLetter(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

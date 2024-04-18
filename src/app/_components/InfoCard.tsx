@@ -27,7 +27,6 @@ export default function InfoCard() {
   useEffect(() => {
     const playerId = drawRandomPlayer(playerDb);
     handleClick(playerId);
-    console.log("run");
   }, []);
 
   return (

@@ -22,6 +22,10 @@ export const updatePlayerState = (
             playerCountry: newPlayer.playerCountry,
             fullPlayerName: newPlayer.fullPlayerName,
             shortPlayerName: newPlayer.shortPlayerName,
+            playerNationalFlag: newPlayer.playerNationalFlag,
+            playerPosition: newPlayer.playerPosition,
+            playerValueDate: newPlayer.playerValueDate,
+            playerClubLogoUrl: newPlayer.playerClubLogoUrl,
             playerId: newPlayer.playerId,
           }
         : player
@@ -65,7 +69,6 @@ export const getPlayerColor = (playerValue: number, type: ColorType) => {
 // "tier sets" are a selection of 3 players for a given role, generated at the start of a game.
 // each set has 1 player for each tier by role.
 // this is way too complicated and will be refactored later, but does it's job.
-
 export const swapPlayersByRole = (
   playersState: Player[],
   setPlayerState: (newPlayersState: Player[]) => void,

@@ -14,7 +14,6 @@ import { GameState } from "../../MainGame";
 export default function Pitch({
   playerState,
   currentRoundRole,
-  openPlayerModal,
   displayPlayerStatsFor,
   gameState,
   resetPlayer,
@@ -24,7 +23,6 @@ export default function Pitch({
   resetRoleRound: (role: Role) => void;
   currentRoundRole: Role;
   gameState: GameState;
-  openPlayerModal: (open: boolean) => void;
   displayPlayerStatsFor: (role: Role) => void;
   resetPlayer: (role: Role) => void;
   setAllowRerolls: (rerolls: boolean) => void;
@@ -43,8 +41,8 @@ export default function Pitch({
   }, []);
 
   return (
-    <div className="self-center md:rotate-90 justify-center flex shrink-0 pb-3 top-2 relative min-w-[300px] min-h-[80vh]  md:min-h-[800px] md:min-w-[600px] overflow-hidden z-0">
-      <div className="grow min-w-full min-h-full flex relative ">
+    <div className="self-center md:rotate-90 justify-center flex shrink-0 pb-3 top-2 relative sm:min-w-[400px] min-w-[300px] min-h-[70vh]  md:min-h-[800px] md:min-w-[600px] overflow-hidden z-0">
+      <div className="grow min-w-full min-h-full flex relative">
         <PitchElement
           className={`duration-1000 fill-background-mid absolute stroke-primary grow ${
             loaded ? "opacity-100" : "opacity-0"
@@ -60,7 +58,6 @@ export default function Pitch({
               player={player}
               currentRoundRole={currentRoundRole}
               displayPlayerStatsFor={displayPlayerStatsFor}
-              openPlayerModal={openPlayerModal}
               key={index}
               gameState={gameState}
               resetPlayer={resetPlayer}

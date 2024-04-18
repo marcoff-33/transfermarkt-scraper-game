@@ -51,6 +51,9 @@ export default function PlayerCard({
       shortPlayerName: "",
       playerAgeNumber: 0,
       playerHeightNumber: 0,
+      playerPosition: "",
+      playerNationalFlag: "",
+      marketValueUpdateDate: "",
     },
   };
 
@@ -139,6 +142,10 @@ export default function PlayerCard({
     playerHeight: playerData.scrapedPlayerData.playerHeight,
     shortPlayerName: playerData.scrapedPlayerData.shortPlayerName,
     fullPlayerName: playerData.scrapedPlayerData.fullPlayerName,
+    playerNationalFlag: playerData.scrapedPlayerData.playerNationalFlag,
+    playerValueDate: playerData.scrapedPlayerData.marketValueUpdateDate,
+    playerPosition: playerData.scrapedPlayerData.playerPosition,
+    playerClubLogoUrl: playerData.scrapedPlayerData.clubLogoUrl,
     playerId: playerData.playerId,
   };
 
@@ -163,7 +170,7 @@ export default function PlayerCard({
               alt={"player card"}
               fill
               sizes="400px"
-              className={`self-center object-cover rounded-lg transition-all duration-1000 w-full h-full grow sm:block hidden ${
+              className={`self-center object-cover object-top rounded-lg transition-all duration-1000 w-full h-full grow sm:block hidden ${
                 loadingImg
                   ? "blur-xl animate-pulse backdrop-blur-lg"
                   : "blur-none"

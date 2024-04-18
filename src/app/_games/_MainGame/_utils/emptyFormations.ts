@@ -2,6 +2,8 @@ import { Player } from "../../../_types/playerData";
 // this is the clean sheet game state used in "MainGame" component.
 // the positions are used by the "Pitch.tsx" component when passed as props to map over and
 // render each player's icon and name in the correct position on the pitch.
+
+// legacy implementation but still used, needs to be refactored.
 const placeholderImage = "";
 const gameState433: Player[] = [
   {
@@ -19,6 +21,10 @@ const gameState433: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -36,6 +42,10 @@ const gameState433: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -53,6 +63,10 @@ const gameState433: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -70,6 +84,10 @@ const gameState433: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -87,6 +105,10 @@ const gameState433: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -104,6 +126,10 @@ const gameState433: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -121,6 +147,10 @@ const gameState433: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -138,6 +168,10 @@ const gameState433: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -155,6 +189,10 @@ const gameState433: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -172,6 +210,10 @@ const gameState433: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -189,6 +231,10 @@ const gameState433: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
 ];
@@ -209,6 +255,10 @@ const gameState3142: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -226,6 +276,10 @@ const gameState3142: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -243,6 +297,10 @@ const gameState3142: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -260,6 +318,10 @@ const gameState3142: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -277,6 +339,10 @@ const gameState3142: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -294,6 +360,10 @@ const gameState3142: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -311,6 +381,10 @@ const gameState3142: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -328,6 +402,10 @@ const gameState3142: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -345,6 +423,10 @@ const gameState3142: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -362,6 +444,10 @@ const gameState3142: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -379,6 +465,10 @@ const gameState3142: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
 ];
@@ -399,6 +489,10 @@ const gameState442Diamond: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -416,6 +510,10 @@ const gameState442Diamond: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -433,6 +531,10 @@ const gameState442Diamond: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -450,6 +552,10 @@ const gameState442Diamond: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -467,6 +573,10 @@ const gameState442Diamond: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -484,6 +594,10 @@ const gameState442Diamond: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -501,6 +615,10 @@ const gameState442Diamond: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -518,6 +636,10 @@ const gameState442Diamond: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -535,6 +657,10 @@ const gameState442Diamond: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -552,6 +678,10 @@ const gameState442Diamond: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
   {
@@ -569,6 +699,10 @@ const gameState442Diamond: Player[] = [
     playerHeight: "",
     fullPlayerName: "",
     shortPlayerName: "",
+    playerNationalFlag: "",
+    playerValueDate: "",
+    playerPosition: "",
+    playerClubLogoUrl: "",
     playerId: 0,
   },
 ];

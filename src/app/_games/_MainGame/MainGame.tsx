@@ -70,7 +70,6 @@ export default function MainGame() {
   const [roles, setRoles] = useState<Role[]>(formation3142);
   const [currentBudget, setCurrentBudget] = useState(0);
   const [gameState, setGameState] = useState<GameState>("initial");
-  const [openPlayerModal, setOpenPlayerModal] = useState(false);
   const [playerModalRole, setPlayerModalRole] = useState<Role>("GK");
   const [availableRerolls, setAvailableRerolls] = useState(5);
   const [isNewGame, setIsNewGame] = useState(true);
@@ -156,6 +155,9 @@ export default function MainGame() {
         clubName: "",
         fullPlayerName: "",
         shortPlayerName: "",
+        playerNationalFlag: "",
+        playerValueDate: "",
+        playerPosition: "",
       };
       const defaultRoleState = updatePlayerState(
         emptyPlayerTemplate,
@@ -202,7 +204,6 @@ export default function MainGame() {
     }
     if (player.playerValue <= currentBudget) {
       const newPlayersState = updatePlayerState(player, currentPlayers);
-      setOpenPlayerModal(false);
       setCurrentPlayers(newPlayersState);
       gameState == "ended"
         ? setCurrentRound(12)
@@ -258,7 +259,6 @@ export default function MainGame() {
           resetRoleRound={resetRoundByRole}
           currentRoundRole={roles[currentRound]}
           gameState={gameState}
-          openPlayerModal={setOpenPlayerModal}
           displayPlayerStatsFor={setModalRole}
           resetPlayer={resetRoundByRole}
           setAllowRerolls={setAllowRerolls}

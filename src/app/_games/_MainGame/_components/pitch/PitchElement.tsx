@@ -21,7 +21,7 @@ export default function PitchElement(props: PitchSvgProps) {
         width="100%"
         ry="6"
       />
-      <g stroke={stroke} stroke-width="3" fill={fill}>
+      <g stroke={stroke} strokeWidth="3" fill={fill}>
         <path d="m11.22 22.62v638.8h429.6v-638.8z" fill={fill} />
         <path d="m11.26 342h429.4" stroke={fill} />
         <circle cy="342" cx="226" r="54.8" fill={fill} />

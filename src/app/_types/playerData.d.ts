@@ -16,6 +16,10 @@ export interface Player {
   playerHeight: string;
   shortPlayerName: string;
   fullPlayerName: string;
+  playerNationalFlag: string;
+  playerValueDate: string;
+  playerPosition: string;
+  playerClubLogoUrl: string;
   playerId: number;
 }
 
@@ -41,4 +45,8 @@ export interface scrapedData {
   fullPlayerName: string;
   playerAgeNumber: number;
   playerHeightNumber: number;
+  playerPosition: string;
+  playerNationalFlag: string;
+  marketValueUpdateDate: string;
+  playerPosition: string;
 }
