@@ -158,6 +158,7 @@ export default function MainGame() {
         playerNationalFlag: "",
         playerValueDate: "",
         playerPosition: "",
+        playerClubLogoUrl: "",
       };
       const defaultRoleState = updatePlayerState(
         emptyPlayerTemplate,
