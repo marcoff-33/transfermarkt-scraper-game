@@ -25,7 +25,7 @@ export default function AnswerButtons({
         className={`inset-0  absolute duration-1000 transition-all delay-200 ${
           answerState !== "pending"
             ? ""
-            : "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent -z-50"
+            : "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent -z-50 pointer-events-none hover:bg-transparent"
         }`}
       >
         <p>
@@ -41,7 +41,7 @@ export default function AnswerButtons({
         <Button
           className={`w-[30%] text-center duration-200 px-10 sm:px-none ${
             !showQuestions
-              ? "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent pointer-events-none"
+              ? "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent pointer-events-none hover:bg-transparent invisible"
               : ""
           } ${
             answerState !== "pending" && showQuestions

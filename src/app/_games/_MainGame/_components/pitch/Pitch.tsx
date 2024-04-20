@@ -41,7 +41,7 @@ export default function Pitch({
   }, []);
 
   return (
-    <div className="self-center md:rotate-90 justify-center flex shrink-0 pb-3 top-2 relative sm:min-w-[400px] min-w-[300px] min-h-[70vh]  md:min-h-[800px] md:min-w-[600px] overflow-hidden z-0">
+    <div className="self-center pt-10 md:pt-0 md:rotate-90 justify-center flex shrink-0 pb-3 top-2 relative sm:min-w-[400px] min-w-[300px] min-h-[70vh]  md:min-h-[800px] md:min-w-[600px] overflow-hidden z-0">
       <div className="grow min-w-full min-h-full flex relative">
         <PitchElement
           className={`duration-1000 fill-background-mid absolute stroke-primary grow ${

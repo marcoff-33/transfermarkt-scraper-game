@@ -39,7 +39,7 @@ export default function CarouselPlayer({
           } ${
             answerState == "wrong" && secondQuestionIndex == index
               ? "bg-red-900/80 backdrop-blur-lg"
-              : "bg-background-front/90"
+              : "bg-background-front/80"
           }`}
         ></div>
       </div>

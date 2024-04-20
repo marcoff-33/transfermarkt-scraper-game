@@ -161,7 +161,7 @@ export const getPlayerInfo = (document: Document): playerNationality => {
   const flagElement = nationalityElement?.querySelector("img");
   const infoBox = document.querySelector(".data-header__market-value-wrapper");
   const updateElement = infoBox?.querySelector(".data-header__last-update");
-  console.log(flagElement?.src.trim());
+
   return {
     marketValueUpdateDate: updateElement?.textContent?.trim() || "",
     playerNationalFlag: flagElement?.src.trim() || "",

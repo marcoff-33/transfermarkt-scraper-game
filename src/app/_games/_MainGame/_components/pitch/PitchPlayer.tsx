@@ -225,7 +225,9 @@ export default function PitchPlayer({
         </AlertDialogHeader>
         <AlertDialogFooter className="flex gap-5 justify-between">
           <div className=""></div>
-          <AlertDialogCancel className="self-start">Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="md:self-start self-center">
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
             onClick={() => resetPlayer(player.role)}
             className={`${
