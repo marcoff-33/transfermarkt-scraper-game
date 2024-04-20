@@ -45,7 +45,7 @@ export default function AnswerButtons({
               : ""
           } ${
             answerState !== "pending" && showQuestions
-              ? "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent pointer-events-none"
+              ? "bg-transparent text-transparent shadow-transparent backdrop-blur-0 border-transparent pointer-events-none hover:bg-transparent invisible"
               : ""
           }`}
           onClick={() => handleAnswer(answer)}

@@ -37,7 +37,7 @@ export default function Play() {
                 href={"/teams"}
               >
                 <div className="w-full h-full text-center absolute flex justify-center items-center flex-col gap-5 ">
-                  <div className="backdrop-blur-sm px-5 font-semibold rounded-full text-text-primary group-hover:text-primary transition-colors duration-200 flex">
+                  <div className="px-5 font-semibold rounded-full text-text-primary group-hover:text-primary transition-colors duration-200 flex">
                     Team Builder
                   </div>
                 </div>

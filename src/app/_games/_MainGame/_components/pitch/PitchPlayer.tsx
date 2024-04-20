@@ -37,7 +37,7 @@ export default function PitchPlayer({
       {!blockModal ? (
         <AlertDialogTrigger
           key={player.playerName}
-          className={`max-h-[70%] rounded-full md:-rotate-90 outline-offset-4 z-50 ${
+          className={`max-h-[70%] rounded-full sm:-rotate-90 outline-offset-4 z-50 ${
             currentRoundRole == player.role
               ? "animate-pulse border-primary border-[5px] "
               : "shadow-[0px_0px_65px_rgba(0,0,0,0)] border-primary " +

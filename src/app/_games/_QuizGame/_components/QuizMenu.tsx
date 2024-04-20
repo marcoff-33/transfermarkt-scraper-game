@@ -38,7 +38,7 @@ export default function QuizMenu({
             size={50}
           />
 
-          <div className="">Select Players :</div>
+          <div className="">Select League :</div>
           <div className="flex flex-row">
             <button
               onClick={() => setPlayersDb("International")}

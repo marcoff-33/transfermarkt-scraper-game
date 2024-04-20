@@ -24,7 +24,7 @@ export default function AlertDialogButton({
   return (
     <AlertDialog>
       <AlertDialogTrigger
-        className={`text-primary  text-center items-center flex bg-background-mid p-2 rounded-lg shadow-md transition-all duration-1000 delay-1000 ${
+        className={`text-primary  text-center items-center flex bg-background-mid md:p-2 rounded-lg shadow-md transition-all duration-1000 delay-1000 ${
           gameState == "initial"
             ? "text-transparent bg-transparent shadow-transparent cursor-default"
             : "shadow-primary"
