@@ -14,6 +14,7 @@ import PreGameModal from "@/app/_games/_MainGame/_components/PreGameModal";
 import Pitch from "@/app/_games/_MainGame/_components/pitch/Pitch";
 import PlayerCard from "@/app/_games/_MainGame/_components/cards/PlayerCard";
 import CardsWrapper from "@/app/_games/_MainGame/_components/cards/CardsWrapper";
+import { Carousel, CarouselContent, CarouselItem } from "@/app/_ui/carousel";
 
 export type GameState = "initial" | "in progress" | "ended";
 export type Formation = "3-1-4-2" | "4-3-3" | "4-4-2 ( Diamond )";
@@ -26,46 +27,10 @@ export default function MainGame() {
   // also contains grid position data for <Pitch /> to create the team formation
   const { gameState3142, gameState433, gameState442Diamond } = emptyGameStates;
 
-  const formationFTT: Role[] = [
-    "GK",
-    "LCB",
-    "RCB",
-    "RB",
-    "LB",
-    "DMF",
-    "CF",
-    "RCM",
-    "LCM",
-    "LWF",
-    "RWF",
-  ];
-  const formationFFTDia: Role[] = [
-    "GK",
-    "LCB",
-    "RCB",
-    "RB",
-    "LB",
-    "DMF",
-    "RCM",
-    "LCM",
-    "AMF",
-    "SS",
-    "CF",
-  ];
+  const formationFTT: Role[] = ["GK", "LCB", "RCB", "RB", "LB", "DMF", "CF", "RCM", "LCM", "LWF", "RWF"];
+  const formationFFTDia: Role[] = ["GK", "LCB", "RCB", "RB", "LB", "DMF", "RCM", "LCM", "AMF", "SS", "CF"];
 
-  const formation3142: Role[] = [
-    "GK",
-    "LCB",
-    "MCB",
-    "RCB",
-    "DMF",
-    "RCM",
-    "LCM",
-    "RMF",
-    "LMF",
-    "CF",
-    "SS",
-  ];
+  const formation3142: Role[] = ["GK", "LCB", "MCB", "RCB", "DMF", "RCM", "LCM", "RMF", "LMF", "CF", "SS"];
 
   const [roles, setRoles] = useState<Role[]>(formation3142);
   const [currentBudget, setCurrentBudget] = useState(0);
@@ -75,9 +40,7 @@ export default function MainGame() {
   const [isNewGame, setIsNewGame] = useState(true);
   const [allowRerolls, setAllowRerolls] = useState(false);
   // sets a selection of 1 player from each tier for each role.
-  const [rolesTierSets, setRolesTierSets] = useState(
-    roles.map((role) => drawPlayerFromEachTier(playersDb, role))
-  );
+  const [rolesTierSets, setRolesTierSets] = useState(roles.map((role) => drawPlayerFromEachTier(playersDb, role)));
   const [currentPlayers, setCurrentPlayers] = useState<Player[]>(gameState3142);
   const [currentRound, setCurrentRound] = useState(0);
 
@@ -91,9 +54,7 @@ export default function MainGame() {
 
   useEffect(() => {
     if (roles) {
-      setRolesTierSets(
-        roles.map((role) => drawPlayerFromEachTier(playersDb, role))
-      );
+      setRolesTierSets(roles.map((role) => drawPlayerFromEachTier(playersDb, role)));
     }
   }, [roles, playersDb, isNewGame]);
 
@@ -129,9 +90,7 @@ export default function MainGame() {
           localStorage.removeItem(`player-${playerId}`);
         });
 
-        return prevSets.map((set, index) =>
-          index == roleIndex ? newSet : set
-        );
+        return prevSets.map((set, index) => (index == roleIndex ? newSet : set));
       });
 
       setAvailableRerolls((rerolls) => rerolls - 1);
@@ -160,10 +119,7 @@ export default function MainGame() {
         playerPosition: "",
         playerClubLogoUrl: "",
       };
-      const defaultRoleState = updatePlayerState(
-        emptyPlayerTemplate,
-        currentPlayers
-      );
+      const defaultRoleState = updatePlayerState(emptyPlayerTemplate, currentPlayers);
       setCurrentPlayers(defaultRoleState);
       if (availableRerolls >= 1) {
         setAllowRerolls(true);
@@ -206,22 +162,14 @@ export default function MainGame() {
     if (player.playerValue <= currentBudget) {
       const newPlayersState = updatePlayerState(player, currentPlayers);
       setCurrentPlayers(newPlayersState);
-      gameState == "ended"
-        ? setCurrentRound(12)
-        : setCurrentRound((prevRound) => prevRound + 1);
+      gameState == "ended" ? setCurrentRound(12) : setCurrentRound((prevRound) => prevRound + 1);
       setGameState(currentRound === 10 ? "ended" : gameState);
-      setCurrentBudget(
-        gameState == "ended"
-          ? (prevBudget) => prevBudget + getPlayerValue(player.role)
-          : currentBudget
-      );
+      setCurrentBudget(gameState == "ended" ? (prevBudget) => prevBudget + getPlayerValue(player.role) : currentBudget);
       setCurrentBudget((prevBudget) => prevBudget - player.playerValue);
     }
   };
 
-  const playerDataByRole: Player = currentPlayers.filter(
-    (player) => player.role === playerModalRole
-  )[0];
+  const playerDataByRole: Player = currentPlayers.filter((player) => player.role === playerModalRole)[0];
 
   // used by the <PlayerModal /> what role to render the data from
   const setModalRole = (role: Role) => {
@@ -236,60 +184,35 @@ export default function MainGame() {
   return (
     <div className="min-h-screen flex justify-start flex-col  md:pt-0 relative">
       {/* this is a copy of the global Navbar with added stats and buttons for this game specifically */}
-      <GameNavbar
-        rerolls={availableRerolls}
-        budget={currentBudget}
-        gameState={gameState}
-        restartGame={restartGame}
-        players={currentPlayers}
-        setPlayers={setCurrentPlayers}
-        tierSets={rolesTierSets}
-        setTierSets={setRolesTierSets}
-      />
-      {gameState == "initial" && (
-        <PreGameModal
-          setBudget={setCurrentBudget}
-          setGameState={setGameState}
-          setFormation={setFormation}
-        />
-      )}
+      <GameNavbar rerolls={availableRerolls} budget={currentBudget} gameState={gameState} restartGame={restartGame} players={currentPlayers} setPlayers={setCurrentPlayers} tierSets={rolesTierSets} setTierSets={setRolesTierSets} />
+      {gameState == "initial" && <PreGameModal setBudget={setCurrentBudget} setGameState={setGameState} setFormation={setFormation} />}
 
-      {gameState !== "initial" && (
-        <Pitch
-          playerState={currentPlayers}
-          resetRoleRound={resetRoundByRole}
-          currentRoundRole={roles[currentRound]}
-          gameState={gameState}
-          displayPlayerStatsFor={setModalRole}
-          resetPlayer={resetRoundByRole}
-          setAllowRerolls={setAllowRerolls}
-        />
-      )}
+      {gameState !== "initial" && <Pitch playerState={currentPlayers} resetRoleRound={resetRoundByRole} currentRoundRole={roles[currentRound]} gameState={gameState} displayPlayerStatsFor={setModalRole} resetPlayer={resetRoundByRole} setAllowRerolls={setAllowRerolls} />}
 
       {currentRound < 11 && gameState !== "initial" && (
-        <CardsWrapper
-          rerollPlayers={newTierSet}
-          availableRerolls={availableRerolls}
-          currentRole={roles[currentRound]}
-          playersDb={playersDb}
-          allowRerolls={allowRerolls}
-        >
-          {rolesTierSets[currentRound].map((playerId) => (
-            <PlayerCard
-              playerId={playerId}
-              key={playerId}
-              confirmPlayer={addPlayerToPitch}
-              role={roles[currentRound]}
-              currentBudget={currentBudget}
-              setGameState={setGameState}
-              currentRound={currentRound}
-              isNewGame={isNewGame}
-              setIsNewGame={setIsNewGame}
-              allowRerolls={allowRerolls}
-              setAllowRerolls={setAllowRerolls}
-            />
-          ))}
-        </CardsWrapper>
+        <div className="">
+          {/* will render Carousel at lower viewports */}
+          <div className="md:hidden block">
+            <CardsWrapper rerollPlayers={newTierSet} availableRerolls={availableRerolls} currentRole={roles[currentRound]} playersDb={playersDb} allowRerolls={allowRerolls}>
+              <Carousel className="w-full h-[150px]">
+                <CarouselContent>
+                  {rolesTierSets[currentRound].map((playerId, index) => (
+                    <CarouselItem key={index} className="h-[150px]">
+                      <PlayerCard playerId={playerId} key={playerId} confirmPlayer={addPlayerToPitch} role={roles[currentRound]} currentBudget={currentBudget} setGameState={setGameState} currentRound={currentRound} isNewGame={isNewGame} setIsNewGame={setIsNewGame} allowRerolls={allowRerolls} setAllowRerolls={setAllowRerolls} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </CardsWrapper>
+          </div>
+          <div className="hidden md:block">
+            <CardsWrapper rerollPlayers={newTierSet} availableRerolls={availableRerolls} currentRole={roles[currentRound]} playersDb={playersDb} allowRerolls={allowRerolls}>
+              {rolesTierSets[currentRound].map((playerId, index) => (
+                <PlayerCard playerId={playerId} key={playerId} confirmPlayer={addPlayerToPitch} role={roles[currentRound]} currentBudget={currentBudget} setGameState={setGameState} currentRound={currentRound} isNewGame={isNewGame} setIsNewGame={setIsNewGame} allowRerolls={allowRerolls} setAllowRerolls={setAllowRerolls} />
+              ))}
+            </CardsWrapper>
+          </div>
+        </div>
       )}
     </div>
   );
