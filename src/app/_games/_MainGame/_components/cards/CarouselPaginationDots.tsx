@@ -4,7 +4,7 @@ export default function CarouselPaginationDots({ current, total }: { current: nu
   return (
     <div className="flex flex-row items-center justify-center h-1">
       {Array.from({ length: total }).map((dot, index) => (
-        <GoDotFill className="transition-all pb-2 bg-background-deep rounded-full" size={current == index + 1 ? 20 : 12} />
+        <GoDotFill className="transition-all pb-2 bg-background-deep rounded-full" size={current == index + 1 ? 20 : 12} key={index} />
       ))}
     </div>
   );
