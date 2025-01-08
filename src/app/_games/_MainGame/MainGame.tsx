@@ -10,11 +10,13 @@ import GameNavbar from "./_components/GameNav";
 import placeholderImage from "@/app/_public/blkplaceholder.png";
 import { updatePlayerState } from "./_utils/updatePlayerState";
 import PreGameModal from "@/app/_games/_MainGame/_components/PreGameModal";
-
 import Pitch from "@/app/_games/_MainGame/_components/pitch/Pitch";
 import PlayerCard from "@/app/_games/_MainGame/_components/cards/PlayerCard";
 import CardsWrapper from "@/app/_games/_MainGame/_components/cards/CardsWrapper";
 import { Carousel, CarouselContent, CarouselItem } from "@/app/_ui/carousel";
+import { type CarouselApi } from "@/app/_ui/carousel";
+
+import CarouselPaginationDots from "./_components/cards/CarouselPaginationDots";
 
 export type GameState = "initial" | "in progress" | "ended";
 export type Formation = "3-1-4-2" | "4-3-3" | "4-4-2 ( Diamond )";
@@ -31,6 +33,7 @@ export default function MainGame() {
   const formationFFTDia: Role[] = ["GK", "LCB", "RCB", "RB", "LB", "DMF", "RCM", "LCM", "AMF", "SS", "CF"];
 
   const formation3142: Role[] = ["GK", "LCB", "MCB", "RCB", "DMF", "RCM", "LCM", "RMF", "LMF", "CF", "SS"];
+  const [carouselApi, setCarouselApi] = React.useState<CarouselApi>();
 
   const [roles, setRoles] = useState<Role[]>(formation3142);
   const [currentBudget, setCurrentBudget] = useState(0);
@@ -43,6 +46,21 @@ export default function MainGame() {
   const [rolesTierSets, setRolesTierSets] = useState(roles.map((role) => drawPlayerFromEachTier(playersDb, role)));
   const [currentPlayers, setCurrentPlayers] = useState<Player[]>(gameState3142);
   const [currentRound, setCurrentRound] = useState(0);
+  const [current, setCurrent] = React.useState(0);
+  const [count, setCount] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!carouselApi) {
+      return;
+    }
+
+    setCount(carouselApi.scrollSnapList().length);
+    setCurrent(carouselApi.selectedScrollSnap() + 1);
+
+    carouselApi.on("select", () => {
+      setCurrent(carouselApi.selectedScrollSnap() + 1);
+    });
+  }, [carouselApi]);
 
   const restartGame = () => {
     setIsNewGame(true);
@@ -191,10 +209,11 @@ export default function MainGame() {
 
       {currentRound < 11 && gameState !== "initial" && (
         <div className="">
-          {/* will render Carousel at lower viewports */}
+          {/* will render as a carousel at lower viewports depending on tailwind classes conditionals */}
           <div className="md:hidden block">
             <CardsWrapper rerollPlayers={newTierSet} availableRerolls={availableRerolls} currentRole={roles[currentRound]} playersDb={playersDb} allowRerolls={allowRerolls}>
-              <Carousel className="w-full h-[150px]">
+              <Carousel className="w-full h-[150px]" setApi={setCarouselApi}>
+                <CarouselPaginationDots current={current} total={count} />
                 <CarouselContent>
                   {rolesTierSets[currentRound].map((playerId, index) => (
                     <CarouselItem key={index} className="h-[150px]">

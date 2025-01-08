@@ -43,9 +43,11 @@ export default function PlayerCard({ playerId, confirmPlayer, role, currentBudge
       setAllowRerolls(false);
     } else if (isStored == false) {
       // timeouts are used for animating the card after data is fetched
+      setClicked(true);
       setAllowRerolls(true);
       setLoadingImg(true);
       setLoadingText(true);
+
       // Next server action
       const newData = await saGetPlayerData(playerId);
       setPlayerData(newData);
@@ -64,6 +66,7 @@ export default function PlayerCard({ playerId, confirmPlayer, role, currentBudge
   const [open, setOpen] = useState(false);
   const [loadingImg, setLoadingImg] = useState(false);
   const [loadingText, setLoadingText] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   const [isStored, setIsStored] = useState(false);
 
@@ -129,16 +132,25 @@ export default function PlayerCard({ playerId, confirmPlayer, role, currentBudge
     playerId: playerData.playerId,
   };
 
+  const placeHolderCardText = clicked ? "Generating Player ..." : "Click to Reveal Player";
+
   return (
     <button className={`overflow-hidden grow shadow-[5px_5px_15px_rgba(0,0,0,0.250)] duration-1000 transition-all p-1 h-full bg-background-deep w-full ${playerData.scrapedPlayerData.marketValueNumber == 0 ? "shadow-text-primary" : getPlayerColor(playerData.scrapedPlayerData.marketValueNumber, "shadow")} `} onClick={handleButtonClick} disabled={loadingImg}>
       <div className="min-h-full flex flex-col justify-center items-center relative overflow-hidden">
         <div className="bg-background-deep overflow-hidden flex items-center justify-center flex-col min-h-full min-w-full relative grow ">
-          {playerData.playerName !== "" && <Image src={playerData.scrapedPlayerData.playerHeroImg} alt={"player card"} fill sizes="400px" className={`self-center object-cover object-top rounded-lg transition-all duration-1000 w-full h-full grow block  ${loadingImg ? "blur-xl animate-pulse backdrop-blur-lg" : "blur-none"} ${playerData.playerName == "" ? "hidden" : "block"}`} />}
+          {playerData.playerName !== "" ? (
+            <Image src={playerData.scrapedPlayerData.playerHeroImg} alt={"player card"} fill sizes="400px" className={`self-center object-cover object-top rounded-lg transition-all duration-1000 w-full h-full grow block  ${loadingImg ? "blur-xl animate-pulse backdrop-blur-lg" : "blur-none"} ${playerData.playerName == "" ? "hidden" : "block"}`} />
+          ) : (
+            <div className="">
+              <p className={`${clicked ? "text-[0.1px] text-transparent" : "text-4xl text-primary"} transition-all duration-1000`}>?</p>
+              <p className={`${clicked ? "text-white" : "text-primary animate-pulse"} transition-colors duration-1000`}>{placeHolderCardText}</p>
+            </div>
+          )}
 
-          {open && <Image src={playerData.scrapedPlayerData.clubLogoUrl} alt={playerData.scrapedPlayerData.clubName} width={70} height={70} className="self-center absolute top-0 right-0 hidden md:block" />}
+          {open && <Image src={playerData.scrapedPlayerData.clubLogoUrl} alt={playerData.scrapedPlayerData.clubName} width={50} height={50} className="self-center absolute block top-2 right-2" />}
 
           <p
-            className={` left-1/2 transform -translate-x-1/2 absolute md:transform-none top-2 md:top-2 md:bottom-auto md:left-2 z-50 font-extrabold px-1 transition-all duration-100 ${loadingText ? "blur-3xl rounded-none invisible animate-in" : "blur-none rounded-lg block bg-black/50 backdrop-blur-lg"}
+            className={` left-0 translate-x-1/2 absolute md:transform-none top-2 md:top-2 md:bottom-auto md:left-2 z-50 font-extrabold px-1 transition-all duration-100 ${loadingText ? "blur-3xl rounded-none invisible animate-in" : "blur-none rounded-lg block bg-black/50 backdrop-blur-lg"}
             ${currentBudget < playerData.scrapedPlayerData.marketValueNumber ? "text-red-600" : "text-green-400"}
           `}
           >
