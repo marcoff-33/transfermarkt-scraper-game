@@ -13,7 +13,7 @@ import PreGameModal from "@/app/_games/_MainGame/_components/PreGameModal";
 import Pitch from "@/app/_games/_MainGame/_components/pitch/Pitch";
 import PlayerCard from "@/app/_games/_MainGame/_components/cards/PlayerCard";
 import CardsWrapper from "@/app/_games/_MainGame/_components/cards/CardsWrapper";
-import { Carousel, CarouselContent, CarouselItem } from "@/app/_ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/app/_ui/carousel";
 import { type CarouselApi } from "@/app/_ui/carousel";
 
 import CarouselPaginationDots from "./_components/cards/CarouselPaginationDots";
@@ -214,9 +214,9 @@ export default function MainGame() {
             <CardsWrapper rerollPlayers={newTierSet} availableRerolls={availableRerolls} currentRole={roles[currentRound]} playersDb={playersDb} allowRerolls={allowRerolls}>
               <Carousel className="w-full h-[150px]" setApi={setCarouselApi}>
                 <CarouselPaginationDots current={current} total={count} />
-                <CarouselContent>
+                <CarouselContent className="">
                   {rolesTierSets[currentRound].map((playerId, index) => (
-                    <CarouselItem key={index} className="h-[150px]">
+                    <CarouselItem key={index} className="h-[150px] max-w-[90%] ">
                       <PlayerCard playerId={playerId} key={playerId} confirmPlayer={addPlayerToPitch} role={roles[currentRound]} currentBudget={currentBudget} setGameState={setGameState} currentRound={currentRound} isNewGame={isNewGame} setIsNewGame={setIsNewGame} allowRerolls={allowRerolls} setAllowRerolls={setAllowRerolls} />
                     </CarouselItem>
                   ))}

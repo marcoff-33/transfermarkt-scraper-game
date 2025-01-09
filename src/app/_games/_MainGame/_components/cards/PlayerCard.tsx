@@ -135,7 +135,7 @@ export default function PlayerCard({ playerId, confirmPlayer, role, currentBudge
   const placeHolderCardText = clicked ? "Generating Player ..." : "Click to Reveal Player";
 
   return (
-    <button className={`overflow-hidden grow shadow-[5px_5px_15px_rgba(0,0,0,0.250)] duration-1000 transition-all p-1 h-full bg-background-deep w-full ${playerData.scrapedPlayerData.marketValueNumber == 0 ? "shadow-text-primary" : getPlayerColor(playerData.scrapedPlayerData.marketValueNumber, "shadow")} `} onClick={handleButtonClick} disabled={loadingImg}>
+    <button className={`rounded-sm border border-primary/50 overflow-hidden grow duration-1000 transition-all p-1 h-full bg-background-deep w-full ${playerData.scrapedPlayerData.marketValueNumber == 0 ? "shadow-text-primary" : getPlayerColor(playerData.scrapedPlayerData.marketValueNumber, "shadow")} `} onClick={handleButtonClick} disabled={loadingImg}>
       <div className="min-h-full flex flex-col justify-center items-center relative overflow-hidden">
         <div className="bg-background-deep overflow-hidden flex items-center justify-center flex-col min-h-full min-w-full relative grow ">
           {playerData.playerName !== "" ? (
