@@ -224,7 +224,7 @@ export default function MainGame() {
               </Carousel>
             </CardsWrapper>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:flex justify-center">
             <CardsWrapper rerollPlayers={newTierSet} availableRerolls={availableRerolls} currentRole={roles[currentRound]} playersDb={playersDb} allowRerolls={allowRerolls}>
               {rolesTierSets[currentRound].map((playerId, index) => (
                 <PlayerCard playerId={playerId} key={playerId} confirmPlayer={addPlayerToPitch} role={roles[currentRound]} currentBudget={currentBudget} setGameState={setGameState} currentRound={currentRound} isNewGame={isNewGame} setIsNewGame={setIsNewGame} allowRerolls={allowRerolls} setAllowRerolls={setAllowRerolls} />

@@ -10,7 +10,7 @@ export default function CardsWrapper({ children, rerollPlayers, currentRole, ava
   const [minimized, setMinimized] = useState(false);
 
   return (
-    <div className="px-2 fixed bottom-2 self-center w-full container">
+    <div className="px-2 fixed bottom-2 self-center container">
       {!minimized ? (
         <div className={`flex flex-row justify-around min-w-fit sm:py-2 z-50 backdrop-blur-sm bottom-5 self-center h-[150px] md:h-[200px] md:gap-5 gap-2`}>
           <button onClick={() => rerollPlayers(currentRole, playersDb)} className="text-white flex" disabled={!allowRerolls}>

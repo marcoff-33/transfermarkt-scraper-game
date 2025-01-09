@@ -26,7 +26,7 @@ export default function Pitch({ playerState, currentRoundRole, displayPlayerStat
   }, []);
 
   return (
-    <div className="self-center pt-10 sm:pt-0 sm:rotate-90 justify-center shrink-0 pb-3 top-2 relative flex sm:min-w-[400px] min-w-[300px] min-h-[500px]  md:min-h-[800px] md:min-w-[600px] overflow-hidden z-0">
+    <div className="self-center pt-10 sm:pt-0 sm:rotate-90 justify-center shrink-0 pb-3 top-2 relative flex sm:min-w-[400px] min-w-[320px] min-h-[550px]  md:min-h-[800px] md:min-w-[600px] overflow-hidden z-0">
       <div className="grow min-w-full min-h-full flex relative">
         <PitchElement className={`duration-1000 fill-background-mid absolute stroke-primary grow shrink-0 ${loaded ? "opacity-100" : "opacity-0"}`} />
         <div className={` duration-1000 grid  grid-cols-9 grid-rows-7 sm:w-full h-full w-full absolute inset-0  ${loaded ? "opacity-100" : "opacity-0"}`}>
