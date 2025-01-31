@@ -2,6 +2,7 @@ import React from "react";
 import { Player } from "../../../../_types/playerData";
 import Image from "next/image";
 import { Role } from "../../../../_types/playerDb";
+import { TbUserFilled } from "react-icons/tb";
 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTrigger } from "@/app/_ui/alert-dialog";
 import { GameState } from "../../MainGame";
@@ -18,7 +19,7 @@ export default function PitchPlayer({ player, currentRoundRole, resetPlayer, gam
       {!blockModal ? (
         <AlertDialogTrigger
           key={player.playerName}
-          className={`max-h-[70%] rounded-full sm:-rotate-90 outline-offset-4 z-50 ${currentRoundRole == player.role ? "animate-pulse border-primary border-[3px]" : "shadow-[0px_0px_65px_rgba(0,0,0,0)] border-primary " + getPlayerColor(player.playerValue, "shadow") + " " + getPlayerColor(player.playerValue, "border")} ${player.playerName == "" && gameState !== "ended" ? "pointer-events-none" : ""}`}
+          className={`max-h-[70%] rounded-md sm:-rotate-90 outline-offset-4 z-50 ${currentRoundRole == player.role ? "animate-pulse border-primary border-[3px]" : "shadow-[0px_0px_65px_rgba(0,0,0,0)] " + getPlayerColor(player.playerValue, "shadow") + " "} ${player.playerName == "" && gameState !== "ended" ? "pointer-events-none" : ""}`}
           style={{
             gridRow: player.playerRow,
             gridColumn: player.playerCol,
@@ -28,15 +29,23 @@ export default function PitchPlayer({ player, currentRoundRole, resetPlayer, gam
             if (player.playerName == "" && gameState == "ended") resetPlayer(player.role);
           }}
         >
-          <div className="relative h-full w-full">{player.playerName !== "" ? <Image alt={player.role} src={player.profileImgUrl} width={100} height={150} className={`rounded-full h-full w-full relative z-[1000]  ${getPlayerColor(player.playerValue, "border")}`} style={{ objectFit: "cover", objectPosition: "center" }} /> : <div className="absolute border border-primary w-full bg-background-mid min-h-full inset-0 rounded-full text-center flex justify-center items-center">?</div>}</div>
-          <div className="text-sm font-semibold overflow-x-hidden sm:overflow-x-visible">
-            <p className={`whitespace-nowrap text-text-primary font-bold sm:animate-none animate-marquee ${player.fullPlayerName.length > 10 ? "animate-marquee" : ""}`}>{player.shortPlayerName}</p>
+          <div className="relative h-full w-full">
+            {player.playerName !== "" ? (
+              <Image alt={player.role} src={player.profileImgUrl} width={100} height={150} className={`rounded-xl h-full w-full border border-background-front relative z-[1000]  `} style={{ objectFit: "cover", objectPosition: "center" }} />
+            ) : (
+              <div className="absolute border border-background-front w-full bg-background-mid min-h-full inset-0 rounded-xl text-center flex justify-center items-center">
+                <TbUserFilled size={30} className="text-background-front" />
+              </div>
+            )}
+          </div>
+          <div className="text-sm font-semibold overflow-x-hidden sm:overflow-x-visible ">
+            <p className={`whitespace-nowrap text-text-primary min-w-fit -z-50 font-light sm:animate-none ${player.fullPlayerName.length > 5 ? "animate-marquee" : ""}`}>{player.shortPlayerName} </p>
           </div>
         </AlertDialogTrigger>
       ) : (
         <button
           key={player.playerName}
-          className={`max-h-[70%] z-50 rounded-full md:-rotate-90 outline-offset-4  ${currentRoundRole == player.role ? "animate-pulse border-primary border-[5px] " : "shadow-[0px_0px_65px_rgba(0,0,0,0)] border-primary  " + getPlayerColor(player.playerValue, "shadow") + " " + getPlayerColor(player.playerValue, "border")} ${player.playerName == "" && gameState !== "ended" ? "pointer-events-none " : ""}`}
+          className={`max-h-[70%] z-50 rounded-full md:-rotate-90 outline-offset-4  ${currentRoundRole == player.role ? "animate-pulse border-primary border-[5px] " : "shadow-[0px_0px_65px_rgba(0,0,0,0)] border-primary  " + getPlayerColor(player.playerValue, "shadow") + " "} ${player.playerName == "" && gameState !== "ended" ? "pointer-events-none " : ""}`}
           style={{
             gridRow: player.playerRow,
             gridColumn: player.playerCol,
@@ -46,7 +55,7 @@ export default function PitchPlayer({ player, currentRoundRole, resetPlayer, gam
             if (player.playerName == "" && gameState == "ended") resetPlayer(player.role);
           }}
         >
-          <div className="relative h-full w-full">{player.playerName !== "" ? <Image alt={player.role} src={player.profileImgUrl} width={100} height={150} className={`rounded-full h-full w-full relative z-[1000]  ${getPlayerColor(player.playerValue, "border")}`} style={{ objectFit: "cover", objectPosition: "center" }} /> : <div className="absolute border border-primary w-full bg-background-mid min-h-full inset-0 rounded-full text-center flex justify-center items-center">?</div>}</div>
+          <div className="relative h-full w-full">{player.playerName !== "" ? <Image alt={player.role} src={player.profileImgUrl} width={100} height={150} className={`rounded-full h-full w-full relative z-[1000]  ${getPlayerColor(player.playerValue, "border")}`} style={{ objectFit: "cover", objectPosition: "center" }} /> : <div className="absolute w-full bg-background-mid min-h-full inset-0 rounded-full text-center flex justify-center items-center">?</div>}</div>
           <div className=" text-sm font-semibold overflow-x-hidden">
             <p className={`whitespace-nowrap text-text-primary sm:animate-none animate-marquee ${player.fullPlayerName.length > 10 ? "sm:animate-marquee" : ""}`}>{player.shortPlayerName}</p>
           </div>
