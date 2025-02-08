@@ -54,9 +54,7 @@ export default function GameNavbar({ rerolls, budget, gameState, restartGame, pl
           </HoverCardTrigger>
         </HoverCard>
         {/* money counter element */}
-        <div className={`md:absolute md:left-[70%] shadow-primary md:translate-x-[-50%] left-[50%] translate-x-[-50%] absolute md:top-0 top text-center items-center flex bg-background-mid px-5 py-[0.12rem] rounded-lg shadow-sm transition-colors duration-1000 delay-1000 ${gameState == "initial" ? "text-transparent bg-transparent shadow-transparent" : ""}`}>
-          <GrMoney className={`text-primary mx-2 transition-colors duration-1000 delay-1000  self-center  ${gameState == "initial" ? "text-transparent bg-transparent" : ""}`} size={30} /> {budget / 1000000}m €{" "}
-        </div>
+        <div className={`md:absolute md:left-[70%] shadow-primary md:translate-x-[-50%] left-[50%] translate-x-[-50%] absolute md:top-0 top text-center items-center flex bg-background-mid px-5 py-[0.12rem] rounded-lg shadow-sm transition-colors duration-1000 delay-1000 text-xl ${gameState == "initial" ? "text-transparent bg-transparent shadow-transparent" : ""}`}>{budget / 1000000}m € </div>
         {/* money counter element */}
         <div className="flex flex-row gap-5">
           <a target="_blank" className="flex flex-row gap-1" href={"https://github.com/marcoff-33/transfermarkt-scraper-game"}>

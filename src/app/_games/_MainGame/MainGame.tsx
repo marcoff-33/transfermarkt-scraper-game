@@ -19,7 +19,7 @@ import { type CarouselApi } from "@/app/_ui/carousel";
 import CarouselPaginationDots from "./_components/cards/CarouselPaginationDots";
 
 export type GameState = "initial" | "in progress" | "ended";
-export type Formation = "3-1-4-2" | "4-3-3" | "4-4-2 ( Diamond )";
+export type Formation = "433" | "442Diamond" | "352";
 
 export default function MainGame() {
   const playersDb: PlayersDb = db;
@@ -78,13 +78,13 @@ export default function MainGame() {
 
   // used by <PreGameModal /> to set the game formation
   const setFormation = (formation: Formation) => {
-    if (formation == "3-1-4-2") {
+    if (formation == "352") {
       setRoles(formation3142);
       setCurrentPlayers(gameState3142);
-    } else if (formation == "4-3-3") {
+    } else if (formation == "433") {
       setRoles(formationFTT);
       setCurrentPlayers(gameState433);
-    } else if (formation == "4-4-2 ( Diamond )") {
+    } else if (formation == "442Diamond") {
       setRoles(formationFFTDia);
       setCurrentPlayers(gameState442Diamond);
     }
@@ -209,10 +209,10 @@ export default function MainGame() {
 
       {currentRound < 11 && gameState !== "initial" && (
         <div className="">
-          {/* will render as a carousel at lower viewports depending on tailwind classes conditionals */}
+          {/* player cards will render as a carousel at lower viewports depending on tailwind classes conditionals */}
           <div className="md:hidden block">
             <CardsWrapper rerollPlayers={newTierSet} availableRerolls={availableRerolls} currentRole={roles[currentRound]} playersDb={playersDb} allowRerolls={allowRerolls}>
-              <Carousel className="w-full h-[150px]" setApi={setCarouselApi}>
+              <Carousel className="w-[85%] h-[150px]" setApi={setCarouselApi}>
                 <CarouselPaginationDots current={current} total={count} />
                 <CarouselContent className="">
                   {rolesTierSets[currentRound].map((playerId, index) => (
