@@ -3,7 +3,7 @@
 import React, { use, useEffect, useState } from "react";
 import { drawRandomPlayer } from "../_utils/randomRolePicks";
 import playerDb from "../../../public/players.json";
-import { saGetPlayerData } from "../_utils/saGetPlayerData";
+
 import { PlayerData } from "../_types/playerData";
 import Image from "next/image";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
@@ -16,7 +16,8 @@ export default function InfoCard() {
   const show = true; // used to be a state variable, leaving it here for now cus too lazy to replace conditional renders below
   const handleClick = async (playerId: number) => {
     try {
-      const newPlayer = await saGetPlayerData(playerId);
+      const res = await fetch(`/api/getPlayer/${playerId}`);
+      const newPlayer = await res.json();
 
       if (!newPlayer.scrapedPlayerData.playerHeroImg) {
         return handleClick(drawRandomPlayer(playerDb));

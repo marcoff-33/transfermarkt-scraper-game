@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { saGetPlayerData } from "../../../../_utils/saGetPlayerData";
+
 import { Role } from "../../../../_types/playerDb";
 import Image, { StaticImageData } from "next/image";
 import { Player, PlayerData } from "../../../../_types/playerData";
@@ -34,6 +34,7 @@ export default function PlayerCard({ playerId, confirmPlayer, role, currentBudge
       playerPosition: "",
       playerNationalFlag: "",
       marketValueUpdateDate: "",
+      playerfifaStats: { overallRating: 0, birthdate: "unknown", stats: [] },
     },
   };
 
@@ -49,7 +50,8 @@ export default function PlayerCard({ playerId, confirmPlayer, role, currentBudge
       setLoadingText(true);
 
       // Next server action
-      const newData = await saGetPlayerData(playerId);
+      const newDataCall = await fetch(`/api/getPlayer/${playerId}`);
+      const newData = await newDataCall.json();
       setPlayerData(newData);
       localStorage.setItem(`player-${playerId}`, JSON.stringify(newData));
       setOpen(true);
@@ -130,6 +132,7 @@ export default function PlayerCard({ playerId, confirmPlayer, role, currentBudge
     playerPosition: playerData.scrapedPlayerData.playerPosition,
     playerClubLogoUrl: playerData.scrapedPlayerData.clubLogoUrl,
     playerId: playerData.playerId,
+    playerFifaStats: playerData.scrapedPlayerData.playerfifaStats,
   };
 
   const placeHolderCardText = clicked ? "Generating Player ..." : "Click to Reveal Player";

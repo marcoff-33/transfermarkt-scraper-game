@@ -2,10 +2,7 @@ import { Player } from "@/app/_types/playerData";
 import { Role } from "@/app/_types/playerDb";
 
 // function used in the <MainGame /> to add or update a player in the "currentPlayers" state.
-export const updatePlayerState = (
-  newPlayer: Player,
-  playerState: Player[]
-): Player[] => {
+export const updatePlayerState = (newPlayer: Player, playerState: Player[]): Player[] => {
   const updatedState = playerState.map(
     (player): Player =>
       player.role === newPlayer.role
@@ -27,6 +24,7 @@ export const updatePlayerState = (
             playerValueDate: newPlayer.playerValueDate,
             playerClubLogoUrl: newPlayer.playerClubLogoUrl,
             playerId: newPlayer.playerId,
+            playerFifaStats: newPlayer.playerFifaStats,
           }
         : player
   );
@@ -38,29 +36,9 @@ type ColorType = "border" | "shadow";
 
 export const getPlayerColor = (playerValue: number, type: ColorType) => {
   if (type == "shadow") {
-    return playerValue > 50000000
-      ? "shadow-primary"
-      : playerValue > 25000000
-      ? "shadow-accent/50"
-      : playerValue > 10000000
-      ? "shadow-green-950"
-      : playerValue > 1000000
-      ? "shadow-gray-800"
-      : playerValue > 1
-      ? "shadow-gray-800"
-      : "shadow-none";
+    return playerValue > 50000000 ? "shadow-primary" : playerValue > 25000000 ? "shadow-accent/50" : playerValue > 10000000 ? "shadow-green-950" : playerValue > 1000000 ? "shadow-gray-800" : playerValue > 1 ? "shadow-gray-800" : "shadow-none";
   }
-  return playerValue > 50000000
-    ? "border-primary"
-    : playerValue > 25000000
-    ? "border-indigo-950"
-    : playerValue > 10000000
-    ? "border-green-950"
-    : playerValue > 1000000
-    ? "border-gray-800"
-    : playerValue > 1
-    ? "border-gray-800"
-    : "border-none";
+  return playerValue > 50000000 ? "border-primary" : playerValue > 25000000 ? "border-indigo-950" : playerValue > 10000000 ? "border-green-950" : playerValue > 1000000 ? "border-gray-800" : playerValue > 1 ? "border-gray-800" : "border-none";
 };
 
 // used by the <SwapModal /> to swap 2 players on the pitch.
@@ -69,23 +47,11 @@ export const getPlayerColor = (playerValue: number, type: ColorType) => {
 // "tier sets" are a selection of 3 players for a given role, generated at the start of a game.
 // each set has 1 player for each tier by role.
 // this is way too complicated and will be refactored later, but does it's job.
-export const swapPlayersByRole = (
-  playersState: Player[],
-  setPlayerState: (newPlayersState: Player[]) => void,
-  firstRole: Role,
-  secondRole: Role,
-  tierSets: number[][],
-  setTierSets: (newSets: number[][]) => void
-) => {
-  const findPlayerIndexInState = (role: Role) =>
-    playersState.findIndex((player) => player.role === role);
+export const swapPlayersByRole = (playersState: Player[], setPlayerState: (newPlayersState: Player[]) => void, firstRole: Role, secondRole: Role, tierSets: number[][], setTierSets: (newSets: number[][]) => void) => {
+  const findPlayerIndexInState = (role: Role) => playersState.findIndex((player) => player.role === role);
 
-  const findSetId = (playerIndex: number) =>
-    tierSets.findIndex((tierset) =>
-      tierset.includes(playersState[playerIndex].playerId)
-    );
-  const swapIdsInTierset = (tiersetId: number, oldId: number, newId: number) =>
-    tierSets[tiersetId].map((id) => (id === oldId ? newId : id));
+  const findSetId = (playerIndex: number) => tierSets.findIndex((tierset) => tierset.includes(playersState[playerIndex].playerId));
+  const swapIdsInTierset = (tiersetId: number, oldId: number, newId: number) => tierSets[tiersetId].map((id) => (id === oldId ? newId : id));
 
   const firstPlayerIndex = findPlayerIndexInState(firstRole);
   const secondPlayerIndex = findPlayerIndexInState(secondRole);
@@ -99,16 +65,8 @@ export const swapPlayersByRole = (
   const firstPlayerId = playersState[firstPlayerIndex].playerId;
   const secondPlayerId = playersState[secondPlayerIndex].playerId;
 
-  updatedTiersets[firstPlayerTiersetId] = swapIdsInTierset(
-    firstPlayerTiersetId,
-    firstPlayerId,
-    secondPlayerId
-  );
-  updatedTiersets[secondPlayerTiersetId] = swapIdsInTierset(
-    secondPlayerTiersetId,
-    secondPlayerId,
-    firstPlayerId
-  );
+  updatedTiersets[firstPlayerTiersetId] = swapIdsInTierset(firstPlayerTiersetId, firstPlayerId, secondPlayerId);
+  updatedTiersets[secondPlayerTiersetId] = swapIdsInTierset(secondPlayerTiersetId, secondPlayerId, firstPlayerId);
 
   const temp = updatedPlayers[firstPlayerIndex];
 

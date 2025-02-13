@@ -1,5 +1,6 @@
 import { StaticImageData } from "next/image";
 import { Roles } from "./playerDb";
+import { FifaPlayerStats } from "./FifaApiData";
 
 export interface Player {
   role: Roles;
@@ -21,6 +22,7 @@ export interface Player {
   playerPosition: string;
   playerClubLogoUrl: string;
   playerId: number;
+  playerFifaStats: FifaPlayerStats;
 }
 
 export interface PlayerData {
@@ -49,4 +51,5 @@ export interface scrapedData {
   playerNationalFlag: string;
   marketValueUpdateDate: string;
   playerPosition: string;
+  playerfifaStats: FifaPlayerStats;
 }

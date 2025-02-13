@@ -26,6 +26,7 @@ const gameState433: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "RCB",
@@ -47,6 +48,7 @@ const gameState433: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "LCB",
@@ -68,6 +70,7 @@ const gameState433: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "LB",
@@ -89,6 +92,7 @@ const gameState433: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "RCM",
@@ -110,6 +114,7 @@ const gameState433: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "DMF",
@@ -131,6 +136,7 @@ const gameState433: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "LCM",
@@ -152,6 +158,7 @@ const gameState433: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "RWF",
@@ -173,6 +180,7 @@ const gameState433: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "CF",
@@ -194,6 +202,7 @@ const gameState433: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "LWF",
@@ -215,6 +224,7 @@ const gameState433: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "GK",
@@ -236,6 +246,7 @@ const gameState433: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
 ];
 
@@ -260,6 +271,7 @@ const gameState3142: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "MCB",
@@ -281,6 +293,7 @@ const gameState3142: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "LCB",
@@ -302,6 +315,7 @@ const gameState3142: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "DMF",
@@ -323,6 +337,7 @@ const gameState3142: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "RCM",
@@ -344,6 +359,7 @@ const gameState3142: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "RMF",
@@ -365,6 +381,7 @@ const gameState3142: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "LCM",
@@ -386,6 +403,7 @@ const gameState3142: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "LMF",
@@ -407,6 +425,7 @@ const gameState3142: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "CF",
@@ -428,6 +447,7 @@ const gameState3142: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "SS",
@@ -449,6 +469,7 @@ const gameState3142: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "GK",
@@ -470,6 +491,7 @@ const gameState3142: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
 ];
 
@@ -494,6 +516,7 @@ const gameState442Diamond: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "RCB",
@@ -515,6 +538,7 @@ const gameState442Diamond: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "LCB",
@@ -536,6 +560,7 @@ const gameState442Diamond: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "LB",
@@ -557,6 +582,7 @@ const gameState442Diamond: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "RCM",
@@ -578,6 +604,7 @@ const gameState442Diamond: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "DMF",
@@ -599,6 +626,7 @@ const gameState442Diamond: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "LCM",
@@ -620,6 +648,7 @@ const gameState442Diamond: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "AMF",
@@ -641,6 +670,7 @@ const gameState442Diamond: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "CF",
@@ -662,6 +692,7 @@ const gameState442Diamond: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "SS",
@@ -683,6 +714,7 @@ const gameState442Diamond: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
   {
     role: "GK",
@@ -704,6 +736,7 @@ const gameState442Diamond: Player[] = [
     playerPosition: "",
     playerClubLogoUrl: "",
     playerId: 0,
+    playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
   },
 ];
 const gameStates = { gameState3142, gameState433, gameState442Diamond };

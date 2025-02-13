@@ -1,16 +1,13 @@
 import { scrapedData } from "@/app/_types/playerData";
-import { fetchPlayerHeroImg } from "./api-fetches";
+import { fetchPlayerFifaStats, fetchPlayerHeroImg } from "./api-fetches";
+import { FifaPlayerStats } from "@/app/_types/FifaApiData";
 
 // if adding more data to this, make sure to update the "updatePlayerState.ts" function,
 // so that the player state in the main game receives the new data
-// as it will not throw a type error if data is incomplete.
+
 // path > @/app/_games/_MainGame/_utils/updatePlayerState
 
-export const getPlayerData = async (
-  document: Document,
-  playerId: number,
-  playerName: string
-): Promise<scrapedData> => {
+export const getPlayerData = async (document: Document, playerId: number, playerName: string): Promise<scrapedData> => {
   const PlayerBirthDay = getPlayerBirthDay(document);
   //playerDetails = Dominant foot, Height, Citizenship
   const playerDetails = getPlayerDetails(document);
@@ -29,8 +26,8 @@ export const getPlayerData = async (
   const fullPlayerName = formatFullPlayerName(playerName);
   const playerAgeNumber = getAge(PlayerBirthDay);
   const playerHeightNumber = getHeight(playerHeight);
-  const { playerNationality, playerNationalFlag, marketValueUpdateDate } =
-    getPlayerInfo(document);
+  const { playerNationality, playerNationalFlag, marketValueUpdateDate } = getPlayerInfo(document);
+  const playerFifaStats = await fetchPlayerFifaStats(fullPlayerName.split(" ")[0], "en", PlayerBirthDay);
 
   return {
     clubLogoUrl: clubLogo,
@@ -51,14 +48,13 @@ export const getPlayerData = async (
     playerPosition: playerPosition,
     playerNationalFlag: playerNationalFlag,
     marketValueUpdateDate: marketValueUpdateDate,
+    playerfifaStats: playerFifaStats,
   };
 };
 
 // helper functions
 const getClubLogoImgUrl = (document: Document) => {
-  const clubLogoElement = document.querySelector(
-    ".data-header__box__club-link img"
-  ) as HTMLImageElement;
+  const clubLogoElement = document.querySelector(".data-header__box__club-link img") as HTMLImageElement;
   // clubLogoSources is one long string with one or more links. ex: "  link1, link2   "
   const clubLogoSources = clubLogoElement?.srcset;
   // so we have to trim it and return the first imageUrl
@@ -67,9 +63,7 @@ const getClubLogoImgUrl = (document: Document) => {
 };
 
 export const getPlayerBirthDay = (document: Document) => {
-  const playerAgeElement = document.querySelector(
-    ".info-table__content--bold a"
-  );
+  const playerAgeElement = document.querySelector(".info-table__content--bold a");
   if (playerAgeElement && playerAgeElement.textContent) {
     return playerAgeElement.textContent.trim();
   }
@@ -86,13 +80,9 @@ export type playerDetails = {
 export const getPlayerDetails = (document: Document): playerDetails => {
   // function to scrape some details from the player data table on transfermarkt
   // the TableTitles variable is to select the various titles of each table row ex: "Height:"
-  const allTableTitles = document.querySelectorAll(
-    ".info-table__content.info-table__content--regular"
-  );
+  const allTableTitles = document.querySelectorAll(".info-table__content.info-table__content--regular");
   // the TableData is the data in each title ex: "1.89m"
-  const allTableData = document.querySelectorAll(
-    ".info-table__content.info-table__content--bold"
-  );
+  const allTableData = document.querySelectorAll(".info-table__content.info-table__content--bold");
 
   const targetTitles = ["Foot:", "Height:", "Citizenship:", "Position:"];
 
@@ -102,9 +92,7 @@ export const getPlayerDetails = (document: Document): playerDetails => {
   let playerPosition = "";
 
   targetTitles.forEach((label) => {
-    const index = Array.from(allTableTitles).findIndex(
-      (element) => element.textContent === label
-    );
+    const index = Array.from(allTableTitles).findIndex((element) => element.textContent === label);
 
     if (index !== -1 && allTableData[index].textContent) {
       let content = allTableData[index].textContent;
@@ -155,9 +143,7 @@ export interface playerNationality {
 }
 // this also gets the market value last update string for convenience(nested in same box)
 export const getPlayerInfo = (document: Document): playerNationality => {
-  const nationalityElement = document.querySelector(
-    'span[itemprop="nationality"]'
-  );
+  const nationalityElement = document.querySelector('span[itemprop="nationality"]');
   const flagElement = nationalityElement?.querySelector("img");
   const infoBox = document.querySelector(".data-header__market-value-wrapper");
   const updateElement = infoBox?.querySelector(".data-header__last-update");
@@ -170,18 +156,14 @@ export const getPlayerInfo = (document: Document): playerNationality => {
 };
 
 export const getPlayerProfileImg = (document: Document) => {
-  const playerProfileImgElement = document.querySelector(
-    ".data-header__profile-image"
-  ) as HTMLImageElement;
+  const playerProfileImgElement = document.querySelector(".data-header__profile-image") as HTMLImageElement;
   const playerProfileImgUrl = playerProfileImgElement.src;
   return playerProfileImgUrl;
 };
 
 export const getPlayerValue = (document: Document) => {
   // getting the market value. ex: "€50.00m Last update: Dec 20, 2023"
-  const MarketValueString = document
-    .querySelector(".data-header__market-value-wrapper")
-    ?.textContent?.replace(/\s+/g, " ");
+  const MarketValueString = document.querySelector(".data-header__market-value-wrapper")?.textContent?.replace(/\s+/g, " ");
   // trimmed example : "€90.00m"
   const playerValue = trimMarketValueString(MarketValueString || "000");
   return playerValue;
@@ -205,12 +187,8 @@ function convertValueStringToNumber(playerValue: string) {
 // converts the playerName string to an abbreviated & capitalized version.
 // ex: from "gianluigi-donnarumma" to "G. Donnarumma"
 function formatShortPlayerName(name: string): string {
-  const parts = name
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1));
-  return parts.length > 1
-    ? `${parts[0].charAt(0)}. ${parts.slice(1).join(" ")}`
-    : parts[0];
+  const parts = name.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1));
+  return parts.length > 1 ? `${parts[0].charAt(0)}. ${parts.slice(1).join(" ")}` : parts[0];
 }
 
 // formats the playerName data. ex: "gianluigi-donnarumma" to "Gianluigi Donnarumma"

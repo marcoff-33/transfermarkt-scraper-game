@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "../_components/Buttons";
 import InfoCard from "../_components/InfoCard";
+import { fetchPlayerFifaStats } from "../_utils/dataScrapeUtils/api-fetches";
 
 export default async function Home() {
   return (

@@ -136,6 +136,7 @@ export default function MainGame() {
         playerValueDate: "",
         playerPosition: "",
         playerClubLogoUrl: "",
+        playerFifaStats: { overallRating: 0, stats: [], birthdate: "unknown" },
       };
       const defaultRoleState = updatePlayerState(emptyPlayerTemplate, currentPlayers);
       setCurrentPlayers(defaultRoleState);
