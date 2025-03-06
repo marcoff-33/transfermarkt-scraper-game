@@ -201,7 +201,7 @@ export default function MainGame() {
   };
 
   return (
-    <div className="min-h-screen flex justify-start flex-col  md:pt-0 relative">
+    <div className="min-h-screen flex justify-start flex-col  md:pt-0 relative bg-background-front">
       {/* this is a copy of the global Navbar with added stats and buttons for this game specifically */}
       <GameNavbar rerolls={availableRerolls} budget={currentBudget} gameState={gameState} restartGame={restartGame} players={currentPlayers} setPlayers={setCurrentPlayers} tierSets={rolesTierSets} setTierSets={setRolesTierSets} />
       {gameState == "initial" && <PreGameModal setBudget={setCurrentBudget} setGameState={setGameState} setFormation={setFormation} />}

@@ -138,15 +138,15 @@ export default function PlayerCard({ playerId, confirmPlayer, role, currentBudge
   const placeHolderCardText = clicked ? "Generating Player ..." : "Click to Reveal Player";
 
   return (
-    <button className={`rounded-sm border border-primary/50 overflow-hidden grow duration-1000 transition-all p-1 h-full bg-background-deep w-full ${playerData.scrapedPlayerData.marketValueNumber == 0 ? "shadow-text-primary" : getPlayerColor(playerData.scrapedPlayerData.marketValueNumber, "shadow")} `} onClick={handleButtonClick} disabled={loadingImg}>
+    <button className={`rounded-sm overflow-hidden grow duration-1000 transition-all p-1 h-full bg-transparent w-full ${playerData.scrapedPlayerData.marketValueNumber == 0 ? "shadow-text-primary" : getPlayerColor(playerData.scrapedPlayerData.marketValueNumber, "shadow")} `} onClick={handleButtonClick} disabled={loadingImg}>
       <div className="min-h-full flex flex-col justify-center items-center relative overflow-hidden">
-        <div className="bg-background-deep overflow-hidden flex items-center justify-center flex-col min-h-full min-w-full relative grow ">
+        <div className="bg-gradient-to-br from-primary/80 to-accent/80 border-4 border-black overflow-hidden flex items-center justify-center flex-col min-h-full min-w-full relative grow ">
           {playerData.playerName !== "" ? (
             <Image src={playerData.scrapedPlayerData.playerHeroImg} alt={"player card"} fill sizes="400px" className={`self-center object-cover object-top rounded-lg transition-all duration-1000 w-full h-full grow block  ${loadingImg ? "blur-xl animate-pulse backdrop-blur-lg" : "blur-none"} ${playerData.playerName == "" ? "hidden" : "block"}`} />
           ) : (
             <div className="">
-              <p className={`${clicked ? "text-[0.1px] text-transparent" : "text-4xl text-primary"} transition-all duration-1000`}>?</p>
-              <p className={`${clicked ? "text-white" : "text-primary animate-pulse"} transition-colors duration-1000`}>{placeHolderCardText}</p>
+              <p className={`${clicked ? "text-[0.1px] text-transparent" : "text-4xl text-primary-foreground"} transition-all duration-1000`}>?</p>
+              <p className={`${clicked ? "text-primary-foreground" : "text-primary-foreground animate-pulse"} transition-colors duration-1000`}>{placeHolderCardText}</p>
             </div>
           )}
 

@@ -7,13 +7,13 @@ import { GameState } from "../MainGame";
 export default function AlertDialogButton({ restartGame, gameState }: { restartGame: () => void; gameState: GameState }) {
   return (
     <AlertDialog>
-      <AlertDialogTrigger className={`text-primary  text-center items-center flex bg-background-mid p-2 rounded-lg shadow-md transition-all duration-1000 delay-1000 ${gameState == "initial" ? "text-transparent bg-transparent shadow-transparent cursor-default" : "shadow-primary"} `}>
+      <AlertDialogTrigger className={`text-danger text-center items-center flex bg-background-mid p-2 rounded-lg shadow-md transition-all duration-1000 delay-1000 ${gameState == "initial" ? "text-transparent bg-transparent shadow-transparent cursor-default" : "shadow-black"} `}>
         <LuRefreshCw className="min-h-full" size={25} />
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="max-w-[90%] p-5">
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>This will start a new game with none of the currently drawn or selected players</AlertDialogDescription>
+          <AlertDialogTitle>Restart the current game?</AlertDialogTitle>
+          <AlertDialogDescription>You will be able to select a new formation & budget with a new set of Players.</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>

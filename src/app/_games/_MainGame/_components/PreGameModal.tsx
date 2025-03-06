@@ -19,13 +19,14 @@ export default function PreGameModal({ setBudget, setGameState, setFormation }: 
   };
 
   return (
-    <div className="min-w-full self-center justify-start py-20 items-center flex flex-col gap-10 shrink-0 min-h-[100vh] bg-background-50 z-50 overflow-hidden relative bg-grid-small-primaryhexlight/[0.4] dark:bg-grid-small-primaryhexdark/[0.4]">
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-gradient-to-b from-background-deep via-transparent to-background-deep -z-20"></div>
-      <div className="text-primary text-4xl py-5">Budget & Formation</div>
+    <div className="min-w-full self-center justify-start py-20 items-center flex flex-col gap-10 shrink-0 min-h-[100vh] bg-background-mid z-50 overflow-hidden relative">
+      <div className="w-full h-full absolute grainybg -z-50"></div>
+      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-transparent -z-20"></div>
+      <div className="text-text-primary text-4xl py-5 font-bold">Budget & Formation</div>
       <div className="flex flex-col gap-20">
-        <div className="flex md:flex-row gap-2 flex-col justify-center mx-auto min-w-full h-[50px] ">
+        <div className="flex md:flex-row gap-2 flex-col justify-center mx-auto min-w-full h-[50px]">
           {values.map((value, index) => (
-            <button className={`grow border border-text-primary text-4xl transition-colors rounded-md px-3 ${value == budgetValue ? "bg-primary text-primary-foreground" : "bg-transparent"}`} onClick={() => setBudgetValue(value)} key={index}>
+            <button className={`grow border border-text-primary text-4xl rounded-md px-3 ${value == budgetValue ? "bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-lg shadow-black" : "bg-transparent"}`} onClick={() => setBudgetValue(value)} key={index}>
               {value}
             </button>
           ))}
@@ -34,7 +35,7 @@ export default function PreGameModal({ setBudget, setGameState, setFormation }: 
         <div className="flex gap-5 flex-col">
           <div className="flex md:flex-row gap-2">
             {formations.map((formation, index) => (
-              <button onClick={() => setSelectedFormation(formation)} key={index} className={`border border-text-primary max-h-fit py-3 self-center transition-colors rounded-md px-3 ${selectedFormation == formation ? "bg-primary text-primary-foreground" : ""}`}>
+              <button onClick={() => setSelectedFormation(formation)} key={index} className={`border border-text-primary max-h-fit py-3 self-center transition-colors rounded-md px-3 ${selectedFormation == formation ? "bg-gradient-to-br from-primary to-secondary shadow-lg shadow-black" : ""}`}>
                 <PreGameSvgFormations formation={formation} currentFormation={selectedFormation} />
               </button>
             ))}
@@ -42,7 +43,7 @@ export default function PreGameModal({ setBudget, setGameState, setFormation }: 
         </div>
       </div>
 
-      <Button className="bg-primary text-2xl font-bold" variant={"default"} onClick={() => handleClick(budgetValue, selectedFormation)}>
+      <Button className="bg-primary text-4xl p-4" variant={"default"} onClick={() => handleClick(budgetValue, selectedFormation)}>
         START
       </Button>
     </div>
