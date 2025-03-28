@@ -8,6 +8,8 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { GameState } from "../../MainGame";
 import { getPlayerColor } from "../../_utils/updatePlayerState";
 import { FifaPlayerStats } from "@/app/_types/FifaApiData";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/_ui/tabs";
+
 // this component renders the players on the pitch
 // and is also responsible for opening the player modal
 export default function PitchPlayer({ player, currentRoundRole, resetPlayer, gameState }: { player: Player; displayPlayerStatsFor: (role: Role) => void; currentRoundRole: Role; resetPlayer: (role: Role) => void; gameState: GameState }) {
@@ -81,57 +83,82 @@ export default function PitchPlayer({ player, currentRoundRole, resetPlayer, gam
           </div>
         </button>
       )}
-      <AlertDialogContent className="z-[5000] flex justify-center flex-col items-center">
-        <AlertDialogHeader className="w-full">
-          <div className="z-50 text-text-primary text-center flex flex-col gap-2 min-w-full">
-            <div className="text-text-primary text-xl font-bold flex flex-row justify-center items-center w-full">
-              <p className="self-center grow">{player.fullPlayerName}</p>
-            </div>
-            <Image src={player.profileImgUrl} alt={player.playerName} height={130} width={100} className="self-center rounded-full outline outline-primary shadow-lg shadow-black" />
-            <div className="flex flex-row self-center gap-5 items-center w-full">
-              <p className="text-text-primary text-lg font-bold basis-1/2 text-end">Date of Birth: </p>
-              <p className="text-start basis-1/2">{player.playerAge}</p>
-            </div>
-            <div className="flex flex-row self-center gap-5 items-center w-full">
-              <p className="text-text-primary text-lg font-bold basis-1/2 text-end">Club: </p>
-              <div className="basis-1/2 text-start gap-2 flex flex-row">
-                {player.clubName}
-                <Image src={player.playerClubLogoUrl} alt="National Flag" width={20} height={20} className="h-[20px] w-[20px] items-center self-center" />
-              </div>
-            </div>
-            <div className="flex flex-row self-center gap-5 items-center w-full">
-              <p className="text-text-primary text-lg font-bold basis-1/2 text-end">League: </p>
-              <p className="basis-1/2 text-start">{player.playerLeague}</p>
-            </div>
-            <div className="flex flex-row self-center gap-5 items-center w-full">
-              <p className="text-text-primary text-lg font-bold basis-1/2 text-end">Height: </p>
-              <p className="basis-1/2 text-start">{player.playerHeight}</p>
-            </div>
-            <div className="flex flex-row self-center gap-5 items-center w-full">
-              <p className="text-text-primary text-lg font-bold basis-1/2 text-end">National Team: </p>
-              <div className="basis-1/2 text-start gap-2 flex flex-row">
-                {player.playerCountry}
-                <Image src={player.playerNationalFlag} alt="National Flag" width={18} height={10} className="h-[10px] w-[17px] items-center self-center" />
-              </div>
-            </div>
-            <div className="flex flex-row self-center gap-5 items-center w-full">
-              <p className="text-text-primary text-lg font-bold basis-1/2 text-end">Dominant Foot: </p>
-              <p className="basis-1/2 text-start">{player.playerFoot}</p>
-            </div>
-            <div className="flex flex-row self-center gap-5 items-center w-full border-b border-primary pb-2">
-              <p className="text-text-primary text-lg font-bold basis-1/2 text-end">Market Value: </p>
-              <p className="basis-1/2 text-start ">{formatNumber(player.playerValue)}</p>
-            </div>
-            <p className="basis-1/2 text-center py-2">{player.playerValueDate}</p>
+      <AlertDialogContent className="z-[5000] flex flex-col items-center h-full py-10 justify-center">
+        <Tabs defaultValue="EAFC25" className="w-[400px] self-center flex flex-col h-full max-h-fit">
+          <TabsList className="border-primary border-b rounded-none">
+            <TabsTrigger value="Transfermarkt">Transfermarkt</TabsTrigger>
+            <TabsTrigger value="EAFC25">EAFC25</TabsTrigger>
+          </TabsList>
+          <div className="overflow-y-auto">
+            <AlertDialogHeader className="w-full">
+              <TabsContent value="EAFC25">
+                <div className="z-50 text-text-primary text-center flex flex-col gap-2 min-w-full">
+                  <div className="text-text-primary text-xl font-bold flex flex-row justify-center items-center w-full">
+                    <p className="self-center grow">{player.fullPlayerName}</p>
+                  </div>
+                  <Image src={player.profileImgUrl} alt={player.playerName} height={130} width={100} className="self-center rounded-full outline outline-primary shadow-lg shadow-black" />
+                  <div className="flex flex-row self-center gap-5 items-center w-full">
+                    <p className="text-text-primary text-lg font-bold basis-1/2 text-end">Date of Birth: </p>
+                    <p className="text-start basis-1/2">{player.playerAge}</p>
+                  </div>
+                  <div className="flex flex-row self-center gap-5 items-center w-full">
+                    <p className="text-text-primary text-lg font-bold basis-1/2 text-end">Club: </p>
+                    <div className="basis-1/2 text-start gap-2 flex flex-row">
+                      {player.clubName}
+                      <Image src={player.playerClubLogoUrl} alt="National Flag" width={20} height={20} className="h-[20px] w-[20px] items-center self-center" />
+                    </div>
+                  </div>
+                  <div className="flex flex-row self-center gap-5 items-center w-full">
+                    <p className="text-text-primary text-lg font-bold basis-1/2 text-end">League: </p>
+                    <p className="basis-1/2 text-start">{player.playerLeague}</p>
+                  </div>
+                  <div className="flex flex-row self-center gap-5 items-center w-full">
+                    <p className="text-text-primary text-lg font-bold basis-1/2 text-end">Height: </p>
+                    <p className="basis-1/2 text-start">{player.playerHeight}</p>
+                  </div>
+                  <div className="flex flex-row self-center gap-5 items-center w-full">
+                    <p className="text-text-primary text-lg font-bold basis-1/2 text-end">National Team: </p>
+                    <div className="basis-1/2 text-start gap-2 flex flex-row">
+                      {player.playerCountry}
+                      <Image src={player.playerNationalFlag} alt="National Flag" width={18} height={10} className="h-[10px] w-[17px] items-center self-center" />
+                    </div>
+                  </div>
+                  <div className="flex flex-row self-center gap-5 items-center w-full">
+                    <p className="text-text-primary text-lg font-bold basis-1/2 text-end">Dominant Foot: </p>
+                    <p className="basis-1/2 text-start">{player.playerFoot}</p>
+                  </div>
+                  <div className="flex flex-row self-center gap-5 items-center w-full border-b border-primary pb-2">
+                    <p className="text-text-primary text-lg font-bold basis-1/2 text-end">Market Value: </p>
+                    <p className="basis-1/2 text-start ">{formatNumber(player.playerValue)}</p>
+                  </div>
+                  <p className="basis-1/2 text-center py-2">{player.playerValueDate}</p>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="Transfermarkt">
+                <div className="z-50 text-text-primary text-center flex flex-col gap-2 min-w-full">
+                  <div className="text-text-primary text-xl font-bold flex flex-row justify-center items-center w-full">
+                    <p className="self-center grow">{player.fullPlayerName}</p>
+                  </div>
+                  <Image src={player.profileImgUrl} alt={player.playerName} height={130} width={100} className="self-center rounded-full outline outline-primary shadow-lg shadow-black" />
+                  <div className="flex flex-row self-center gap-5 items-center w-full">
+                    <p className="text-text-primary text-lg font-bold basis-1/2 text-end">Date of Birth: </p>
+                    <p className="text-start basis-1/2">{player.playerAge}</p>
+                  </div>
+                  <p className="basis-1/2 text-center py-2">{player.playerValueDate}</p>
+                </div>
+              </TabsContent>
+            </AlertDialogHeader>
           </div>
-        </AlertDialogHeader>
-        <AlertDialogFooter className="flex gap-5 justify-between">
-          <div className=""></div>
-          <AlertDialogCancel className="md:self-start self-center">Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => resetPlayer(player.role)} className={`${gameState !== "ended" ? "bg-primary/10 pointer-events-none text-primary-foreground/20" : ""}`} disabled={gameState !== "ended"}>
-            Sell Player
-          </AlertDialogAction>
-        </AlertDialogFooter>
+          <AlertDialogFooter className="flex justify-center">
+            <div className="flex flex-row justify-center gap-5 self-center w-full items-center py-2">
+              <AlertDialogCancel className="self-center my-0">Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={() => resetPlayer(player.role)} className={`${gameState !== "ended" ? "bg-primary/10 pointer-events-none text-primary-foreground/20" : ""}`} disabled={gameState !== "ended"}>
+                Sell Player
+              </AlertDialogAction>
+            </div>
+          </AlertDialogFooter>
+        </Tabs>
       </AlertDialogContent>
     </AlertDialog>
   );
