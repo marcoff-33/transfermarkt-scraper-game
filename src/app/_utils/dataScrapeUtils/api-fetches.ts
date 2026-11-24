@@ -3,30 +3,31 @@ import { HeroImgData, PlayerId } from "@/app/_types/playerDb";
 import { cache } from "react";
 // using Transfermarkt undocumented APIs
 
-export const fetchPlayerHeroImg = async (playerId: PlayerId) => {
-  const playerHeroImages = await fetch(`https://www.transfermarkt.us/ceapi/player/${playerId}/images`, { cache: "force-cache" });
-
-  const heroImgSrc: HeroImgData[] = await playerHeroImages.json();
-
-  const firstPlayerHeroImgUrl = heroImgSrc[0]?.url || "https://placehold.co/333x186.png?text=no%20image%20available";
-
-  return firstPlayerHeroImgUrl;
+// Transfermarkt rejects requests that don't look like they come from a browser
+// (Node's default fetch user-agent gets an HTML block page instead of data).
+export const TRANSFERMARKT_HEADERS: HeadersInit = {
+  "User-Agent":
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,application/json;q=0.8,*/*;q=0.7",
+  "Accept-Language": "en-US,en;q=0.9",
 };
 
-// DEPRECATED: this extra step is worthless as you only need playerId to navigate to a player's transfermarkt page
-// https://www.transfermarkt.com/youcanputanywordhere/profil/spieler/73564
-// raw name is needed in combination with a playerId to form a player's complete transfermarkt page URL
-export const fetchPlayerName = async (playerId: PlayerId) => {
-  const res = await fetch(`https://www.transfermarkt.us/ceapi/marketValueDevelopment/graph/${playerId}`);
-  const data = await res.json();
-  // getting the player's name from "details_url"
-  // ex : details_url: '/jason-steele/marktwertverlauf/spieler/73564',
-  const detailsString = data.details_url;
-  const stringParts = detailsString.split("/");
-  const playerName = stringParts[1];
+const NO_HERO_IMG = "https://placehold.co/333x186.png?text=no%20image%20available";
 
-  // ex: "jason-steele"
-  return playerName;
+export const fetchPlayerHeroImg = async (playerId: PlayerId) => {
+  try {
+    const res = await fetch(`https://www.transfermarkt.us/ceapi/player/${playerId}/images`, {
+      headers: TRANSFERMARKT_HEADERS,
+      next: { revalidate: 86400 },
+    });
+    if (!res.ok || !res.headers.get("content-type")?.includes("json")) return NO_HERO_IMG;
+
+    const heroImgSrc: HeroImgData[] = await res.json();
+    return heroImgSrc[0]?.url || NO_HERO_IMG;
+  } catch (error) {
+    console.error("Couldn't get player hero image", error);
+    return NO_HERO_IMG;
+  }
 };
 
 export async function fetchPlayerFifaStats(playerFirstName: string, locale: "it" | "en", PlayerBirthDay: string): Promise<FifaPlayerStats> {

@@ -2,11 +2,15 @@
   "name": "calc-io",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "26.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "update-db": "node scripts/update-player-db.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",

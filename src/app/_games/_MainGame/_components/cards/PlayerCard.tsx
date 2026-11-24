@@ -51,6 +51,13 @@ export default function PlayerCard({ playerId, confirmPlayer, role, currentBudge
 
       // Next server action
       const newDataCall = await fetch(`/api/getPlayer/${playerId}`);
+      if (!newDataCall.ok) {
+        console.error("Couldn't load player", playerId, newDataCall.status);
+        setClicked(false);
+        setLoadingImg(false);
+        setLoadingText(false);
+        return;
+      }
       const newData = await newDataCall.json();
       setPlayerData(newData);
       localStorage.setItem(`player-${playerId}`, JSON.stringify(newData));

@@ -164,7 +164,8 @@ export default function PitchPlayer({ player, currentRoundRole, resetPlayer, gam
   );
 }
 
-function formatNumber(num: number): string {
+function formatNumber(num: number | null | undefined): string {
+  if (typeof num !== "number" || !Number.isFinite(num)) return "-";
   if (num >= 1_000_000) {
     const millions = num / 1_000_000;
     // If the result is an integer, don't show decimals
