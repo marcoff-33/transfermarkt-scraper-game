@@ -9,7 +9,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "update-db": "node scripts/update-player-db.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
