@@ -17,12 +17,25 @@ import { JSDOM } from "jsdom";
 
 const BASE = "https://www.transfermarkt.us";
 
-// t1 = stars, t2 = solid starters, t3 = bargains (values in €)
+// t1 = stars, t2 = solid starters, t3 = bargains (values in €), see ROLE_TIERS for goalkeepers
 const TIERS = [
   { tier: "t1", min: 50_000_000 },
   { tier: "t2", min: 15_000_000 },
   { tier: "t3", min: 2_000_000 }, // floor: skips unknown youth/backup players with tiny values
 ];
+
+// goalkeepers are valued much lower than outfield players, so they get their own ranges
+const ROLE_TIERS = {
+  GK: [
+    { tier: "t1", min: 30_000_000 },
+    { tier: "t2", min: 8_000_000 },
+    { tier: "t3", min: 1_000_000 },
+  ],
+};
+
+// if a tier is still empty after the position fallbacks, move this many of the
+// closest-valued players over from the neighbouring tier
+const BORROW_COUNT = 3;
 
 // cap per role/tier so the json (bundled into the client) stays small.
 // players are picked evenly across the tier's value range, so the spread is kept.
@@ -144,8 +157,8 @@ async function scrapeLeague(league, season) {
 
 // ---------------------------------------------------------------- building
 
-function tierOf(value) {
-  return TIERS.find((t) => value >= t.min)?.tier ?? null;
+function tierOf(value, tiers = TIERS) {
+  return tiers.find((t) => value >= t.min)?.tier ?? null;
 }
 
 // pick `max` players evenly spread across the value range
@@ -157,24 +170,42 @@ function spread(players, max) {
 
 export function buildDb(allPlayers) {
   // dedupe (a player can show up twice after a mid-season transfer)
-  const players = [...new Map(allPlayers.map((p) => [p.id, p])).values()].filter((p) => tierOf(p.value));
-
+  const players = [...new Map(allPlayers.map((p) => [p.id, p])).values()];
   const byPosition = (positions) => players.filter((p) => positions.includes(p.position));
   const db = {};
   const warnings = [];
 
   for (const role of ROLES) {
+    const tiers = ROLE_TIERS[role] || TIERS;
     const primary = Object.keys(POSITION_ROLES).filter((pos) => POSITION_ROLES[pos].includes(role));
-    db[role] = {};
-    for (const { tier } of TIERS) {
-      let pool = byPosition(primary).filter((p) => tierOf(p.value) === tier);
-      if (pool.length === 0) {
-        pool = byPosition(FALLBACK_POSITIONS[role] || []).filter((p) => tierOf(p.value) === tier);
-        warnings.push(`${role}/${tier}: no exact matches, used ${pool.length} from related positions`);
+    const pools = {};
+
+    for (const { tier } of tiers) {
+      pools[tier] = byPosition(primary).filter((p) => tierOf(p.value, tiers) === tier);
+      if (pools[tier].length === 0) {
+        pools[tier] = byPosition(FALLBACK_POSITIONS[role] || []).filter((p) => tierOf(p.value, tiers) === tier);
+        if (pools[tier].length) warnings.push(`${role}/${tier}: no exact matches, used ${pools[tier].length} from related positions`);
       }
-      if (pool.length === 0) throw new Error(`${role}/${tier} is empty, the game needs at least 1 player per role/tier`);
-      db[role][tier] = spread(pool, MAX_PER_TIER).map((p) => p.id);
     }
+
+    // still empty: move the closest-valued players over from the neighbouring tier
+    const order = tiers.map((t) => t.tier);
+    for (const [i, tier] of order.entries()) {
+      if (pools[tier].length) continue;
+      const neighbours = [order[i + 1], order[i - 1]].filter(Boolean);
+      const from = neighbours.find((n) => pools[n].length > 1);
+      if (!from) throw new Error(`${role}/${tier} is empty and there are not enough ${role} players to fill it`);
+      const sorted = [...pools[from]].sort((a, b) => b.value - a.value);
+      // borrowing from a lower tier takes its most valuable players, from a higher tier its cheapest
+      const count = Math.min(BORROW_COUNT, sorted.length - 1);
+      const moved = order.indexOf(from) > i ? sorted.slice(0, count) : sorted.slice(-count);
+      pools[tier] = moved;
+      pools[from] = pools[from].filter((p) => !moved.includes(p));
+      warnings.push(`${role}/${tier}: empty, moved ${moved.length} players over from ${from}`);
+    }
+
+    db[role] = {};
+    for (const tier of order) db[role][tier] = spread(pools[tier], MAX_PER_TIER).map((p) => p.id);
   }
   return { db, warnings };
 }
