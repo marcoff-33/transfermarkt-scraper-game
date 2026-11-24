@@ -17,11 +17,11 @@ Pushing needs auth: run `gh auth login` once ([GitHub CLI](https://cli.github.co
 
 `public/players.json` (top 5 leagues) and `public/seriea.json` (Serie A) map each role to three value tiers:
 
-| tier | value       | goalkeepers |
-| ---- | ----------- | ----------- |
-| t1   | €50m+       | €30m+       |
-| t2   | €15m – €50m | €8m – €30m  |
-| t3   | €2m – €15m  | €1m – €8m   |
+| tier | top 5       | top 5 GK   | Serie A     | Serie A GK |
+| ---- | ----------- | ---------- | ----------- | ---------- |
+| t1   | €50m+       | €30m+      | €30m+       | €15m+      |
+| t2   | €15m – €50m | €8m – €30m | €10m – €30m | €5m – €15m |
+| t3   | €2m – €15m  | €1m – €8m  | €1m – €10m  | €1m – €5m  |
 
 Rebuild both from current squads (run locally, Transfermarkt blocks cloud IPs):
 

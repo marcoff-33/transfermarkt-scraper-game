@@ -5,7 +5,7 @@
 //   npm run update-db -- --season 2026 --only seriea --dry-run
 //
 // Each file has the shape { [role]: { t1: id[], t2: id[], t3: id[] } } used by the games.
-// Tiers are by current market value (see TIERS). Must run from a normal machine/network:
+// Tiers are by current market value (see TOP5_TIERS / SERIEA_TIERS). Must run from a normal machine/network:
 // Transfermarkt blocks most cloud/datacenter IPs.
 
 import { writeFile } from "node:fs/promises";
@@ -17,21 +17,18 @@ import { JSDOM } from "jsdom";
 
 const BASE = "https://www.transfermarkt.us";
 
-// t1 = stars, t2 = solid starters, t3 = bargains (values in €), see ROLE_TIERS for goalkeepers
-const TIERS = [
-  { tier: "t1", min: 50_000_000 },
-  { tier: "t2", min: 15_000_000 },
-  { tier: "t3", min: 2_000_000 }, // floor: skips unknown youth/backup players with tiny values
+// t1 = stars, t2 = solid starters, t3 = bargains (values in €).
+// the min of t3 is a floor: it skips unknown youth/backup players with tiny values.
+const tiers = (t1, t2, t3) => [
+  { tier: "t1", min: t1 },
+  { tier: "t2", min: t2 },
+  { tier: "t3", min: t3 },
 ];
 
-// goalkeepers are valued much lower than outfield players, so they get their own ranges
-const ROLE_TIERS = {
-  GK: [
-    { tier: "t1", min: 30_000_000 },
-    { tier: "t2", min: 8_000_000 },
-    { tier: "t3", min: 1_000_000 },
-  ],
-};
+// goalkeepers are valued much lower than outfield players, so they get their own ranges.
+// Serie A alone has few €50m+ players, so its file uses lower ranges.
+const TOP5_TIERS = { default: tiers(50e6, 15e6, 2e6), GK: tiers(30e6, 8e6, 1e6) };
+const SERIEA_TIERS = { default: tiers(30e6, 10e6, 1e6), GK: tiers(15e6, 5e6, 1e6) };
 
 // if a tier is still empty after the position fallbacks, move this many of the
 // closest-valued players over from the neighbouring tier
@@ -42,12 +39,13 @@ const BORROW_COUNT = 3;
 const MAX_PER_TIER = 40;
 
 const DATABASES = {
-  players: { file: "public/players.json", leagues: ["GB1", "ES1", "L1", "IT1", "FR1"] },
-  seriea: { file: "public/seriea.json", leagues: ["IT1"] },
+  players: { file: "public/players.json", leagues: ["GB1", "ES1", "L1", "IT1", "FR1"], tiers: TOP5_TIERS },
+  seriea: { file: "public/seriea.json", leagues: ["IT1"], tiers: SERIEA_TIERS },
 };
 
 // Transfermarkt position -> game roles. Roles in the same group share a pool,
 // like the original hand-made files (LCB/RCB/MCB, LCM/RCM, CF/SS).
+// wingers and wide midfielders share a pool: Transfermarkt lists very few pure "Left/Right Midfield" players.
 const POSITION_ROLES = {
   Goalkeeper: ["GK"],
   "Right-Back": ["RB"],
@@ -56,10 +54,10 @@ const POSITION_ROLES = {
   "Defensive Midfield": ["DMF"],
   "Central Midfield": ["LCM", "RCM"],
   "Attacking Midfield": ["AMF"],
-  "Right Midfield": ["RMF"],
-  "Left Midfield": ["LMF"],
-  "Right Winger": ["RWF"],
-  "Left Winger": ["LWF"],
+  "Right Midfield": ["RMF", "RWF"],
+  "Left Midfield": ["LMF", "LWF"],
+  "Right Winger": ["RWF", "RMF"],
+  "Left Winger": ["LWF", "LMF"],
   "Centre-Forward": ["CF", "SS"],
   "Second Striker": ["CF", "SS"],
 };
@@ -67,12 +65,12 @@ const POSITION_ROLES = {
 // when a role/tier ends up empty (ex: few pure "Left Midfield" players worth €50m+),
 // fill it from these related positions instead.
 const FALLBACK_POSITIONS = {
-  RMF: ["Right Winger", "Right-Back"],
-  LMF: ["Left Winger", "Left-Back"],
+  RMF: ["Right-Back", "Left Winger"],
+  LMF: ["Left-Back", "Right Winger"],
   AMF: ["Central Midfield", "Second Striker"],
   DMF: ["Central Midfield"],
-  RWF: ["Right Midfield", "Left Winger"],
-  LWF: ["Left Midfield", "Right Winger"],
+  RWF: ["Left Winger"],
+  LWF: ["Right Winger"],
   RB: ["Left-Back", "Right Midfield"],
   LB: ["Right-Back", "Left Midfield"],
   LCM: ["Defensive Midfield", "Attacking Midfield"],
@@ -157,7 +155,7 @@ async function scrapeLeague(league, season) {
 
 // ---------------------------------------------------------------- building
 
-function tierOf(value, tiers = TIERS) {
+function tierOf(value, tiers) {
   return tiers.find((t) => value >= t.min)?.tier ?? null;
 }
 
@@ -168,7 +166,7 @@ function spread(players, max) {
   return Array.from({ length: max }, (_, i) => sorted[Math.round((i * (sorted.length - 1)) / (max - 1))]);
 }
 
-export function buildDb(allPlayers) {
+export function buildDb(allPlayers, tierConfig = TOP5_TIERS) {
   // dedupe (a player can show up twice after a mid-season transfer)
   const players = [...new Map(allPlayers.map((p) => [p.id, p])).values()];
   const byPosition = (positions) => players.filter((p) => positions.includes(p.position));
@@ -176,7 +174,7 @@ export function buildDb(allPlayers) {
   const warnings = [];
 
   for (const role of ROLES) {
-    const tiers = ROLE_TIERS[role] || TIERS;
+    const tiers = tierConfig[role] || tierConfig.default;
     const primary = Object.keys(POSITION_ROLES).filter((pos) => POSITION_ROLES[pos].includes(role));
     const pools = {};
 
@@ -243,7 +241,7 @@ async function main() {
   console.log(`Season ${args.season}/${String(args.season + 1).slice(2)}`);
   const leagueCache = new Map();
 
-  for (const [name, { file, leagues }] of targets) {
+  for (const [name, { file, leagues, tiers }] of targets) {
     console.log(`\n== ${name} (${leagues.join(", ")})`);
     const players = [];
     for (const league of leagues) {
@@ -254,7 +252,7 @@ async function main() {
     const unknown = [...new Set(players.map((p) => p.position).filter((pos) => !(pos in POSITION_ROLES)))];
     if (unknown.length) console.warn(`  unmapped positions (ignored): ${unknown.join(", ")}`);
 
-    const { db, warnings } = buildDb(players);
+    const { db, warnings } = buildDb(players, tiers);
     warnings.forEach((w) => console.warn(`  ${w}`));
     for (const role of ROLES) console.log(`  ${role.padEnd(4)} t1:${db[role].t1.length} t2:${db[role].t2.length} t3:${db[role].t3.length}`);
 
