@@ -1,6 +1,6 @@
 # Football Team Builder
 
-Build a team on a budget from players scraped off Transfermarkt. Next.js, deployed on Vercel.
+Build a team on a budget from players scraped off Transfermarkt.
 
 ## Setup
 
@@ -10,8 +10,6 @@ cd transfermarkt-scraper-game
 npm install
 npm run dev
 ```
-
-Pushing needs auth: run `gh auth login` once ([GitHub CLI](https://cli.github.com)), or clone over SSH.
 
 ## Player DB
 
